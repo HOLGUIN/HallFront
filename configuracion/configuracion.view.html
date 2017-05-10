@@ -1,0 +1,44 @@
+<div ui-view="">
+    <style>
+        .txt {
+            font-size: 30px;
+            margin-top: 20px;
+        }
+         .ico {
+            font-size: 40px;
+            padding: 20px;
+        }
+    </style>
+    <div layout="row" layout-sm="row" layout-xl="row" layout-xs="row" style="margin-top: 10px;margin-bottom: 15px;">
+        <div id="toaster">
+
+        </div>
+        <div flex style="text-align: right;">
+            <h1 style="padding-right:15px;" class="font-title">Configuracion</h1>
+        </div>
+    </div>
+
+    <div layout="column" layout-align="center center">
+        <form id="formDatos" name="formDatos" style="width: 40%;" ng-submit="$ctrl.EditConfig($ctrl.configuracion)">
+
+
+            <div layout="row">
+                <span class="txt"> Edad Minima</Edad> 
+
+                <md-input-container flex="20" ng-show="$ctrl.change">
+                    <input id="edad" name="edad" type="text" ng-model="$ctrl.configuracion.edad" class="Login-inputFields" />
+                </md-input-container>
+                <span ng-bind="$ctrl.configuracion.edad" class="txt" ng-show="!$ctrl.change"></span>
+            </div>
+
+
+            <div layout="row" style="margin-top: 70px;">
+                <md-button class="md-raised md-warn" ng-show="!$ctrl.change" type="button" style="z-index:{{$ctrl.zindex}}" ng-click="$ctrl.ChangeView();"
+                    flex="">Editar Configuración</md-button>
+                    <md-button class="md-raised md-warn" ng-show="$ctrl.change" type="submit" style="z-index:{{$ctrl.zindex}}" ng-click="$ctrl.ChangeView();"
+                        flex="">Guardar Configuración</md-button>
+            </div>
+        </form>
+
+    </div>
+</div>

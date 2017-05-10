@@ -1,0 +1,21 @@
+<div ui-view="">
+
+    <section class="Layout row">
+
+        <div class="col-sm-12 Admin-panel">
+            <h1 class="page-header">Listado de Perfiles</h1>
+        </div>
+
+        <div class="Layout-wide col-md-12">
+
+            <app-table datasource="$ctrl.profiles"
+                       headertable="$ctrl.headerTable"
+                       columns="$ctrl.columns">
+            </app-table>
+
+        </div>
+
+    </section>
+
+</div>
+

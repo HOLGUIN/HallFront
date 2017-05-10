@@ -1,0 +1,63 @@
+
+<div class="darkLogin Login" layout="row" layout-align="center center">
+   <div class="Login-wrapper">
+      <figure class="Login-logo">
+         <img src="assets/img/logo-crm.png" style=" margin: 0 auto; display: block;" />
+      </figure>
+
+      <form class="Login-form" ng-submit="updateCtrl.updatePassword()" name="updateForm">
+
+         <div class="Login-bottomSpacer">
+            <label for="pwd" class="loginLabels">Nueva Contraseña:</label>
+            <input id="pwd"
+                   type="password"
+                   name="pwd"
+                   ng-model="updateCtrl.password"
+                   class="Login-inputFields"
+                   ng-minlength="8"
+                   required />
+            <div role="alert">
+                  <span class="error" ng-show="updateForm.pwd.$error.required">
+                    Campo requerido!</span>
+                  <span class="error" ng-show="updateForm.pwd.$error.minlength">
+                    Mínimo 8 carácteres! </span>
+               <span class="error" ng-show="isCapsLockOn"> caps on! </span>
+            </div>
+         </div>
+         <div class="Login-bottomSpacer">
+            <label for="newPwd" class="loginLabels" >Confirmar Contraseña:</label>
+            <input id="newPwd"
+                   type="password"
+                   name="newPwd"
+                   ng-model="updateCtrl.newPassword"
+                   class="Login-inputFields"
+                   ng-minlength="8"
+                   required
+                   password-match="updateCtrl.password"/>
+            <div role="alert">
+                  <span class="error" ng-show="updateForm.newPwd.$error.required">
+                    Campo requerido!</span>
+                  <span class="error" ng-show="updateForm.newPwd.$error.minlength">
+                    Mínimo 8 carácteres! </span>
+               <span class="error" ng-show="isCapsLockOn"> Mayúsculas Activadas </span>
+            </div>
+         </div>
+         <div style="clear: both"></div>
+         <input class="u-button u-floatRight" type="submit" value="Actualizar" ng-disabled="loginForm.$invalid">
+<!--
+         <input type="submit" value="Actualizar" ng-disabled="updateForm.$invalid">
+-->
+         <span ng-show="updateForm.newPwd.$error.unique">
+             Contraseñas no coinciden
+         </span>
+      </form>
+
+      <p class="Login-copyright">
+         Softpymes S.A.S - todos los derechos reservados
+      </p>
+
+
+   </div>
+</div>
+
+
