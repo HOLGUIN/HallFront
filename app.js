@@ -12,7 +12,7 @@
             'app.asignatura',
             'app.ubicacion',
             'app.datos',
-            'app.configuracion',
+            'app.configuracion' ,
             'app.progtema',
             'app.programar',
             'app.tomarclase'
