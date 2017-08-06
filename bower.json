@@ -1,0 +1,26 @@
+{
+  "name": "assistant_docs",
+  "description": "Assitant for documents",
+  "main": "components/app.js",
+  "authors": [
+    "Diana Rondón <dianita.a2e@gmail.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "Assistant",
+    "Docs",
+    "Documents"
+  ],
+  "homepage": "https://dirfserpi@wah-software.git.cloudforge.com/assistantdocs_front.git",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7"
+  }
+}

@@ -1,0 +1,46 @@
+
+<div class="darkLogin Login" layout="row" layout-align="center center">
+   <div class="Login-wrapper">
+      <figure class="Login-logo">
+         <img src="assets/img/logo-crm.png" style=" margin: 0 auto; display: block;" />
+      </figure>
+
+      <form class="Login-form" ng-submit="recoveryCtrl.recovery()" name="loginForm">
+
+         <div class="Login-bottomSpacer">
+            <label for="email" class="loginLabels" >email:</label>
+            <input id="email"
+                   type="email"
+                   name="loginEmail"
+                   ng-model="recoveryCtrl.email"
+                   class="Login-inputFields"
+                   required />
+<!--
+            <input type="submit" value="recovery">
+-->
+            <div role="alert">
+               <span class="error" ng-show="loginForm.loginEmail.$error.required">
+                 Campo requerido!
+               </span>
+               <span class="error" ng-show="loginForm.loginEmail.$error.email">
+                 Email no valido!
+               </span>
+               <span class="error" ng-show="recoveryCtrl.handleError">
+                 {{ recoveryCtrl.handleError }}
+               </span>
+            </div>
+
+            <div style="clear: both"></div>
+            <input class="u-button u-floatRight" type="submit" value="Recuperar" ng-disabled="loginForm.$invalid">
+
+            <p ng-show="recoveryCtrl.message">{{recoveryCtrl.message}}</p>
+            <p ng-show="recoveryCtrl.error">{{recoveryCtrl.error}}</p>
+         </div>
+      </form>
+
+      <p class="Login-copyright">
+         Softpymes S.A.S - todos los derechos reservados
+      </p>
+
+   </div>
+</div>

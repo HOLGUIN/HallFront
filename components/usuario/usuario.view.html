@@ -1,0 +1,87 @@
+<div ui-view="">
+
+
+    <div layout="row" layout-sm="row" layout-xl="row" layout-xs="row" style="margin-top: 10px;margin-bottom: 15px;">
+        <div id="toaster" ng-if="$ctrl.Usuario.toast == true">
+
+        </div>
+        <div flex="50">
+            <md-button class="md-raised md-warn btn_crear" ng-click="$ctrl.CreateOrEditUsuario('Crear', null, null);" style="left: 0;"
+                flex="50">Crear</md-button>
+        </div>
+        <div flex style="text-align: right;">
+            <h1 style="margin-right:15px;" class="font-title">Usuarios</h1>
+        </div>
+    </div>
+
+
+
+    <table datatable="ng" class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th style="text-align:center;width:25%">
+                    Nombres
+                </th>
+                <th style="text-align:center;width:25%">
+                    Apellidos
+                </th>
+                <th style="text-align:center;width:25%">
+                    Username
+                </th>
+                <th style="text-align: center;">
+                    Telefono
+                </th>
+                <th style="text-align:center;width:25%">
+                    Pais
+                </th>
+                <th style="text-align:center;width:25%">
+                    Activo
+                </th>
+                <th style="text-align:center;width:25%">
+                    Admin
+                </th>
+                <th style="text-align:center;width:25%">
+                    Profesor
+                </th>
+                <th style="text-align:center;">
+                    Acciones
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in $ctrl.Usuarios">
+                <td>
+                    <span ng-bind="item.nombres"></span>
+                </td>
+                <td>
+                    <span ng-bind="item.apellidos"></span>
+                </td>
+                <td>
+                    <span ng-bind="item.username"></span>
+                </td>
+                <td>
+                    <span ng-bind="item.telefono"></span>
+                </td>
+                <td>
+                    <span ng-bind="item.telefono"></span>
+                </td>
+                <td style="text-align: center;">
+                    <span ng-if="item.activo == true" class="icon-checkmark"></span>
+                    <span ng-if="item.activo == false" class="icon-cross"></span>
+                </td>
+                <td style="text-align: center;">
+                    <span ng-if="item.administrador == true" class="icon-checkmark"></span>
+                    <span ng-if="item.administrador == false" class="icon-cross"></span>
+                </td>
+                <td style="text-align: center;">
+                    <span ng-if="item.profesor == true" class="icon-checkmark"></span>
+                    <span ng-if="item.profesor == false" class="icon-cross"></span>
+                </td>
+                <td style="text-align:center;">
+                    <a class="icon-pencil2 hico" href="" ng-click="$ctrl.CreateOrEditUsuario('Editar', item.hlnusuarioid, $index);"></a> 
+                 <!--   <a class="icon-bin hico" ng-click="$ctrl.showConfirm($event, item, $index);"></a> -->
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

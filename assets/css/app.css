@@ -1,0 +1,41 @@
+
+@font-face {
+  font-family: 'tiza';
+  src:  url('fonts/tiza.ttf');
+}
+
+
+.hico{
+	text-decoration : none;
+	color:black;
+}
+
+.hico:hover{
+	text-decoration:none;
+}
+
+
+.hbtn-success{
+	background-color : #024959 !important;
+	color:white !important;
+	margin:2px;
+}
+
+.hbtn-primary{
+	background-color : #e32636 !important;
+	color:white !important;
+	margin:2px;
+}
+
+.font-title{
+	font-family: 'tiza'!important;
+}
+
+.btn_crear{
+	margin-top:18px;
+}
+
+
+ .selectize-control{
+     z-index: 999999 !important;
+ }

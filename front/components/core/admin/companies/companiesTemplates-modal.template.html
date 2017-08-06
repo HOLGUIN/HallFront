@@ -1,0 +1,42 @@
+<div class="modal-header">
+    <h3 class="modal-title" id="modal-title">Asignar Plantillas</h3>
+</div>
+<div class="modal-body" id="modal-body">
+
+    <form class="Form " name="$ctrl.form">
+
+        <table class="table table-bordered table-hover table-condensed table-striped">
+            <thead class="header md-whiteframe-z1">
+            <tr>
+                <th class="text-center">Plantilla</th>
+                <th class="text-center">Agregar
+                    <input type="checkbox"
+                           ng-model="$ctrl.states"
+                           ng-change="$ctrl.addAllTemplates()"/>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="template in $ctrl.templates" class="text-center">
+                <td class="cell" ng-bind="template.descripcion"></td>
+                <td class="cell">
+                    <input type="checkbox"
+                           ng-model="template.valor"
+                           ng-change="$ctrl.addTemplate(template)"/>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary"
+            type="button"
+            ng-click="$ctrl.saveDocument()">Agregar
+    </button>
+    <button class="btn btn-warning"
+            type="button"
+            ng-click="$ctrl.cancel()">Cancel
+    </button>
+</div>

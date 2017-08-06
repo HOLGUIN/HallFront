@@ -1,0 +1,44 @@
+<div>
+
+    <div class="row">
+        <div class="col-sm-12 Admin-panel">
+            <h1 class="page-header">Actualizar Usuario</h1>
+        </div>
+    </div>
+
+    <form class="form-horizontal Form" id="usersForm" name="usersForm">
+        <button id="addTemplates" class="btn btn-primary" ng-click="$ctrl.modalTemplates()">
+            <span class="glyphicon glyphicon-plus"></span>
+            Agregar Plantilla
+        </button>
+        <br><br>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="col-sm-2 Form-label">Documentos:</label>
+                    <div class="col-sm-10">
+                        <md-chips class="custom-chips"
+                                  ng-model="$ctrl.documentsTemplateUser"
+                                  readonly="$ctrl.readonly"
+                                  md-removable="$ctrl.removable"
+                                  md-transform-chip="$ctrl.documentsTemplateUser($chip)">
+                            <md-chip-template>
+                         <span ng-bind="$chip.descripcion">
+                         </span>
+                            </md-chip-template>
+
+                            <button md-chip-remove=""
+                                    class="md-primary removechip"
+                                    ng-click="$ctrl.deleteDocument($chip.plantillausuarioid)">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                        </md-chips>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <users-form></users-form>
+    </form>
+
+</div>
