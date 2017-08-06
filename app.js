@@ -14,7 +14,7 @@
             'app.datos',
             'app.configuracion',
             'app.progtema',
-            'app.programar' ,
+            'app.programar',
             'app.tomarclase'
         ]).run(run);
 
