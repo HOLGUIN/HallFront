@@ -6,11 +6,9 @@
         .controller('UsuarioController', UsuarioController);
 
     UsuarioController.$inject = ['UsuarioFactory', 'SelectsFactory', '$state', '$scope', '$uibModal', '$mdDialog', '$mdToast'];
-
     function UsuarioController(UsuarioFactory, SelectsFactory, $state, $scope, $uibModal, $mdDialog, $mdToast) {
-
-        console.log(UsuarioFactory);
-
+        
+        //este objeto se necesita para la configuracion del toast
         var last = {
             bottom: false,
             top: false,
@@ -31,7 +29,9 @@
         self.sanitizePosition = sanitizePosition;
         self.getToastPosition = getToastPosition;
         self.toast = document.querySelectorAll('#toast');
-
+        self.paises=[];
+        self.departamentos =[];
+        self.ciudades = [];
 
         //  getPaisListas();
 
@@ -43,9 +43,9 @@
                 console.log("controllerss", response)
                 var response = response.data;
                 self.Usuarios = response.usuarios;
-                self.depts = response.depts;
-                self.paises = response.paises;
-                self.ciudades = response.ciudades;
+               // self.depts = response.depts;
+               // self.paises = response.paises;
+               // self.ciudades = response.ciudades;
             }, handleError);
         }
 
@@ -214,7 +214,8 @@
         self.Depts = Depts;
 
         self.materia = null;
-
+         
+        console.log(self)
         if(self.Usuario.hlnpaisid == 0)
         {
             self.paises.selected = null;
