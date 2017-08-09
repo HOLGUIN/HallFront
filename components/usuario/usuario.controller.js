@@ -34,7 +34,7 @@
 
 
         //  getPaisListas();
-
+        alert("inicio usuarios");
         getUsuarios();
         getListas();
 
