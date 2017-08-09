@@ -34,7 +34,7 @@
         self.ciudades = [];
 
         //  getPaisListas();
-
+        alert("inicio usuarios");
         getUsuarios();
         getListas();
 
@@ -57,6 +57,9 @@
                 self.paises = response.paises;
                 self.departamentos = response.depts;
                 self.ciudades = response.ciudades;
+
+                console.log("listas del self",self);
+
             }, handleError);
         }
 
@@ -215,7 +218,7 @@
 
         self.materia = null;
          
-        console.log(self)
+        console.log("modelo que llega al modal",self)
         if(self.Usuario.hlnpaisid == 0)
         {
             self.paises.selected = null;
