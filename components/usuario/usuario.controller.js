@@ -33,19 +33,13 @@
         self.toast = document.querySelectorAll('#toast');
 
 
-        //  getPaisListas();
-        alert("inicio usuarios");
         getUsuarios();
         getListas();
 
         function getUsuarios() {
             UsuarioFactory.getUsuarios().then(function (response) {
-                console.log("controllerss", response)
                 var response = response.data;
                 self.Usuarios = response.usuarios;
-                self.depts = response.depts;
-                self.paises = response.paises;
-                self.ciudades = response.ciudades;
             }, handleError);
         }
 
@@ -53,7 +47,7 @@
         function getListas() {
             SelectsFactory.getListas(true, true, true, false, false, false).then(function (response) {
                 var response = response.data;
-                console.log("listas",response);
+                console.log("listas", response);
                 self.paises = response.paises;
                 self.departamentos = response.depts;
                 self.ciudades = response.ciudades;
@@ -73,7 +67,6 @@
         function CreateOrEditUsuario(accion, hlnusuarioid, index) {
 
             var titulo = null;
-
 
             if (accion == "Crear") {
                 titulo = "Crear Usuario";
@@ -95,7 +88,7 @@
                 if (hlnusuarioid == 0) {
                     self.Usuario.activo = true;
                 }
-                console.log("obj",self);
+
                 var modalInstance = $uibModal.open({
                     animation: true,
                     ariaLabelledBy: 'modal-title',
@@ -193,12 +186,15 @@
                 .filter(function (pos) { return self.toastPosition[pos]; })
                 .join(' ');
         };
+
     }
 
 
     function ModalController($uibModalInstance, $scope, $http, UsuarioFactory, titulo, index, scope) {
 
         var self = this;
+
+        self.modelo = scope;
         self.titulo = titulo;
         self.Usuario = scope.Usuario;
         self.Usuarios = scope.Usuarios;
@@ -206,6 +202,9 @@
         self.editarUsuario = editarUsuario;
         self.cancel = cancel;
         self.scope = scope;
+
+
+        //Lista para configurar la ubicacion del usuario
         self.paises = scope.paises;
         self.depts = scope.departamentos;
         self.ciudades = scope.ciudades;
@@ -213,52 +212,57 @@
         self.Ciud = Ciud;
         self.Depts = Depts;
 
-        self.materia = null;
+        console.log("modelo", self.modelo);
 
-        if(self.Usuario.hlnpaisid == 0)
-        {
+
+        //self.materia = null;
+
+        if (self.modelo.Usuario.hlnpaisid == 0) {
             self.paises.selected = null;
-        }else{
-           self.paises.selected = scope.paises.filter(function (item) {
+        } else {
+            self.paises.selected = scope.paises.filter(function (item) {
                 return item.Value == self.Usuario.hlnpaisid;
             })[0];
         }
-         
-       
-    
-        if(self.Usuario.hlndepartamentoid == 0)
-        {
-            self.depts.selected = null;
-        }else{
-           
-           self.depts = scope.departamentos.filter(function (item) {
-                return item.Group.Name == self.Usuario.hlnpaisid;
-            });
-              
-           self.depts.selected = scope.departamentos.filter(function (item) {
-                return item.Value == self.Usuario.hlndepartamentoid;
-            })[0];
-        } 
 
-         if(self.Usuario.hlnciudadid == 0)
-        {
-            self.ciudades.selected = null;
-        }else{
-           
-           self.ciudades = scope.ciudades.filter(function (item) {
-                return item.Group.Name == self.Usuario.hlndepartamentoid;
+
+        //si el usuario tiene departamento
+        if (self.modelo.Usuario.hlndepartamentoid == 0) {
+            self.depts.selected = null;
+        } else {
+
+            //selecciona todos los departamentos que hagan parte del pais de usuario
+            self.depts = scope.departamentos.filter(function (item) {
+                return item.Group.Name == self.modelo.Usuario.hlnpaisid;
             });
-              
-           self.ciudades.selected = scope.ciudades.filter(function (item) {
+
+            //selecciona el departamento del usuario
+            self.depts.selected = scope.departamentos.filter(function (item) {
+                return item.Value == self.modelo.Usuario.hlndepartamentoid;
+            })[0];
+        }
+
+        //si el usuario tiene ciudad
+        if (self.modelo.Usuario.hlnciudadid == 0) {
+            self.ciudades.selected = null;
+        } else {
+
+            //selecciona todas las ciudades que hagan parte del departamento seleccionado
+            self.ciudades = scope.ciudades.filter(function (item) {
+                return item.Group.Name == self.modelo.Usuario.hlndepartamentoid;
+            });
+
+            //selecciona la ciudad del usuario 
+            self.ciudades.selected = scope.ciudades.filter(function (item) {
                 return item.Value == self.Usuario.hlnciudadid;
             })[0];
-        } 
-        
+        }
 
 
 
+        //Metodo para crear usuario
         function CrearUsuario(modelo) {
-            
+
 
             modelo.hlnpaisid = self.paises.selected.Value;
             modelo.hlndepartamentoid = self.depts.selected.Value;
@@ -267,18 +271,23 @@
             UsuarioFactory.crearUsuario(modelo).then(function (response) {
                 console.log(response);
                 var response = response.data;
+                console.log("se creo el usuario", response);
+                if (response.valida == true) {
+                    self.modelo.Usuario = response.modelo;
+                    self.modelo.Usuario.toast = true;
+                    self.modelo.Usuarios.push(response.modelo);
+                    self.scope.showToast("Se creo con exito.");
+                }else{
+                    handleError(response.msj);
+                }
 
-                self.Usuario = response;
-                self.Usuario.toast = true;
-                self.Usuarios.push(response);
-                self.scope.showToast("Se creo con exito.");
+
                 setToast();
             }, handleError);
         }
 
         function editarUsuario(modelo) {
 
-            
             modelo.hlnpaisid = self.paises.selected.Value;
             modelo.hlndepartamentoid = self.depts.selected.Value;
             modelo.hlnciudadid = self.ciudades.selected.Value;
@@ -307,13 +316,13 @@
         function Depts(key) {
 
             console.log("key", key);
-            console.log("depst",scope.depts);
+            console.log("depst", scope.depts);
             self.depts = scope.departamentos.filter(function (item) {
                 return item.Group.Name == key;
             });
         }
 
-         function Ciud(key) {
+        function Ciud(key) {
             console.log("key", key);
             self.ciudades = scope.ciudades.filter(function (item) {
                 return item.Group.Name == key;
