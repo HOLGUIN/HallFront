@@ -40,9 +40,13 @@
                 <th style="text-align:center;width:25%">
                     Admin
                 </th>
-                <th style="text-align:center;width:25%">
+                  <th style="text-align:center;width:25%">
                     Profesor
                 </th>
+                <th style="text-align:center;width:25%">
+                    Alumno
+                </th>
+              
                 <th style="text-align:center;">
                     Acciones
                 </th>
@@ -76,6 +80,10 @@
                 <td style="text-align: center;">
                     <span ng-if="item.profesor == true" class="icon-checkmark"></span>
                     <span ng-if="item.profesor == false" class="icon-cross"></span>
+                </td>
+                   <td style="text-align: center;">
+                    <span ng-if="item.alumno == true" class="icon-checkmark"></span>
+                    <span ng-if="item.alumno == false" class="icon-cross"></span>
                 </td>
                 <td style="text-align:center;">
                     <a class="icon-pencil2 hico" href="" ng-click="$ctrl.CreateOrEditUsuario('Editar', item.hlnusuarioid, $index);"></a> 

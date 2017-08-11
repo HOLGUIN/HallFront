@@ -294,9 +294,16 @@
 
             UsuarioFactory.editarUsuario(modelo).then(function (response) {
                 var response = response.data;
+                
+                console.log("despues de editar el usuario",response);
                 self.Usuario.toast = true;
-                self.Usuarios[index] = response;
-                self.scope.showToast("Se editó con exito.");
+                if(response.valida == true)
+                {
+                 self.Usuarios[index] = response.modelo;
+                 self.scope.showToast("Se editó con exito.");
+                }else{
+                  self.scope.showToast(response.msj);
+                }         
                 setToast();
             }, handleError);
         }
