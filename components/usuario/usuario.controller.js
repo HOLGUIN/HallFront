@@ -5,18 +5,9 @@
         .module('app.usuario')
         .controller('UsuarioController', UsuarioController);
 
-    UsuarioController.$inject = ['UsuarioFactory', 'SelectsFactory', '$state', '$scope', '$uibModal', '$mdDialog', '$mdToast', 'toastr'];
+    UsuarioController.$inject = ['UsuarioFactory', 'SelectsFactory', '$state', '$scope', '$uibModal', '$mdDialog',  'toastr'];
 
-    function UsuarioController(UsuarioFactory, SelectsFactory, $state, $scope, $uibModal, $mdDialog, $mdToast, toastr) {
-
-        console.log(UsuarioFactory);
-
-        var last = {
-            bottom: false,
-            top: false,
-            left: true,
-            right: true
-        };
+    function UsuarioController(UsuarioFactory, SelectsFactory, $state, $scope, $uibModal, $mdDialog, toastr) {
 
 
         var self = this;
@@ -24,16 +15,7 @@
         self.Usuario = {};
         self.CreateOrEditUsuario = CreateOrEditUsuario;
         self.showConfirm = showConfirm;
-        self.deleteUsuario = deleteUsuario;
-        self.last = last;
-        self.toastPosition = angular.extend({}, self.last);
-        self.showToast = showToast;
-        self.sanitizePosition = sanitizePosition;
-        self.getToastPosition = getToastPosition;
-        self.toast = document.querySelectorAll('#toast');
-
-         toastr.success('Hello world!', 'prueba!');
-
+        
         getUsuarios();
         getListas();
 
@@ -48,22 +30,15 @@
         function getListas() {
             SelectsFactory.getListas(true, true, true, false, false, false).then(function (response) {
                 var response = response.data;
-                console.log("listas", response);
                 self.paises = response.paises;
                 self.departamentos = response.depts;
                 self.ciudades = response.ciudades;
             }, handleError);
         }
 
-
-        function deleteUsuario(modelo, index) {
-            UsuarioFactory.deleteUsuario(modelo).then(function (response) {
-                var response = response.data
-                self.Usuarios.splice(index, 1);
-                self.showToast("Se eliminó exitosamente");
-            }, handleError);
+        function handleError(response) {
+            toastr.error(response.data, "Error")
         }
-
 
         function CreateOrEditUsuario(accion, hlnusuarioid, index) {
 
@@ -82,7 +57,6 @@
 
             UsuarioFactory.getUsuario(hlnusuarioid).then(function (response) {
                 var response = response.data;
-                console.log("response", response);
                 self.Usuario = response;
                 self.Usuario.toast = false;
 
@@ -102,8 +76,8 @@
                     resolve: {
                         titulo: function () { return titulo },
                         index: function () { return index },
-                        scope: function () { return self }
-                    }
+                        scope: function () { return self },
+                        handleError: function () { return handleError}                    }
                 });
                 modalInstance.result.then(function (data) {
                 }, function () {
@@ -114,15 +88,7 @@
 
         }
 
-        function handleError(response) {
-            // console.log('--- login error ---');
-            // console.log(response.data);
-            self.handleError = response.data;
-            self.loading = false;
-            console.log("error", self.handleError);
-            return self.handleError
-        }
-
+        
 
         function showConfirm(ev, modelo, index) {
             // Appending dialog to document.body to cover sidenav in docs app
@@ -154,47 +120,13 @@
         };
 
 
-        function showToast(msj, tipe) {
-            var pinTo = self.getToastPosition();
-            console.log("pinto", pinTo);
-            $mdToast.show(
-                $mdToast.simple()
-                    .textContent(msj)
-                    .position(pinTo)
-                    .hideDelay(4000)
-                    .parent(document.querySelectorAll('#toaster'))
-            );
-        };
-
-
-        function sanitizePosition() {
-            var current = self.toastPosition;
-
-
-            if (current.bottom && last.top) current.top = false;
-            if (current.top && last.bottom) current.bottom = false;
-            if (current.right && last.left) current.left = true;
-            if (current.left && last.right) current.right = true;
-
-            self.last = angular.extend({}, current);
-        }
-
-
-        function getToastPosition() {
-            self.sanitizePosition();
-
-            return Object.keys(self.toastPosition)
-                .filter(function (pos) { return self.toastPosition[pos]; })
-                .join(' ');
-        };
-
     }
 
 
-    function ModalController($uibModalInstance, $scope, $http, UsuarioFactory, titulo, index, scope) {
+    function ModalController($uibModalInstance, $scope, $http, toastr, UsuarioFactory, titulo, index, scope, handleError ) {
 
         var self = this;
-
+        console.log(scope);
         self.modelo = scope;
         self.titulo = titulo;
         self.Usuario = scope.Usuario;
@@ -213,11 +145,8 @@
         self.Ciud = Ciud;
         self.Depts = Depts;
 
-        console.log("modelo", self.modelo);
 
-
-        //self.materia = null;
-
+        //si tiene pais, selecciona el pais correspondiente
         if (self.modelo.Usuario.hlnpaisid == 0) {
             self.paises.selected = null;
         } else {
@@ -270,42 +199,34 @@
             modelo.hlnciudadid = self.ciudades.selected.Value;
 
             UsuarioFactory.crearUsuario(modelo).then(function (response) {
-                console.log(response);
                 var response = response.data;
-                console.log("se creo el usuario", response);
                 if (response.valida == true) {
                     self.modelo.Usuario = response.modelo;
                     self.modelo.Usuario.toast = true;
                     self.modelo.Usuarios.push(response.modelo);
-                    self.scope.showToast("Se creo con exito.");
+                    toastr.success("Se creo con exito.");
                 }else{
                     handleError(response.msj);
                 }
-
-
-                setToast();
             }, handleError);
         }
 
         function editarUsuario(modelo) {
 
+            //selecciona la ubicacion seleccionada
             modelo.hlnpaisid = self.paises.selected.Value;
             modelo.hlndepartamentoid = self.depts.selected.Value;
             modelo.hlnciudadid = self.ciudades.selected.Value;
 
             UsuarioFactory.editarUsuario(modelo).then(function (response) {
                 var response = response.data;
-                
-                console.log("despues de editar el usuario",response);
-                self.Usuario.toast = true;
                 if(response.valida == true)
                 {
                  self.Usuarios[index] = response.modelo;
-                 self.scope.showToast("Se editó con exito.");
+                 toastr.success("Se editó con exito.");
                 }else{
-                  self.scope.showToast(response.msj);
+                  handleError(response.msj);
                 }         
-                setToast();
             }, handleError);
         }
 
@@ -313,34 +234,17 @@
             $uibModalInstance.close();
         }
 
-        function handleError(response) {
-
-            self.handleError = response.data;
-            self.loading = false;
-            self.scope.showToast(response.data, 'md-toast-content');
-            return self.handleError
-        }
 
         function Depts(key) {
-
-            console.log("key", key);
-            console.log("depst", scope.depts);
             self.depts = scope.departamentos.filter(function (item) {
                 return item.Group.Name == key;
             });
         }
 
         function Ciud(key) {
-            console.log("key", key);
             self.ciudades = scope.ciudades.filter(function (item) {
                 return item.Group.Name == key;
             });
-        }
-
-        function setToast() {
-            setTimeout(function () {
-                self.Usuario.toast = false;
-            }, 4000);
         }
 
     }
