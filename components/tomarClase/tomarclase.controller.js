@@ -30,7 +30,7 @@
         function connect() {
 
 
-            dataStream =  $websocket('ws://localhost:1234');
+            dataStream = new $websocket('ws://localhost:1234');
             console.log("dataStream", dataStream);
 
 
@@ -55,7 +55,7 @@
 
 
         function EnviarMensaje(mensaje) {
-           
+           alert(mensaje);
             dataStream.send(mensaje);
              console.log("mensaje",mensaje);
         }

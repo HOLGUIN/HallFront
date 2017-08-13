@@ -5,9 +5,9 @@
         .module('app.usuario')
         .controller('UsuarioController', UsuarioController);
 
-    UsuarioController.$inject = ['UsuarioFactory', 'SelectsFactory', '$state', '$scope', '$uibModal', '$mdDialog', '$mdToast'];
+    UsuarioController.$inject = ['UsuarioFactory', 'SelectsFactory', '$state', '$scope', '$uibModal', '$mdDialog', '$mdToast', 'toastr'];
 
-    function UsuarioController(UsuarioFactory, SelectsFactory, $state, $scope, $uibModal, $mdDialog, $mdToast) {
+    function UsuarioController(UsuarioFactory, SelectsFactory, $state, $scope, $uibModal, $mdDialog, $mdToast, toastr) {
 
         console.log(UsuarioFactory);
 
@@ -32,6 +32,7 @@
         self.getToastPosition = getToastPosition;
         self.toast = document.querySelectorAll('#toast');
 
+         toastr.success('Hello world!', 'prueba!');
 
         getUsuarios();
         getListas();

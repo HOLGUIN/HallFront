@@ -12,7 +12,8 @@
         'datatables',
         'ngSanitize',
         'ui.select',
-        'ngWebSocket'
+        'ngWebSocket',
+         'toastr'
     ]);
 
 }());
