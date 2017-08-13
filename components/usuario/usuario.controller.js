@@ -5,7 +5,7 @@
         .module('app.usuario')
         .controller('UsuarioController', UsuarioController);
 
-    UsuarioController.$inject = ['UsuarioFactory', 'SelectsFactory', '$state', '$scope', '$uibModal', '$mdDialog',  'toastr'];
+    UsuarioController.$inject = ['UsuarioFactory', 'SelectsFactory', '$state', '$scope', '$uibModal', '$mdDialog', 'toastr'];
 
     function UsuarioController(UsuarioFactory, SelectsFactory, $state, $scope, $uibModal, $mdDialog, toastr) {
 
@@ -15,7 +15,7 @@
         self.Usuario = {};
         self.CreateOrEditUsuario = CreateOrEditUsuario;
         self.showConfirm = showConfirm;
-        
+
         getUsuarios();
         getListas();
 
@@ -37,7 +37,12 @@
         }
 
         function handleError(response) {
-            toastr.error(response.data, "Error")
+
+            if (response.data != null || response.data != "") {
+                toastr.errorhall(response.data, "Error")
+            } else {
+                    toastr.errorhall("Ocurrio un error en el proceso", "Error");            
+            }
         }
 
         function CreateOrEditUsuario(accion, hlnusuarioid, index) {
@@ -77,7 +82,8 @@
                         titulo: function () { return titulo },
                         index: function () { return index },
                         scope: function () { return self },
-                        handleError: function () { return handleError}                    }
+                        handleError: function () { return handleError }
+                    }
                 });
                 modalInstance.result.then(function (data) {
                 }, function () {
@@ -88,7 +94,7 @@
 
         }
 
-        
+
 
         function showConfirm(ev, modelo, index) {
             // Appending dialog to document.body to cover sidenav in docs app
@@ -123,10 +129,9 @@
     }
 
 
-    function ModalController($uibModalInstance, $scope, $http, toastr, UsuarioFactory, titulo, index, scope, handleError ) {
+    function ModalController($uibModalInstance, $scope, $http, toastr, UsuarioFactory, titulo, index, scope, handleError) {
 
         var self = this;
-        console.log(scope);
         self.modelo = scope;
         self.titulo = titulo;
         self.Usuario = scope.Usuario;
@@ -204,9 +209,11 @@
                     self.modelo.Usuario = response.modelo;
                     self.modelo.Usuario.toast = true;
                     self.modelo.Usuarios.push(response.modelo);
+                    cancel();
                     toastr.success("Se creo con exito.");
-                }else{
-                    handleError(response.msj);
+                } else {
+                    response.data = response.msj;
+                    handleError(response);
                 }
             }, handleError);
         }
@@ -220,13 +227,14 @@
 
             UsuarioFactory.editarUsuario(modelo).then(function (response) {
                 var response = response.data;
-                if(response.valida == true)
-                {
-                 self.Usuarios[index] = response.modelo;
-                 toastr.success("Se editó con exito.");
-                }else{
-                  handleError(response.msj);
-                }         
+                if (response.valida == true) {
+                    self.Usuarios[index] = response.modelo;
+                    toastr.successhall("Se editó con exito.");
+                    cancel();
+                } else {
+                    response.data = response.msj;
+                    handleError(response);
+                }
             }, handleError);
         }
 

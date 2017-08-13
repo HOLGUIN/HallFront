@@ -36,7 +36,7 @@
 
             dataStream.onOpen = function () {
                 console.log("Abrio la conexion", dataStream);
-                dataStream.send("Hello World"); // I WANT TO SEND THIS MESSAGE TO THE SERVER!!!!!!!
+             //   dataStream.send("Hello World"); // I WANT TO SEND THIS MESSAGE TO THE SERVER!!!!!!!
             }
 
 
