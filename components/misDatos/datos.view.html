@@ -11,9 +11,6 @@
         }
     </style>
     <div layout="row" layout-sm="row" layout-xl="row" layout-xs="row" style="margin-top: 10px;margin-bottom: 15px;">
-        <div id="toaster">
-
-        </div>
         <div flex style="text-align: right;">
             <h1 style="padding-right:15px;" class="font-title">Mis Datos</h1>
         </div>
@@ -23,10 +20,7 @@
     <div layout="column" layout-align="center center">
         <form id="formDatos" name="formDatos" style="width: 50%" ng-submit="$ctrl.EditUsuario($ctrl.usuario)">
 
-
-
             <div layout="row" flex>
-
                 <span class="icon-user ico"></span>
 
                 <md-input-container flex="40" ng-show="$ctrl.change">
@@ -131,8 +125,8 @@
             </div>
 
             <div layout="row" style="margin-bottom: 50px;">
-                <md-button   class="md-raised md-warn"  ng-show="!$ctrl.change" type="button" style="z-index:{{$ctrl.zindex}}" ng-click="$ctrl.ChangeView();" flex="">Editar Información</md-button>
-                <md-button   class="md-raised md-warn"  ng-show="$ctrl.change" type="submit" style="z-index:{{$ctrl.zindex}}" ng-click="$ctrl.ChangeView();" flex="">Guardar Información</md-button>
+                <md-button   class="md-raised md-warn"  ng-show="!$ctrl.change" type="button" ng-click="$ctrl.ChangeView();" flex="">Editar Información</md-button>
+                <md-button   class="md-raised md-warn"  ng-show="$ctrl.change" type="submit" ng-click="$ctrl.ChangeView();" flex="">Guardar Información</md-button>
             </div>
         </form>
 
