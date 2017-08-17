@@ -5,18 +5,9 @@
         .module('app.asignatura.materia')
         .controller('MateriaController', MateriaController);
 
+    MateriaController.$inject = ['materiaFactory', '$state', '$scope', '$uibModal', '$mdDialog', 'toastr'];
 
-    MateriaController.$inject = ['materiaFactory', '$state', '$scope', '$uibModal', '$mdDialog', '$mdToast'];
-
-    function MateriaController(materiaFactory, $state, $scope, $uibModal, $mdDialog, $mdToast) {
-
-        var last = {
-            bottom: false,
-            top: false,
-            left: true,
-            right: true
-        };
-
+    function MateriaController(materiaFactory, $state, $scope, $uibModal, $mdDialog, toastr) {
 
         var self = this;
         self.materias = [];
@@ -24,35 +15,21 @@
         self.CreateOrEditMateria = CreateOrEditMateria;
         self.showConfirm = showConfirm;
         self.deleteMateria = deleteMateria;
-        self.last = last;
-        self.toastPosition = angular.extend({}, self.last);
-        self.showToast = showToast;
-        self.sanitizePosition = sanitizePosition;
-        self.getToastPosition = getToastPosition;
-        self.toast = document.querySelectorAll('#toast');
         getMaterias();
 
-
         function getMaterias() {
-
             materiaFactory.getMaterias().then(function (response) {
-                console.log("controllerss",response)
-                var response = response.data;
-                self.materias = response;
-            }, handleError);
-
-             
+                self.materias = response.data;
+            }, handleError);    
         }
-
 
         function deleteMateria(modelo, index) {
             materiaFactory.deleteMateria(modelo).then(function (response) {
                 var response = response.data
                 self.materias.splice(index, 1);
-                self.showToast("Se eliminó exitosamente");
+                toastr.successhall("Se elimino exitosamente.");
             }, handleError);
         }
-
 
         function CreateOrEditMateria(accion, hlnmateriaid, index) {
 
@@ -64,18 +41,13 @@
             else if (accion == "Editar") {
                 titulo = "Editar Materia";
             }
-
             if (hlnmateriaid == null) {
                 hlnmateriaid = 0;
             }
-
             materiaFactory.getMateria(hlnmateriaid).then(function (response) {
                 var response = response.data;
-                console.log("response", response);
+
                 self.materia = response;
-
-
-
                 var modalInstance = $uibModal.open({
                     animation: true,
                     ariaLabelledBy: 'modal-title',
@@ -88,30 +60,19 @@
                     resolve: {
                         titulo: function () { return titulo },
                         index: function () { return index },
-                        materia: function () { return self.materia },
-                        materias: function () { return self.materias },
-                        scope: function () { return self }
+                        scope: function () { return self },
+                        handleError: function () { return handleError}
                     }
                 });
                 modalInstance.result.then(function (data) {
                 }, function () {
                     //console.log('cerro modal');
                 });
-
-
-
             }, handleError);
-
-
         }
 
         function handleError(response) {
-            // console.log('--- login error ---');
-            // console.log(response.data);
-            self.handleError = response.data;
-            self.loading = false;
-            console.log("error",self.handleError);
-            return self.handleError
+            toastr.errorhall(response.data);
         }
 
 
@@ -127,7 +88,6 @@
                     angular.element($cancelButton).addClass('md-raised hbtn-primary');
                     $actionsSection.children[0] = $confirmButton;
                     $actionsSection.children[1] = $cancelButton;
-
                 }
             })
                 .title('Desea eliminar este registro ?')
@@ -140,99 +100,40 @@
             }, function () {
 
             });
-
-            console.log("confim", confirm);
         };
-
-
-        function showToast(msj, tipe) {
-            var pinTo = self.getToastPosition();
-            console.log("pinto", pinTo);
-            $mdToast.show(
-                $mdToast.simple()
-                    .textContent(msj)
-                    .position(pinTo)
-                    .hideDelay(4000)
-                    .parent(document.querySelectorAll('#toaster'))
-            );
-        };
-
-
-        function sanitizePosition() {
-            var current = self.toastPosition;
-
-
-            if (current.bottom && last.top) current.top = false;
-            if (current.top && last.bottom) current.bottom = false;
-            if (current.right && last.left) current.left = true;
-            if (current.left && last.right) current.right = true;
-
-            self.last = angular.extend({}, current);
-        }
-
-
-        function getToastPosition() {
-            self.sanitizePosition();
-
-            return Object.keys(self.toastPosition)
-                .filter(function (pos) { return self.toastPosition[pos]; })
-                .join(' ');
-        };
-
-
-
 
     }
 
-
-
-    function ModalController($uibModalInstance, $scope, $http, materiaFactory, titulo, index, materia, materias, scope) {
+    function ModalController($uibModalInstance, $scope, $http, materiaFactory, toastr, titulo, index, scope, handleError) {
 
         var self = this;
         self.titulo = titulo;
-        self.materia = materia;
-        self.materias = materias;
+        self.scope = scope;
+        self.materia = self.scope.materia;
+        self.materias = self.scope.materias;
         self.crearMateria = crearMateria;
         self.editarMateria = editarMateria;
         self.cancel = cancel;
-        self.scope = scope;
-
-        console.log(self);
-
+        
         function crearMateria(modelo) {
-
-            console.log(modelo);
             materiaFactory.crearMateria(modelo).then(function (response) {
-                var response = response.data;
-                self.materia = response;
-                self.materias.push(response);
-                self.scope.showToast("Se creo con exito.");
+                self.materia = response.data;
+                self.materias.push(response.data);
+                 cancel();
+                toastr.successhall("Se creo con exito.");
             }, handleError);
         }
 
         function editarMateria(modelo) {
             materiaFactory.editarMateria(modelo).then(function (response) {
-                var response = response.data;
-                self.materias[index] = response;
-                self.scope.showToast("Se editó con exito.");
+                self.materias[index] = response.data;
+                 cancel();
+                handleError("Se editó con exito.");       
             }, handleError);
-        }
+        }   
 
         function cancel() {
             $uibModalInstance.close();
         }
-
-
-        function handleError(response) {
-            
-            self.handleError = response.data;
-            self.loading = false;
-            self.scope.showToast(response.data, 'md-toast-content');
-            return self.handleError
-        }
-
-
     }
-
-
 }());

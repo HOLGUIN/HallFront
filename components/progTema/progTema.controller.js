@@ -5,21 +5,9 @@
         .module('app.progtema')
         .controller('progTemaController', progTemaController);
 
-    progTemaController.$inject = ['ProgTemaFactory', 'SelectsFactory', '$state', '$scope', '$uibModal', '$mdDialog', '$mdToast', '$filter'];
+    progTemaController.$inject = ['ProgTemaFactory', 'SelectsFactory', '$state', '$scope', '$uibModal', '$mdDialog', 'toastr', '$filter'];
 
-
-
-    function progTemaController(ProgTemaFactory, SelectsFactory, $state, $scope, $uibModal, $mdDialog, $mdToast, $filter) {
-
-
-
-        var last = {
-            bottom: false,
-            top: false,
-            left: true,
-            right: true
-        };
-
+    function progTemaController(ProgTemaFactory, SelectsFactory, $state, $scope, $uibModal, $mdDialog, toastr, $filter) {
 
         var self = this;
         self.progtemas = [];
@@ -27,51 +15,35 @@
         self.CreateOrEditProgtema = CreateOrEditProgtema;
         self.showConfirm = showConfirm;
         self.deletePrgotema = deletePrgotema;
-        self.last = last;
-        self.toastPosition = angular.extend({}, self.last);
-        self.showToast = showToast;
-        self.sanitizePosition = sanitizePosition;
-        self.getToastPosition = getToastPosition;
-        self.toast = document.querySelectorAll('#toast');
-
-
-        //  getPaisListas();
 
         getProgtemas();
         getListas();
 
         function getProgtemas() {
             ProgTemaFactory.getProgTemas().then(function (response) {
-                console.log("controllerss", response)
-                var response = response.data;
-                self.progtemas = response;
+                self.progtemas = response.data;
             }, handleError);
         }
 
         function getListas() {
             SelectsFactory.getListas(false, false, false, true, true, true).then(function (response) {
                 var response = response.data;
-                console.log(response);
                 self.profesores = response.profesores;
                 self.temas = response.temas;
                 self.materias = response.materias;
             }, handleError);
         }
 
-
         function deletePrgotema(modelo, index) {
             ProgTemaFactory.deleteProgTema(modelo).then(function (response) {
-                var response = response.data
                 self.progtemas.splice(index, 1);
-                self.showToast("Se eliminó exitosamente");
+                toastr.successhall("Se eliminó exitosamente.");
             }, handleError);
         }
-
 
         function CreateOrEditProgtema(accion, hlnprogtemaid, index) {
 
             var titulo = null;
-
             if (accion == "Crear") {
                 titulo = "Programar Tema";
             }
@@ -79,17 +51,13 @@
                 titulo = "Editar Programación";
             }
 
-
             if (hlnprogtemaid == null) {
                 hlnprogtemaid = 0;
             }
 
             ProgTemaFactory.getProgTema(hlnprogtemaid).then(function (response) {
-                var response = response.data;
-                console.log("response", response);
-                self.progtema = response;
 
-
+                self.progtema = response.data;
                 var modalInstance = $uibModal.open({
                     animation: true,
                     ariaLabelledBy: 'modal-title',
@@ -102,7 +70,8 @@
                     resolve: {
                         titulo: function () { return titulo },
                         index: function () { return index },
-                        scope: function () { return self }
+                        scope: function () { return self },
+                        handleError: function () { return handleError }
                     }
                 });
                 modalInstance.result.then(function (data) {
@@ -110,19 +79,11 @@
                     //console.log('cerro modal');
                 });
             }, handleError);
-
-
         }
 
         function handleError(response) {
-            // console.log('--- login error ---');
-            // console.log(response.data);
-            self.handleError = response.data;
-            self.loading = false;
-            console.log("error", self.handleError);
-            return self.handleError
+            toastr.errorhall(response.data, "Error");
         }
-
 
         function showConfirm(ev, modelo, index) {
             // Appending dialog to document.body to cover sidenav in docs app
@@ -149,48 +110,10 @@
             }, function () {
 
             });
-
-            console.log("confim", confirm);
-        };
-
-
-        function showToast(msj, tipe) {
-            var pinTo = self.getToastPosition();
-            console.log("pinto", pinTo);
-            $mdToast.show(
-                $mdToast.simple()
-                    .textContent(msj)
-                    .position(pinTo)
-                    .hideDelay(4000)
-                    .parent(document.querySelectorAll('#toaster'))
-            );
-        };
-
-
-        function sanitizePosition() {
-            var current = self.toastPosition;
-
-
-            if (current.bottom && last.top) current.top = false;
-            if (current.top && last.bottom) current.bottom = false;
-            if (current.right && last.left) current.left = true;
-            if (current.left && last.right) current.right = true;
-
-            self.last = angular.extend({}, current);
-        }
-
-
-        function getToastPosition() {
-            self.sanitizePosition();
-
-            return Object.keys(self.toastPosition)
-                .filter(function (pos) { return self.toastPosition[pos]; })
-                .join(' ');
         };
     }
 
-
-    function ModalController($uibModalInstance, $scope, $http, ProgTemaFactory, titulo, index, scope, $filter) {
+    function ModalController($uibModalInstance, $scope, $http, ProgTemaFactory, $filter, toastr, titulo, index, scope, handleError) {
 
         var self = this;
         self.titulo = titulo;
@@ -202,9 +125,6 @@
         self.scope = scope;
         self.Temas = Temas;
         self.temas = [];
-
-
-
 
         if (self.progtema.hlntemaid == 0) {
             self.scope.temas.selected = null;
@@ -234,7 +154,6 @@
             try {
                 self.progtema.hf = new Date('Thu, 01 Jan 1970 ' + self.progtema.hf);
             } catch (e) { }
-
         }
 
         if (self.progtema.hlnprofesorid == 0) {
@@ -246,33 +165,31 @@
         }
 
         function crearProgTema(modelo) {
+            //toma los datos de los selects
             modelo.hlnmateriaid = self.scope.materias.selected.Value;
             modelo.hlntemaid = self.temas.selected.Value;
             modelo.hlnprofesorid = self.scope.profesores.selected.Value;
-
 
             try {
                 //formatea la hora inicio
                 modelo.hi = $filter('date')(modelo.hi, "HH:mm:ss");
             } catch (e) { }
 
-
             try {
                 //formatea la hora inicio
                 modelo.hf = $filter('date')(modelo.hf, "HH:mm:ss");
             } catch (e) { }
 
-            console.log(modelo);
             ProgTemaFactory.crearProgTema(modelo).then(function (response) {
-                console.log(response);
-                var response = response.data;
-                self.progtema = response;
-                self.progtemas.push(response);
-                self.scope.showToast("Se creo con exito.");
+                self.progtema = response.data;
+                self.progtemas.push(response.data);
+                cancel();
+                toastr.successhall("Se creo con exito.");
             }, handleError);
         }
 
         function editarProgTema(modelo) {
+            //toma los datos de los selects
             modelo.hlnmateriaid = self.scope.materias.selected.Value;
             modelo.hlntemaid = self.temas.selected.Value;
             modelo.hlnprofesorid = self.scope.profesores.selected.Value;
@@ -288,9 +205,9 @@
             } catch (e) { }
 
             ProgTemaFactory.editarProgTema(modelo).then(function (response) {
-                var response = response.data;
-                self.progtemas[index] = response;
-                self.scope.showToast("Se editó con exito.");
+                self.progtemas[index] = response.data;
+                cancel();
+                toastr.successhall("Se editó con exito.");
             }, handleError);
         }
 
@@ -301,15 +218,7 @@
         function Temas(key) {
             self.temas = scope.temas.filter(function (item) {
                 return item.Group.Name == key.Value;
-            });    
-        }
-
-        function handleError(response) {
-
-            self.handleError = response.data;
-            self.loading = false;
-            self.scope.showToast(response.data, 'md-toast-content');
-            return self.handleError
+            });
         }
     }
 

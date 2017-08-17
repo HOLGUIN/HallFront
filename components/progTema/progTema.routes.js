@@ -11,7 +11,6 @@
     function config($stateProvider, $urlRouterProvider) {
 
         $urlRouterProvider.otherwise('/login');
-
         $stateProvider
             .state('app.progtema', {
                 url: '/progtema',

@@ -18,8 +18,6 @@
             deleteProgTema: deleteProgTema
         };
 
-        
-
         function getProgTemas() {
             return $q(function (resolve, reject) {
 
@@ -38,7 +36,6 @@
             });
         }
 
-
         function getProgTema(id) {
             return $q(function (resolve, reject) {
                 $http({
@@ -53,7 +50,6 @@
                 }, function (reason) {
                     reject(reason);
                 })
-
             });
         }
 
@@ -69,19 +65,16 @@
                     headers: {
                         'Content-Type': 'application/json'
                     }
-
                 }).then(function (promise) {
                     resolve(promise);
                 }, function (reason) {
                     reject(reason);
                 })
-
             });
         }
 
         function editarProgTema(modelo) {
             return $q(function (resolve, reject) {
-
                 $http({
                     url: API_URL + '/api/ProgTema',
                     method: "PUT",
@@ -94,13 +87,11 @@
                 }, function (reason) {
                     reject(reason);
                 })
-
             });
         }
 
         function deleteProgTema(modelo) {
             return $q(function (resolve, reject) {
-
                 $http({
                     url: API_URL + '/api/ProgTema',
                     method: "Delete",
@@ -113,7 +104,6 @@
                 }, function (reason) {
                     reject(reason);
                 })
-
             });
         }
     }

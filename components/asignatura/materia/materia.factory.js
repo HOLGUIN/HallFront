@@ -17,7 +17,6 @@
             deleteMateria: deleteMateria
         };
 
-
         function getMaterias() {
             return $q(function (resolve, reject) {
 
@@ -32,7 +31,6 @@
                 }, function (promise) {
                     reject(promise);
                 })
-
             });
         }
 
@@ -55,7 +53,6 @@
             });
         }
 
-
         function crearMateria(modelo) {
             return $q(function (resolve, reject) {
                 console.log("resolve",resolve)
@@ -67,22 +64,16 @@
                     headers: {
                         'Content-Type': 'application/json'
                     }
-
                 }).then(function (promise) {
                     resolve(promise);
                 }, function (reason) {
                     reject(reason);
                 })
-
             });
         }
 
-
-
-
         function editarMateria(modelo) {
             return $q(function (resolve, reject) {
-
                 $http({
                     url: API_URL + '/api/Materia',
                     method: "PUT",
@@ -95,7 +86,6 @@
                 }, function (promise) {
                     reject(promise);
                 })
-
             });
         }
 
@@ -114,15 +104,7 @@
                 }, function (reason) {
                     reject(reason);
                 })
-
             });
         }
-
-
-
-
     }
-
-
-
 }());

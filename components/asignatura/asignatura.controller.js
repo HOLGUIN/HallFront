@@ -9,12 +9,6 @@
     AsignaturaController.$inject = ['$stateParams', '$state'];
 
     function AsignaturaController($stateParams, $state) {
-
         var self = this;
-
-        console.log('AsignaturaController+++++');
-        console.log(self);
-        
     }
-
 }());
