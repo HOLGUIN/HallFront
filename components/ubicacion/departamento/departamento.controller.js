@@ -5,18 +5,9 @@
         .module('app.ubicacion.departamento')
         .controller('DepartamentoController', DepartamentoController);
 
-    DepartamentoController.$inject = ['DepartamentoFactory', 'SelectsFactory', '$state', '$scope', '$uibModal', '$mdDialog', '$mdToast'];
+    DepartamentoController.$inject = ['DepartamentoFactory', 'SelectsFactory', '$state', '$scope', '$uibModal', '$mdDialog', 'toastr'];
 
-    function DepartamentoController(DepartamentoFactory, SelectsFactory, $state, $scope, $uibModal, $mdDialog, $mdToast) {
-
-        console.log(DepartamentoFactory);
-
-        var last = {
-            bottom: false,
-            top: false,
-            left: true,
-            right: true
-        };
+    function DepartamentoController(DepartamentoFactory, SelectsFactory, $state, $scope, $uibModal, $mdDialog, toastr) {
 
 
         var self = this;
@@ -25,43 +16,28 @@
         self.CreateOrEditDept = CreateOrEditDept;
         self.showConfirm = showConfirm;
         self.deleteDept = deleteDept;
-        self.last = last;
-        self.toastPosition = angular.extend({}, self.last);
-        self.showToast = showToast;
-        self.sanitizePosition = sanitizePosition;
-        self.getToastPosition = getToastPosition;
-        self.toast = document.querySelectorAll('#toast');
-
 
         getDepts();
         getListas();
 
         function getDepts() {
             DepartamentoFactory.getDepts().then(function (response) {
-                console.log("controllerss", response)
-                var response = response.data;
-                self.Depts = response;
-                self.paises = response.paises;
+                self.Depts = response.data;
             }, handleError);
         }
-
 
         function getListas() {
             SelectsFactory.getListas(true, false, false, false, false, false).then(function (response) {
-                var response = response.data;
-                self.paises = response.paises;
+                self.paises = response.data.paises;
             }, handleError);
         }
-
 
         function deleteDept(modelo, index) {
             DepartamentoFactory.deleteDept(modelo).then(function (response) {
-                var response = response.data
                 self.Depts.splice(index, 1);
-                self.showToast("Se eliminó exitosamente");
+                toastr.successhall("Se eliminó exitosamente");
             }, handleError);
         }
-
 
         function CreateOrEditDept(accion, hlndepartamentoid, index) {
 
@@ -79,11 +55,8 @@
             }
 
             DepartamentoFactory.getDept(hlndepartamentoid).then(function (response) {
-                var response = response.data;
-                console.log("response", response);
-                self.Dept = response;
 
-
+                self.Dept = response.data;
                 var modalInstance = $uibModal.open({
                     animation: true,
                     ariaLabelledBy: 'modal-title',
@@ -96,7 +69,8 @@
                     resolve: {
                         titulo: function () { return titulo },
                         index: function () { return index },
-                        scope: function () { return self }
+                        scope: function () { return self },
+                        handleError:function(){return handleError}
                     }
                 });
                 modalInstance.result.then(function (data) {
@@ -104,19 +78,11 @@
                     //console.log('cerro modal');
                 });
             }, handleError);
-
-
         }
 
         function handleError(response) {
-            // console.log('--- login error ---');
-            // console.log(response.data);
-            self.handleError = response.data;
-            self.loading = false;
-            console.log("error", self.handleError);
-            return self.handleError
+            toastr.errorhall(response.data, "Error");
         }
-
 
         function showConfirm(ev, modelo, index) {
             // Appending dialog to document.body to cover sidenav in docs app
@@ -143,103 +109,51 @@
             }, function () {
 
             });
-
-            console.log("confim", confirm);
-        };
-
-
-        function showToast(msj, tipe) {
-            var pinTo = self.getToastPosition();
-            console.log("pinto", pinTo);
-            $mdToast.show(
-                $mdToast.simple()
-                    .textContent(msj)
-                    .position(pinTo)
-                    .hideDelay(4000)
-                    .parent(document.querySelectorAll('#toaster'))
-            );
-        };
-
-
-        function sanitizePosition() {
-            var current = self.toastPosition;
-
-
-            if (current.bottom && last.top) current.top = false;
-            if (current.top && last.bottom) current.bottom = false;
-            if (current.right && last.left) current.left = true;
-            if (current.left && last.right) current.right = true;
-
-            self.last = angular.extend({}, current);
-        }
-
-
-        function getToastPosition() {
-            self.sanitizePosition();
-
-            return Object.keys(self.toastPosition)
-                .filter(function (pos) { return self.toastPosition[pos]; })
-                .join(' ');
         };
     }
 
 
-    function ModalController($uibModalInstance, $scope, $http, DepartamentoFactory, titulo, index, scope) {
+    function ModalController($uibModalInstance, $scope, $http, DepartamentoFactory, toastr, titulo, index, scope, handleError) {
 
         var self = this;
         self.titulo = titulo;
+        self.scope = scope;
         self.Dept = scope.Dept;
         self.Depts = scope.Depts;
         self.crearDept = crearDept;
         self.editarDept = editarDept;
         self.cancel = cancel;
-        self.scope = scope;
-        console.log(self.scope);
         
-        if(self.Dept.hlnpaisid ==0 )
-        {
+        //si el departamento tiene pais selecciona el pais correspondiente 
+        if (self.Dept.hlnpaisid == 0) {
             scope.paises.selected = null;
-        }else{
-            scope.paises.selected =  scope.paises.filter(function (item) {
+        } else {
+            scope.paises.selected = scope.paises.filter(function (item) {
                 return item.Value == self.Dept.hlnpaisid;
             })[0];
         }
 
-        self.materia = null;
-        console.log(self);
-
         function crearDept(modelo) {
             modelo.hlnpaisid = self.scope.paises.selected.Value
-            console.log(modelo);
             DepartamentoFactory.crearDept(modelo).then(function (response) {
-                console.log(response);
-                var response = response.data;
-                self.Dept = response;
-                self.Depts.push(response);
-                self.scope.showToast("Se creo con exito.");
+                self.Dept = response.data;
+                self.Depts.push(response.data);
+                cancel();
+                toastr.successhall("Se creo con exito.");
             }, handleError);
         }
 
         function editarDept(modelo) {
-             modelo.hlnpaisid = self.scope.paises.selected.Value
+            modelo.hlnpaisid = self.scope.paises.selected.Value
             DepartamentoFactory.editarDept(modelo).then(function (response) {
-                var response = response.data;
-                self.Depts[index] = response;
-                self.scope.showToast("Se editó con exito.");
+                self.Depts[index] = response.data;
+                cancel();
+                toastr.successhall("Se editó con exito.");
             }, handleError);
         }
 
         function cancel() {
             $uibModalInstance.close();
-        }
-
-
-        function handleError(response) {
-
-            self.handleError = response.data;
-            self.loading = false;
-            self.scope.showToast(response.data, 'md-toast-content');
-            return self.handleError
         }
     }
 }());

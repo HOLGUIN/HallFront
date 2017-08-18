@@ -14,11 +14,8 @@
             getPaises: getPaises,
             crearPais: crearPais,
             editarPais: editarPais,
-            deletePais: deletePais,
-            getPaisListas: getPaisListas
+            deletePais: deletePais
         };
-
-        
 
         function getPaises() {
             return $q(function (resolve, reject) {
@@ -38,27 +35,6 @@
             });
         }
 
-
-        function getPaisListas(listasok) {
-            return $q(function (resolve, reject) {
-
-                $http({
-                    url: API_URL + '/api/Pais',
-                    method: "Get",
-                    params: { listasok: listasok },
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                }).then(function (promise) {
-                    resolve(promise);
-                }, function (reason) {
-                    reject(reason);
-                })
-
-            });
-        }
-
-
         function getPais(id) {
             return $q(function (resolve, reject) {
 
@@ -77,7 +53,6 @@
 
             });
         }
-
 
         function crearPais(modelo) {
             return $q(function (resolve, reject) {

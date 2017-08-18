@@ -9,12 +9,6 @@
     UbicacionController.$inject = ['$stateParams', '$state'];
 
     function UbicacionController($stateParams, $state) {
-
         var self = this;
-
-        console.log('UbicacionController+++++');
-        console.log(self);
-        
     }
-
 }());

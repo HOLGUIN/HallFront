@@ -5,19 +5,9 @@
         .module('app.ubicacion.ciudad')
         .controller('CiudadController', CiudadController);
 
-    CiudadController.$inject = ['CiudadFactory', 'SelectsFactory', '$state', '$scope', '$uibModal', '$mdDialog', '$mdToast'];
+    CiudadController.$inject = ['CiudadFactory', 'SelectsFactory', '$state', '$scope', '$uibModal', '$mdDialog', 'toastr'];
 
-    function CiudadController(CiudadFactory, SelectsFactory, $state, $scope, $uibModal, $mdDialog, $mdToast) {
-
-        console.log(CiudadFactory);
-
-        var last = {
-            bottom: false,
-            top: false,
-            left: true,
-            right: true
-        };
-
+    function CiudadController(CiudadFactory, SelectsFactory, $state, $scope, $uibModal, $mdDialog, toastr) {
 
         var self = this;
         self.Ciudades = [];
@@ -25,24 +15,13 @@
         self.CreateOrEditCiudad = CreateOrEditCiudad;
         self.showConfirm = showConfirm;
         self.deleteCiudad = deleteCiudad;
-        self.last = last;
-        self.toastPosition = angular.extend({}, self.last);
-        self.showToast = showToast;
-        self.sanitizePosition = sanitizePosition;
-        self.getToastPosition = getToastPosition;
-        self.toast = document.querySelectorAll('#toast');
-
-
-        //  getPaisListas();
 
         getCiudades();
         getListas();
 
         function getCiudades() {
             CiudadFactory.getCiudades().then(function (response) {
-                console.log("controllerss", response)
-                var response = response.data;
-                self.Ciudades = response;
+                self.Ciudades = response.data;
             }, handleError);
         }
 
@@ -54,15 +33,12 @@
             }, handleError);
         }
 
-
         function deleteCiudad(modelo, index) {
             CiudadFactory.deleteCiudad(modelo).then(function (response) {
-                var response = response.data
                 self.Ciudades.splice(index, 1);
-                self.showToast("Se eliminó exitosamente");
+                toastr.successhall("Se eliminó exitosamente");
             }, handleError);
         }
-
 
         function CreateOrEditCiudad(accion, hlnciudadid, index) {
 
@@ -80,11 +56,10 @@
             }
 
             CiudadFactory.getCiudad(hlnciudadid).then(function (response) {
-                var response = response.data;
-                console.log("response", response);
-                self.Ciudad = response;
+            
+                self.Ciudad = response.data;
 
-
+                console.log(self);
                 var modalInstance = $uibModal.open({
                     animation: true,
                     ariaLabelledBy: 'modal-title',
@@ -97,7 +72,8 @@
                     resolve: {
                         titulo: function () { return titulo },
                         index: function () { return index },
-                        scope: function () { return self }
+                        scope: function () { return self },
+                        handleError: function (){return handleError}
                     }
                 });
                 modalInstance.result.then(function (data) {
@@ -105,17 +81,10 @@
                     //console.log('cerro modal');
                 });
             }, handleError);
-
-
         }
 
         function handleError(response) {
-            // console.log('--- login error ---');
-            // console.log(response.data);
-            self.handleError = response.data;
-            self.loading = false;
-            console.log("error", self.handleError);
-            return self.handleError
+           toastr.errorhall(response.data);
         }
 
 
@@ -131,7 +100,6 @@
                     angular.element($cancelButton).addClass('md-raised hbtn-primary');
                     $actionsSection.children[0] = $confirmButton;
                     $actionsSection.children[1] = $cancelButton;
-
                 }
             })
                 .title('Desea eliminar este registro ?')
@@ -144,48 +112,11 @@
             }, function () {
 
             });
-
-            console.log("confim", confirm);
-        };
-
-
-        function showToast(msj, tipe) {
-            var pinTo = self.getToastPosition();
-            console.log("pinto", pinTo);
-            $mdToast.show(
-                $mdToast.simple()
-                    .textContent(msj)
-                    .position(pinTo)
-                    .hideDelay(4000)
-                    .parent(document.querySelectorAll('#toaster'))
-            );
-        };
-
-
-        function sanitizePosition() {
-            var current = self.toastPosition;
-
-
-            if (current.bottom && last.top) current.top = false;
-            if (current.top && last.bottom) current.bottom = false;
-            if (current.right && last.left) current.left = true;
-            if (current.left && last.right) current.right = true;
-
-            self.last = angular.extend({}, current);
-        }
-
-
-        function getToastPosition() {
-            self.sanitizePosition();
-
-            return Object.keys(self.toastPosition)
-                .filter(function (pos) { return self.toastPosition[pos]; })
-                .join(' ');
         };
     }
 
 
-    function ModalController($uibModalInstance, $scope, $http, CiudadFactory, titulo, index, scope) {
+    function ModalController($uibModalInstance, $scope, $http, CiudadFactory, toastr, titulo, index, scope, handleError) {
 
         var self = this;
         self.titulo = titulo;
@@ -198,6 +129,7 @@
         self.departamentos = [];
         self.Depts = Depts;
 
+        //selecciona el pais si tiene seleccionado el pais
         if(self.Ciudad.hlnpaisid == 0)
         {
             scope.paises.selected = null;
@@ -207,8 +139,8 @@
             })[0];
         }
          
-       
-       console.log("ciudad", self);
+
+        //selecciona el departamento si tiene seleccioando un departamento 
         if(self.Ciudad.hlndepartamentoid == 0)
         {
             self.departamentos.selected = null;
@@ -226,27 +158,28 @@
 
         function CrearCiudad(modelo) {
                
+            //asigna el pais y el departammento seleccionado 
             modelo.hlnpaisid = scope.paises.selected.Value;
             modelo.hlndepartamentoid = self.departamentos.selected.Value;
 
             CiudadFactory.crearCiudad(modelo).then(function (response) {
-                console.log(response);
-                var response = response.data;
-                self.Ciudad = response;
-                self.Ciudades.push(response);
-                self.scope.showToast("Se creo con exito.");
+                self.Ciudad = response.data;
+                self.Ciudades.push(response.data);
+                cancel();
+                toastr.successhall("Se creo con exito.");
             }, handleError);
         }
 
         function editarCiudad(modelo) {
             
+             //asigna el pais y el departammento seleccionado 
             modelo.hlnpaisid = scope.paises.selected.Value;
             modelo.hlndepartamentoid = self.departamentos.selected.Value;
 
             CiudadFactory.editarCiudad(modelo).then(function (response) {
-                var response = response.data;
-                self.Ciudades[index] = response;
-                self.scope.showToast("Se editó con exito.");
+                self.Ciudades[index] = response.data;
+                cancel();
+                toastr.successhall("Se editó con exito.");
             }, handleError);
         }
 
@@ -254,17 +187,7 @@
             $uibModalInstance.close();
         }
 
-        function handleError(response) {
-
-            self.handleError = response.data;
-            self.loading = false;
-            self.scope.showToast(response.data, 'md-toast-content');
-            return self.handleError
-        }
-
         function Depts(key) {
-
-            console.log("key", key);
             self.departamentos = scope.departamentos.filter(function (item) {
                 return item.Group.Name == key.Value;
             });
