@@ -25,9 +25,9 @@
     <link rel="stylesheet" href="node_modules/angular-ui-select/select.css">	
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 </head>
-<body>
+<body id="">
 
-<div  class="app " ui-view=""  id="contenido"></div>
+<div  class="app contenido" ui-view=""  ></div>
 
 <script src="node_modules/jquery/dist/jquery.js"></script>
 <!--Carge de File Menu-->
@@ -71,6 +71,9 @@
 <script src="node_modules/sweetalert/lib/sweet-alert.min.js"></script>
 <script src="node_modules/angular-ui-bootstrap/ui-bootstrap-tpls.js"></script>
 
+<!-- referencia a socket.io -->
+ <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+<!-- <script src="node_modules/socket.io-client/dist/socket.io.js"></script> -->
 
 <!-- application scripts -->
 <script src="components/app.js"></script>
@@ -88,6 +91,8 @@
 
 <script src="components/widgets/app-header/app-header.directive.js"></script>
 <script src="components/widgets/app-header/app-header.factory.js"></script>
+
+
 
 
 <!--Modulo de Home Bryan Holguin 13/febrero/2017-->

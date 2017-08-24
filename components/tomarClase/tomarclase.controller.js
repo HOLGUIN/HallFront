@@ -1,66 +1,41 @@
-(function () {
+(function (window, angular, undefined) {
     'use strict';
 
     angular
         .module('app.tomarclase')
         .controller('tomarclaseController', tomarclaseController);
 
-    tomarclaseController.$inject = ['$stateParams', '$state', '$websocket', 'PTemaFactory'];
+    tomarclaseController.$inject = ['$stateParams', '$state', '$websocket', 'PTemaFactory', '$window', '$scope'];
 
-    function tomarclaseController($stateParams, $state, $websocket, PTemaFactory) {
+    function tomarclaseController($stateParams, $state, $websocket, PTemaFactory, $window, $scope) {
 
 
-        var dataStream;
         var self = this;
-        self.connect = connect;
-        self.EnviarMensaje = EnviarMensaje;
-        self.msj = null;
-        console.log($websocket);
+        var socket = window.io('http://192.168.1.5:3002/');
+        self.newMessage = undefined;
+        self.messages = [];
 
-        startserver();
-
-
-        function startserver() {
-            PTemaFactory.startserver().then(function (response) {
-
-            });
-        }
-
-
-        function connect() {
-
-
-            dataStream = new $websocket('ws://localhost:1234');
-            console.log("dataStream", dataStream);
-
-
-            dataStream.onOpen = function () {
-                console.log("Abrio la conexion", dataStream);
-             //   dataStream.send("Hello World"); // I WANT TO SEND THIS MESSAGE TO THE SERVER!!!!!!!
-            }
-
-
-            dataStream.onMessage = function (mensaje) {
-                console.log(mensaje);
-            }
-
-            dataStream.onclose = function () {
-                // websocket is closed.
-                alert("Connection is closed...");
+        var datauser = JSON.parse($window.localStorage.usuario) ;
+        var usuario = datauser.username;
+        console.log("usuario", usuario);
+                                   
+        //Metodo que envia el mensaje al socket
+        self.sendMessage = function () {
+            var newMessage = {
+                username: usuario,
+                message: self.newMessage
             };
-
-             dataStream.onOpen();
-
-        }
-
-
-        function EnviarMensaje(mensaje) {
-           alert(mensaje);
-            dataStream.send(mensaje);
-             console.log("mensaje",mensaje);
-        }
+            socket.emit("new-message", newMessage);
+            self.newMessage = undefined;
+        };
 
 
-
+        //Metodo que recibe los mensajes del socket
+        socket.on("receive-message", function (msg) {
+            $scope.$apply(function () {
+                console.log("received message");
+                self.messages.push(msg);
+            });
+        });
     }
-}());
+}(window, window.angular));

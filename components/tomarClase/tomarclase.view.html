@@ -1,9 +1,14 @@
 <div ui-view="">
 
-<button ng-click="$ctrl.connect();">conectar</button>
 
-<textarea ng-model="$ctrl.msj"></textarea>
-<button ng-click="$ctrl.EnviarMensaje($ctrl.msj);">enviar</button>
+    <h3>Chat</h3>
+    <ul>
+        <li ng-repeat="message in $ctrl.messages track by $index">
+            <strong>{{message.username}}:</strong><span>{{message.message}}</span>
+        </li>
+    </ul>
+
+    <input ng-model="$ctrl.newMessage" type="text"> <button ng-click="$ctrl.sendMessage()">send</button>
 
 
 </div>

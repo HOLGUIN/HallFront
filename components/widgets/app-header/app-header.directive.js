@@ -62,19 +62,20 @@
             }
 
             menu();
+            menucontent();
             submenu_alumno();
             submenu_profesor();
             submenu_admin();
 
             //funcion para que aparesca o desaparesca el menu 
+            var contador = 1;
             function menu() {
-                var contador = 1;
+
                 $('.open_list').click(function () {
                     if (contador == 1) {
                         $('nav').animate({
                             left: '0'
                         });
-                     //   document.getElementsByClassName('container-fluid').style.paddingLeft = "195px";
                         contador = 0;
                     } else {
                         contador = 1;
@@ -84,6 +85,19 @@
                     }
                 });
             };
+
+            function menucontent() {
+              //  alert();
+                $(".container-fluid").click(function () {
+                   // alert(contador);
+                    if (contador == 0) {
+                        contador = 1;
+                        $('nav').animate({
+                            left: '-100%'
+                        });
+                    }
+                });
+            }
 
             function submenu_alumno() {
                 $('.submenu_alumno').click(function () {
@@ -140,7 +154,7 @@
         self.nameModule = 'Cambiar Contraseña';
         self.confirmChange = confirmChange;
         self.cancel = cancel;
-    
+
         function confirmChange() {
             var changes = {
                 usuarioid: $window.localStorage.usuarioid,

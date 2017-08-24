@@ -3,15 +3,16 @@
 	padding:0;
 }
 
-body{
-	margin-top: 50px;
-}
 
 header{
 	width:100%;
 }
 
-
+/* aumenta el tamaño del contenido a un 100%  */
+.container-fluid
+{
+	height: 90%;
+}
 
 header nav{
 	width:100%;
