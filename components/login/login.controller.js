@@ -9,17 +9,10 @@
 
     function LoginController(LoginFactory, $state, $scope) {
 
-	
-	console.log('$scope*****');
-	console.log($scope);
         var self = this;
         self.login = login;
-		self.CrearUsuario = CrearUsuario;
-
-		console.log('self*****');
-		console.log(self);
-
-
+        self.CrearUsuario = CrearUsuario;
+        
         function CrearUsuario()
         {
             console.log("Ingreso");
