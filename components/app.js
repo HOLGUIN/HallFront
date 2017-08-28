@@ -3,9 +3,12 @@
 
     angular
         .module('app', [
+            
             'app.libraries',            
             'app.constants',
             'app.routes',
+            'app.config',
+            'app.translate',
             'app.core',
             'app.selectList',
             'app.usuario',

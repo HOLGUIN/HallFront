@@ -4,8 +4,8 @@
     // Inyecta las librerias de las directivas previamente instalas y que se van a utilizar
     angular.module('app.libraries', [
         'ui.router',
-        'ngMessages', 
-        'ui.bootstrap',    
+        'ngMessages',
+        'ui.bootstrap',
         'ngMaterial',
         'ngAnimate',
         'app.widgets',
@@ -13,7 +13,8 @@
         'ngSanitize',
         'ui.select',
         'ngWebSocket',
-         'toastr'
+        'toastr',
+        'pascalprecht.translate'
     ]);
 
 }());
