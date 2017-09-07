@@ -5,16 +5,16 @@
         .module('app.usuario')
         .controller('UsuarioController', UsuarioController);
 
-    UsuarioController.$inject = ['UsuarioFactory', 'SelectsFactory', '$state', '$scope', '$uibModal', '$mdDialog', 'toastr'];
+    UsuarioController.$inject = ['UsuarioFactory', 'SelectsFactory', '$state', '$scope', '$uibModal', '$mdDialog', 'toastr', '$translate'];
 
-    function UsuarioController(UsuarioFactory, SelectsFactory, $state, $scope, $uibModal, $mdDialog, toastr) {
+    function UsuarioController(UsuarioFactory, SelectsFactory, $state, $scope, $uibModal, $mdDialog, toastr, $translate) {
 
 
         var self = this;
         self.Usuarios = [];
         self.Usuario = {};
         self.CreateOrEditUsuario = CreateOrEditUsuario;
-        self.showConfirm = showConfirm;
+        
 
         getUsuarios();
         getListas();
@@ -39,9 +39,9 @@
         function handleError(response) {
 
             if (response.data != null || response.data != "") {
-                toastr.errorhall(response.data, "Error")
+                toastr.errorhall($translate.instant(response.data), "Error")
             } else {
-                    toastr.errorhall("Ocurrio un error en el proceso", "Error");            
+                    toastr.errorhall($translate.instant('LNG_ERROR'), "Error");            
             }
         }
 
@@ -50,10 +50,12 @@
             var titulo = null;
 
             if (accion == "Crear") {
-                titulo = "Crear Usuario";
+                var cruser = $translate.instant('LNG_CREAR')+" "+ $translate.instant('LNG_USUARIO_LOG'); 
+                titulo = cruser;
             }
             else if (accion == "Editar") {
-                titulo = "Editar Usuario";
+                 var edtuser = $translate.instant('LNG_EDITAR')+" "+ $translate.instant('LNG_USUARIO_LOG'); 
+                titulo = edtuser;
             }
 
             if (hlnusuarioid == null) {
@@ -90,46 +92,11 @@
                     //console.log('cerro modal');
                 });
             }, handleError);
-
-
         }
-
-
-
-        function showConfirm(ev, modelo, index) {
-            // Appending dialog to document.body to cover sidenav in docs app
-            var confirm = $mdDialog.confirm({
-                onComplete: function afterShowAnimation() {
-                    var $dialog = angular.element(document.querySelector('md-dialog'));
-                    var $actionsSection = $dialog.find('md-dialog-actions');
-                    var $cancelButton = $actionsSection.children()[0];
-                    var $confirmButton = $actionsSection.children()[1];
-                    angular.element($confirmButton).addClass('md-raised hbtn-success');
-                    angular.element($cancelButton).addClass('md-raised hbtn-primary');
-                    $actionsSection.children[0] = $confirmButton;
-                    $actionsSection.children[1] = $cancelButton;
-
-                }
-            })
-                .title('Desea eliminar este registro ?')
-                .targetEvent(ev)
-                .ok('Aceptar')
-                .cancel('Cancelar')
-                .hasBackdrop(false);
-            $mdDialog.show(confirm).then(function () {
-                self.deleteUsuario(modelo, index);
-            }, function () {
-
-            });
-
-            console.log("confim", confirm);
-        };
-
-
     }
 
 
-    function ModalController($uibModalInstance, $scope, $http, toastr, UsuarioFactory, titulo, index, scope, handleError) {
+    function ModalController($uibModalInstance, $scope, $http, $translate, toastr, UsuarioFactory, titulo, index, scope, handleError) {
 
         var self = this;
         self.modelo = scope;
@@ -210,7 +177,7 @@
                     self.modelo.Usuario.toast = true;
                     self.modelo.Usuarios.push(response.modelo);
                     cancel();
-                    toastr.success("Se creo con exito.");
+                    toastr.successhall($translate.instant('LNG_CREATESUCS'));
                 } else {
                     response.data = response.msj;
                     handleError(response);
@@ -229,7 +196,7 @@
                 var response = response.data;
                 if (response.valida == true) {
                     self.Usuarios[index] = response.modelo;
-                    toastr.successhall("Se editó con exito.");
+                    toastr.successhall($translate.instant('LNG_EDITSUCS'));
                     cancel();
                 } else {
                     response.data = response.msj;

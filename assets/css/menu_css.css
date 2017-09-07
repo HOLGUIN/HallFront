@@ -135,9 +135,9 @@ header nav ul li .children li a{
 }
 
 header nav ul li .children li a span{
-	float:left;
+	/*float:left;*/
 	position:relative;
-	top:3px;
+	/*top:3px;*/
 	margin-right:10px;
 	margin-left:10px;
 }

@@ -12,7 +12,7 @@
     </style>
     <div layout="row" layout-sm="row" layout-xl="row" layout-xs="row" style="margin-top: 10px;margin-bottom: 15px;">
         <div flex style="text-align: right;">
-            <h1 style="padding-right:15px;" class="font-title">Mis Datos</h1>
+            <h1 style="padding-right:15px;" class="font-title"><span translate="LNG_DATOS"></span></h1>
         </div>
     </div>
 
@@ -24,30 +24,30 @@
                 <span class="icon-user ico"></span>
 
                 <md-input-container flex="40" ng-show="$ctrl.change">
-                    <label for="nombres">Nombres</label>
+                    <label for="nombres"><span translate=" LNG_NOMBRES"></span></label>
                     <input id="nombres" name="nombres" type="text" ng-model="$ctrl.usuario.nombres" class="Login-inputFields" required="" />
                     <div ng-messages="formDatos.nombres.$error">
-                        <div ng-message="required">El nombre es requerido</div>
+                        <div ng-message="required"><span translate="LNG_NOMBREQ"></span></div>
                     </div>
                 </md-input-container>
 
                 <span ng-bind="$ctrl.usuario.nombres" style="margin-right: 7px;" class="txt" ng-show="!$ctrl.change"></span>
 
                 <md-input-container flex="40" ng-show="$ctrl.change">
-                    <label for="nombres">Apellidos</label>
+                    <label for="nombres"><span translate="LNG_APELLIDOS"></span></label>
                     <input id="nombres" name="nombres" type="text" ng-model="$ctrl.usuario.apellidos" class="Login-inputFields" required="" />
                     <div ng-messages="formDatos.nombres.$error">
-                        <div ng-message="required">Los apellidos son requeridos</div>
+                        <div ng-message="required"><span translate="LNG_APELLREQ"></span></div>
                     </div>
                 </md-input-container>
 
                 <span ng-bind="$ctrl.usuario.apellidos" style="margin-right: 7px;" class="txt" ng-show="!$ctrl.change"></span>
 
                 <md-input-container flex="6" ng-show="$ctrl.change">
-                    <label for="nombres">Edad</label>
+                    <label for="nombres"><span translate="LNG_EDAD"></span></label>
                     <input id="edad" name="edad" type="text" ng-model="$ctrl.usuario.edad" class="Login-inputFields" required="" />
                     <div ng-messages="formDatos.edad.$error">
-                        <div ng-message="required">La edad es requerido</div>
+                        <div ng-message="required"><span translate="LNG_EDADREQ"></span></div>
                     </div>
                 </md-input-container>
                 <span ng-bind="$ctrl.usuario.edad" style="margin-right: 7px;" class="txt" ng-show="!$ctrl.change" ></span>
@@ -60,7 +60,7 @@
                 <span class="icon-mobile ico"></span>
 
                 <md-input-container flex ng-show="$ctrl.change">
-                    <label for="celular">Celular</label>
+                    <label for="celular"><span translate="LNG_CELULAR"></span></label>
                     <input id="celular" name="celular" type="text" ng-model="$ctrl.usuario.celular" class="Login-inputFields" />
                 </md-input-container>
                 <span ng-bind="$ctrl.usuario.celular" class="txt" ng-show="!$ctrl.change"></span>
@@ -70,7 +70,7 @@
                 <span class="icon-phone ico"></span>
 
                 <md-input-container flex ng-show="$ctrl.change">
-                    <label for="telefono">Telefono</label>
+                    <label for="telefono"><span translate="LNG_TELEFONO"></span></label>
                     <input id="telefono" name="telefono" type="text" ng-model="$ctrl.usuario.telefono" class="Login-inputFields" />
                 </md-input-container>
                 <span ng-bind="$ctrl.usuario.telefono" class="txt" ng-show="!$ctrl.change"></span>
@@ -80,10 +80,10 @@
                 <span class="icon-mail2 ico"></span>
 
                 <md-input-container flex="" ng-show="$ctrl.change">
-                    <label for="correo">Correo</label>
+                    <label for="correo"><span translate="LNG_CORREO"></span></label>
                     <input id="correo" name="correo" type="text" ng-model="$ctrl.usuario.correo" class="Login-inputFields" required="" />
                     <div ng-messages="formDatos.correo.$error">
-                        <div ng-message="required">El correo es requerido</div>
+                        <div ng-message="required"><span translate="LNG_CORREOREQ"></span></div>
                     </div>
                 </md-input-container>
                 <span ng-bind="$ctrl.usuario.correo" class="txt" ng-show="!$ctrl.change"></span>
@@ -92,9 +92,8 @@
 
             <div layout="row">
                 <span class="icon-location2 ico"></span>
-
                 <md-input-container flex ng-show="$ctrl.change" >
-                    <label>Pais</label>
+                    <label><span translate="LNG_PAIS"></span></label>
                     <md-select ng-model="$ctrl.pais" ng-change="$ctrl.Changepais($ctrl.pais.Value)"  id="pais" ng-model-options="{trackBy: '$value.Value'}" name="pais" required="">
                         <md-option ng-repeat="item in $ctrl.paises" ng-value="item">
                             <span ng-bind="item.Text"></span>
@@ -102,8 +101,8 @@
                     </md-select>
                 </md-input-container>
                 <span ng-bind="$ctrl.usuario.pais" class="txt" ng-show="!$ctrl.change"></span>
-                <md-input-container style="z-index: " flex ng-show="$ctrl.change">
-                    <label>Departamento</label>
+                <md-input-container  flex ng-show="$ctrl.change">
+                    <label><span translate="LNG_DEPART"></span></label>
                     <md-select ng-model="$ctrl.dept" ng-change="$ctrl.Changedep($ctrl.dept.Value)" id="departamento" name="departamento" ng-model-options="{trackBy: '$value.Value'}">
                         <md-option ng-repeat="item in $ctrl.departamentos" ng-value="item">
                             <span ng-bind="item.Text"></span>
@@ -113,7 +112,7 @@
                 <span class="txt" ng-show="!$ctrl.change" ng-if="$ctrl.usuario.departamento!=null">,</span>
                 <span ng-bind="$ctrl.usuario.departamento" class="txt" ng-show="!$ctrl.change"></span>
                 <md-input-container flex ng-show="$ctrl.change" >
-                    <label>Ciudad</label>
+                    <label><span translate="LNG_CIUDAD"></span></label>
                     <md-select ng-model="$ctrl.ciudad"  ng-change="$ctrl.Changeciu($ctrl.ciudad.Value)" id="ciudad" name="ciudad" ng-model-options="{trackBy: '$value.Value'}">
                         <md-option ng-repeat="item in $ctrl.ciudadesd" style="z-index:99999"  ng-value="item">
                             <span ng-bind="item.Text"></span>
@@ -125,8 +124,8 @@
             </div>
 
             <div layout="row" style="margin-bottom: 50px;">
-                <md-button   class="md-raised md-warn"  ng-show="!$ctrl.change" type="button" ng-click="$ctrl.ChangeView();" flex="">Editar Información</md-button>
-                <md-button   class="md-raised md-warn"  ng-show="$ctrl.change" type="submit" ng-click="$ctrl.ChangeView();" flex="">Guardar Información</md-button>
+                <md-button   class="md-raised md-warn"  ng-show="!$ctrl.change" type="button" ng-click="$ctrl.ChangeView();" flex=""><span translate="LNG_EDITINFO"></span></md-button>
+                <md-button   class="md-raised md-warn"  ng-show="$ctrl.change" type="submit" ng-click="$ctrl.ChangeView();" flex=""><span translate="LNG_SAVEINFO"></span></md-button>
             </div>
         </form>
 

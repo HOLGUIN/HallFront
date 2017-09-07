@@ -1,4 +1,3 @@
-
 <div class="modal-header">
     <h3 class="modal-title text-center" id="modal-title" ng-bind="$ctrl.titulo"></h3>
 </div>
@@ -7,110 +6,105 @@
     <form class="Form frm-center" name="$ctrl.form" style="margin: 0 auto;">
 
         <div class="row">
-             <div class="col-sm-6 col-xs-6 col-md-6">
-                Edad
+            <div class="col-sm-4 col-xs-4 col-md-4">
+                <span translate="LNG_EDAD"></span> <strong>*</strong>
                 <input class="form-control" type="text" ng-model="$ctrl.Usuario.edad" />
             </div>
-            <div class="col-sm-6 col-xs-6 col-md-6">
+            <div class="col-sm-4 col-xs-4 col-md-4">
                 <md-checkbox ng-model="$ctrl.Usuario.activo" class="md-primary" aria-label="Administrador" style="margin-top: 25px;">
-                    Activo
+                    <span translate="LNG_ACTIVO"></span>
                 </md-checkbox>
             </div>
-            
         </div>
 
         <div class="row">
-            <div class="col-sm-6 col-xs-6 col-md-6">
-                Nombres <strong>*</strong>
+            <div class="col-sm-4 col-xs-4 col-md-4">
+                <span translate="LNG_NOMBRES"></span> <strong>*</strong>
                 <input type="text" class="form-control" ng-model="$ctrl.Usuario.nombres" />
             </div>
-            <div class="col-sm-6 col-xs-6 col-md-6">
-                Apellidos <strong>*</strong>
+            <div class="col-sm-4 col-xs-4 col-md-4">
+                <span translate="LNG_APELLIDOS"></span> <strong>*</strong>
                 <input type="text" class="form-control" ng-model="$ctrl.Usuario.apellidos" />
+            </div>
+            <div class="col-sm-4 col-xs-4 col-md-4">
+                <md-checkbox ng-model="$ctrl.Usuario.administrador" aria-label="Administrador" style="margin-top: 25px;" class="md-primary">
+                    <span translate="LNG_ADMIN"></span>
+                </md-checkbox>
             </div>
         </div>
 
-        <div class="row" style="margin-top:10px;">
-            <div class="col-sm-6 col-xs-6 col-md-6">
+        <div class="row">
+            <div class="col-sm-4 col-xs-4 col-md-4">
                 Username <strong>*</strong>
                 <input type="text" class="form-control" ng-model="$ctrl.Usuario.username" />
             </div>
-            <div class="col-sm-6 col-xs-6 col-md-6">
-                Telefono
+            <div class="col-sm-4 col-xs-4 col-md-4">
+                 <span translate="LNG_TELEFONO"></span>
                 <input class="form-control" type="text" ng-model="$ctrl.Usuario.telefono" />
             </div>
+            <div class="col-sm-4 col-xs-4 col-md-4">
+                <md-checkbox ng-model="$ctrl.Usuario.profesor" aria-label="Administrador" class="md-primary" style="margin-top: 25px;">
+                    <span translate="LGN_PROFESOR"></span>
+                </md-checkbox>
+            </div>
         </div>
 
-        <div class="row" style="margin-top:10px;">
-            <div class="col-sm-6 col-xs-6 col-md-6">
-                Correo <strong>*</strong>
+        <div class="row" >
+            <div class="col-sm-4 col-xs-4 col-md-4">
+                <span translate="LNG_CORREO"></span> <strong>*</strong>
                 <input class="form-control" type="text" ng-model="$ctrl.Usuario.correo" />
             </div>
-            <div class="col-sm-6 col-xs-6 col-md-6">
-                Celular
+            <div class="col-sm-4 col-xs-4 col-md-4">
+                <span translate="LNG_CELULAR"></span>
                 <input class="form-control" type="text" ng-model="$ctrl.Usuario.celular" />
+            </div>
+            <div class="col-sm-4 col-xs-4 col-md-4">
+                <md-checkbox ng-model="$ctrl.Usuario.alumno" aria-label="Administrador" style="margin-top: 25px;" class="md-primary">
+                     <span translate="LGN_ALUMNO"></span>
+                </md-checkbox>
             </div>
         </div>
 
-        <div class="row" style="margin-top:10px;">
-            <div class="col-sm-6 col-xs-6 col-md-6">
-                Pais
-                <ui-select ng-model="$ctrl.paises.selected" theme="selectize" reset-search-input="false" title="Seleccione una Pais" ng-change="$ctrl.Depts($ctrl.paises.selected.Value);" append-to-body="true">
+        <div class="row">
+            <div class="col-sm-4 col-xs-4 col-md-4">
+                <span translate="LNG_PAIS"></span> <strong>*</strong>
+                <ui-select ng-model="$ctrl.paises.selected" theme="selectize" reset-search-input="false" title="Seleccione una Pais" ng-change="$ctrl.Depts($ctrl.paises.selected.Value);"
+                    append-to-body="true">
                     <ui-select-match placeholder="seleccionar...">{{$select.selected.Text}}</ui-select-match>
                     <ui-select-choices repeat="item in  $ctrl.paises | filter : $select.search" refresh-delay="0">
                         <div ng-bind-html="item.Text | highlight: $select.search"></div>
                     </ui-select-choices>
                 </ui-select>
             </div>
-            <div class="col-sm-6 col-xs-6 col-md-6">
-
-                <md-checkbox ng-model="$ctrl.Usuario.administrador" aria-label="Administrador" style="margin-top: 25px;" class="md-primary">
-                    Administrador
-                </md-checkbox>
-
-            </div>
-        </div>
-        <div class="row" style="margin-top:10px;">
-            <div class="col-sm-6 col-xs-6 col-md-6">
-                Departamento
-                <ui-select ng-model="$ctrl.depts.selected" theme="selectize" reset-search-input="false" title="Seleccione un Departamento" ng-change="$ctrl.Ciud($ctrl.depts.selected.Value)" append-to-body="true">
+              <div class="col-sm-4 col-xs-4 col-md-4">
+                <span translate="LNG_DEPART"></span>
+                <ui-select ng-model="$ctrl.depts.selected" theme="selectize" reset-search-input="false" title="Seleccione un Departamento"
+                    ng-change="$ctrl.Ciud($ctrl.depts.selected.Value)" append-to-body="true">
                     <ui-select-match placeholder="seleccionar...">{{$select.selected.Text}}</ui-select-match>
                     <ui-select-choices repeat="item in  $ctrl.depts | filter : $select.search" refresh-delay="0">
                         <div ng-bind-html="item.Text | highlight: $select.search"></div>
                     </ui-select-choices>
                 </ui-select>
             </div>
-            <div class="col-sm-6 col-xs-6 col-md-6">
-                <md-checkbox ng-model="$ctrl.Usuario.profesor" aria-label="Administrador" class="md-primary" style="margin-top: 25px;">
-                    Profesor
-                </md-checkbox>
-            </div>
-
-        </div>
-        <div class="row" style="margin-top:10px;">
-            <div class="col-sm-6 col-xs-6 col-md-6">
-                Ciudad
-                <ui-select ng-model="$ctrl.ciudades.selected" theme="selectize" reset-search-input="false" title="Seleccione una Ciudad" append-to-body="true">
+             <div class="col-sm-4 col-xs-4 col-md-4">
+                 <span translate="LNG_CIUDAD"></span>
+                <ui-select ng-model="$ctrl.ciudades.selected" theme="selectize" reset-search-input="false" title="Seleccione una Ciudad"
+                    append-to-body="true">
                     <ui-select-match placeholder="seleccionar...">{{$select.selected.Text}}</ui-select-match>
                     <ui-select-choices repeat="item in  $ctrl.ciudades| filter : $select.search" refresh-delay="0">
                         <div ng-bind-html="item.Text | highlight: $select.search"></div>
                     </ui-select-choices>
                 </ui-select>
             </div>
-            <div class="col-sm-6 col-xs-6 col-md-6">
-                <md-checkbox ng-model="$ctrl.Usuario.alumno" aria-label="Administrador" style="margin-top: 25px;" class="md-primary">
-                    Alumno
-                </md-checkbox>
-            </div>
         </div>
-
-        <div class="row" style="margin-top:10px;">
-            <div class="col-sm-6 col-xs-6 col-md-6">
+       
+        <div class="row">
+            <div class="col-sm-4 col-xs-4 col-md-4">
                 Password <strong>*</strong>
                 <input class="form-control" type="password" ng-model="$ctrl.Usuario.password" />
             </div>
-            <div class="col-sm-6 col-xs-6 col-md-6">
-                Confirmar Password <strong>*</strong>
+            <div class="col-sm-4 col-xs-4 col-md-4">
+                <span translate="LGN_CONFIRM"></span> Password <strong>*</strong>
                 <input class="form-control" type="password" ng-model="$ctrl.Usuario.password2" />
             </div>
         </div>
@@ -119,10 +113,10 @@
 <div class="modal-footer">
     <md-button class="md-raised hbtn-success" style="	background-color : #024959;
 	color:white;
-	margin:2px;" type="button" ng-if="$ctrl.Usuario.hlnusuarioid === 0" ng-click="$ctrl.CrearUsuario($ctrl.Usuario)">Guardar
-        </md-button>
-        <md-button class="md-raised hbtn-success" type="button" ng-if="$ctrl.Usuario.hlnusuarioid > 0" ng-click="$ctrl.editarUsuario($ctrl.Usuario)">Guardar
-        </md-button>
-        <md-button class="hbtn-primary md-raised " type="button" ng-click="$ctrl.cancel()">Cancelar
-        </md-button>
+	margin:2px;" type="button" ng-if="$ctrl.Usuario.hlnusuarioid === 0" ng-click="$ctrl.CrearUsuario($ctrl.Usuario)"><span translate="LGN_GUARDAR"></span>
+    </md-button>
+    <md-button class="md-raised hbtn-success" type="button" ng-if="$ctrl.Usuario.hlnusuarioid > 0" ng-click="$ctrl.editarUsuario($ctrl.Usuario)"><span translate="LGN_GUARDAR"></span>
+    </md-button>
+    <md-button class="hbtn-primary md-raised " type="button" ng-click="$ctrl.cancel()"><span translate="LGN_CANCEL"></span>
+    </md-button>
 </div>
