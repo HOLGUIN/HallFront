@@ -8,7 +8,7 @@
 
         <div class="row">
             <div class="col-sm-4 col-xs-4 col-md-4">
-                Materia <strong>*</strong>
+                <span translate="LNG_MATERIA"></span> <strong>*</strong>
             </div>
             <div class="col-sm-6 col-xs-6 col-md-6">
                 <input type="text" class="form-control" ng-model="$ctrl.materia.nombre" required/>
@@ -17,7 +17,7 @@
 
         <div class="row" style="margin-top:10px;">
             <div class="col-sm-4 col-xs-4 col-md-4">
-                Descripción
+                <span translate="LGN_DESCRIP"></span>
             </div>
             <div class="col-sm-6 col-xs-6 col-md-6">
                 <textarea  class="form-control" ng-model="$ctrl.materia.descripcion" ></textarea>
@@ -28,10 +28,10 @@
 <div class="modal-footer">
     <md-button class="md-raised hbtn-success" style="	background-color : #024959;
 	color:white;
-	margin:2px;" type="button" ng-if="$ctrl.materia.hlnmateriaid === 0" ng-click="$ctrl.crearMateria($ctrl.materia)">Guardar
+	margin:2px;" type="button" ng-if="$ctrl.materia.hlnmateriaid === 0" ng-click="$ctrl.crearMateria($ctrl.materia)"><span translate="LGN_GUARDAR"></span>
     </md-button>
-    <md-button class="md-raised hbtn-success" type="button" ng-if="$ctrl.materia.hlnmateriaid > 0" ng-click="$ctrl.editarMateria($ctrl.materia)">Guardar
+    <md-button class="md-raised hbtn-success" type="button" ng-if="$ctrl.materia.hlnmateriaid > 0" ng-click="$ctrl.editarMateria($ctrl.materia)"><span translate="LGN_GUARDAR"></span>
     </md-button>
-    <md-button class="hbtn-primary md-raised " type="button" ng-click="$ctrl.cancel()">Cancelar
+    <md-button class="hbtn-primary md-raised " type="button" ng-click="$ctrl.cancel()"><span translate="LGN_CANCEL"></span>
     </md-button>
 </div>

@@ -14,6 +14,7 @@
 
         //Traduccion en ingles
         $translateProvider.translations('en', {
+
             LNG_INICIAR_SESION: "LOG IN",
             LNG_REGISTRAR: "SIGN IN ",
             LNG_USUARIO_LOG: "User",
@@ -49,18 +50,29 @@
             LGN_CONFIRM: "Confirm",
             LGN_GUARDAR: "Save",
             LGN_CANCEL: "Cancel",
+            LGN_DESCRIP: "Description",
 
             LNG_ADMIN_TBL: "Admin",
             LNG_CREAR: "Create",
             LNG_EDITAR: "Edit",
+            LNG_ACEPTAR: "Ok",
             LNG_EDITSUCS: "Was successfully edited",
             LNG_CREATESUCS: "Was created successfully",
 
-            LNG_ERROR:"An error occurred in the process",
+            LNG_ERROR: "An error occurred in the process",
             LNG_MSJ_1: "Passwords do not match",
             LNG_MSJ_2: "Age is not valid",
             LNG_MSJ_3: "Username already exists",
             LNG_MSJ_4: "You must select a role for the user",
+            LNG_MSJ_5: "A subject with that name already exists",
+            LNG_MSJ_6: "You must enter the fields *",
+
+            LNG_BORRAR: "Do you want to delete this record?",
+            LNG_BORRARSUC: "Successfully deleted",
+
+            LNG_MATERIAS: "Subjects",
+            LNG_MATERIA: "Subject",
+            LNG_TEMAS: "Themes",
 
             LNG_ALUMNO: "Student",
             LNG_ADMIN: "Administrator",
@@ -77,6 +89,7 @@
 
         //Traduccion en español
         $translateProvider.translations('es', {
+
             LNG_INICIAR_SESION: "INICIAR SESIÒN",
             LNG_REGISTRAR: "REGISTRARSE",
             LNG_USUARIO_LOG: "Usuario",
@@ -112,18 +125,30 @@
             LGN_CONFIRM: "Confirmar",
             LGN_GUARDAR: "Guardar",
             LGN_CANCEL: "Cancelar",
+            LGN_DESCRIP: "Descripción",
 
             LNG_ADMIN_TBL: "Admin",
             LNG_CREAR: "Crear",
             LNG_EDITAR: "Editar",
+            LNG_ACEPTAR: "Aceptar",
             LNG_EDITSUCS: "Se editó con exíto",
             LNG_CREATESUCS: "Se creo con exíto",
 
-            LNG_ERROR:"Ocurrio un error en el proceso",
+            LNG_ERROR: "Ocurrio un error en el proceso",
             LNG_MSJ_1: "Las contraseñas no coinciden",
             LNG_MSJ_2: "La edad no es valida",
             LNG_MSJ_3: "El username ya existe",
             LNG_MSJ_4: "Debe seleccionar un rol para el usuario",
+            LNG_MSJ_5: "Ya existe una materia con ese nombre",
+            LNG_MSJ_6: "Debe ingresar los campos *",
+
+
+            LNG_BORRAR: "Do you want to delete this record?",
+            LNG_BORRARSUC: "Successfully deleted",
+
+            LNG_MATERIAS: "Materias",
+            LNG_MATERIA: "Materia",
+            LNG_TEMAS: "Temas",
 
             LNG_ALUMNO: "Alumno",
             LNG_ADMIN: "Administrador",
@@ -141,9 +166,6 @@
         $translateProvider.useSanitizeValueStrategy('escape');
         $translateProvider.preferredLanguage('en');
 
-
-
-
         //Configuracion para angular material
         $mdThemingProvider.theme('indigo')
             .primaryPalette('indigo')
@@ -158,11 +180,9 @@
         // This is the absolutely vital part, without this, changes will not cascade down through the DOM.
         $mdThemingProvider.alwaysWatchTheme(true);
 
-
         // This is the absolutely vital part, without this, changes will not cascade down through the DOM.
         $httpProvider.defaults.timeout = 5000;
         $httpProvider.interceptors.push('AuthInterceptor');
-
     }
 
 }());

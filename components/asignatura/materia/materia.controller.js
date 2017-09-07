@@ -1,13 +1,13 @@
 (function () {
     'use strict';
 
-       angular
+    angular
         .module('app.asignatura.materia')
         .controller('MateriaController', MateriaController);
 
-    MateriaController.$inject = ['materiaFactory', '$state', '$scope', '$uibModal', '$mdDialog', 'toastr'];
+    MateriaController.$inject = ['materiaFactory', '$state', '$scope', '$uibModal', '$mdDialog', 'toastr', '$translate'];
 
-    function MateriaController(materiaFactory, $state, $scope, $uibModal, $mdDialog, toastr) {
+    function MateriaController(materiaFactory, $state, $scope, $uibModal, $mdDialog, toastr, $translate) {
 
         var self = this;
         self.materias = [];
@@ -20,14 +20,14 @@
         function getMaterias() {
             materiaFactory.getMaterias().then(function (response) {
                 self.materias = response.data;
-            }, handleError);    
+            }, handleError);
         }
 
         function deleteMateria(modelo, index) {
             materiaFactory.deleteMateria(modelo).then(function (response) {
                 var response = response.data
                 self.materias.splice(index, 1);
-                toastr.successhall("Se elimino exitosamente.");
+                toastr.successhall($translate.instant('LNG_BORRARSUC'));
             }, handleError);
         }
 
@@ -36,10 +36,10 @@
             var titulo = null;
 
             if (accion == "Crear") {
-                titulo = "Crear Materia";
+                titulo = $translate.instant('LNG_CREAR') + " " + $translate.instant('LNG_MATERIA');
             }
             else if (accion == "Editar") {
-                titulo = "Editar Materia";
+                titulo = $translate.instant('LNG_EDITAR') + " " + $translate.instant('LNG_MATERIA');
             }
             if (hlnmateriaid == null) {
                 hlnmateriaid = 0;
@@ -61,7 +61,7 @@
                         titulo: function () { return titulo },
                         index: function () { return index },
                         scope: function () { return self },
-                        handleError: function () { return handleError}
+                        handleError: function () { return handleError }
                     }
                 });
                 modalInstance.result.then(function (data) {
@@ -72,7 +72,7 @@
         }
 
         function handleError(response) {
-            toastr.errorhall(response.data);
+            toastr.errorhall($translate.instant(response.data));
         }
 
 
@@ -90,10 +90,10 @@
                     $actionsSection.children[1] = $cancelButton;
                 }
             })
-                .title('Desea eliminar este registro ?')
+                .title($translate.instant('LNG_BORRAR'))
                 .targetEvent(ev)
-                .ok('Aceptar')
-                .cancel('Cancelar')
+                .ok($translate.instant('LNG_ACEPTAR'))
+                .cancel($translate.instant('LGN_CANCEL'))
                 .hasBackdrop(false);
             $mdDialog.show(confirm).then(function () {
                 self.deleteMateria(modelo, index);
@@ -104,7 +104,7 @@
 
     }
 
-    function ModalController($uibModalInstance, $scope, $http, materiaFactory, toastr, titulo, index, scope, handleError) {
+    function ModalController($uibModalInstance, $scope, $http, $translate, materiaFactory, toastr, titulo, index, scope, handleError) {
 
         var self = this;
         self.titulo = titulo;
@@ -114,23 +114,23 @@
         self.crearMateria = crearMateria;
         self.editarMateria = editarMateria;
         self.cancel = cancel;
-        
+
         function crearMateria(modelo) {
             materiaFactory.crearMateria(modelo).then(function (response) {
                 self.materia = response.data;
                 self.materias.push(response.data);
-                 cancel();
-                toastr.successhall("Se creo con exito.");
+                cancel();
+                toastr.successhall($translate.instant('LNG_CREATESUCS'));
             }, handleError);
         }
 
         function editarMateria(modelo) {
             materiaFactory.editarMateria(modelo).then(function (response) {
                 self.materias[index] = response.data;
-                 cancel();
-                handleError("Se editó con exito.");       
+                cancel();
+                handleError($translate.instant('LNG_EDITSUCS'));
             }, handleError);
-        }   
+        }
 
         function cancel() {
             $uibModalInstance.close();
