@@ -5,10 +5,12 @@
 
         </div>
         <div flex="50">
-            <md-button class="md-raised md-warn btn_crear" ng-click="$ctrl.CreateOrEditTema('Crear', null, null);" style="left: 0;" flex="50">Crear</md-button>
+            <md-button class="md-raised md-warn btn_crear" ng-click="$ctrl.CreateOrEditTema('Crear', null, null);" style="left: 0;" flex="50">
+                <span translate="LNG_CREAR"></span>
+            </md-button>
         </div>
         <div flex style="text-align: right;">
-            <h1 style="margin-right:15px;" class="font-title">Temas</h1>
+            <h1 style="margin-right:15px;" class="font-title"><span translate="LNG_TEMAS"></span></h1>
         </div>
     </div>
 
@@ -16,10 +18,10 @@
         <table datatable="ng" class="table table-responsive table-bordered table-striped">
             <thead>
                 <tr>
-                    <td style="text-align: center;">Tema</td>
-                    <td style="text-align: center;">Materia</td>
-                    <td style="text-align: center;">Precio Hora</td>
-                    <td style="text-align: center;">Acciones</td>
+                    <td style="text-align: center;"><span translate="LNG_TEMA"></span></td>
+                    <td style="text-align: center;"><span translate="LNG_MATERIA"></span></td>
+                    <td style="text-align: center;"><span translate="LNG_PRECHORA"></span></td>
+                    <td style="text-align: center;"><span translate="LGN_ACCIONES"></span></td>
                 </tr>
             </thead>
             <tbody>

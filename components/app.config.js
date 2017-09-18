@@ -64,7 +64,7 @@
             LNG_MSJ_2: "Age is not valid",
             LNG_MSJ_3: "Username already exists",
             LNG_MSJ_4: "You must select a role for the user",
-            LNG_MSJ_5: "A subject with that name already exists",
+            LNG_MSJ_5: "An item with that name already exists",
             LNG_MSJ_6: "You must enter the fields *",
 
             LNG_BORRAR: "Do you want to delete this record?",
@@ -73,6 +73,10 @@
             LNG_MATERIAS: "Subjects",
             LNG_MATERIA: "Subject",
             LNG_TEMAS: "Themes",
+            LNG_TEMA: "Theme",
+
+            LNG_PRECIO:"Price",
+            LNG_PRECHORA:"Price Time",
 
             LNG_ALUMNO: "Student",
             LNG_ADMIN: "Administrator",
@@ -139,7 +143,7 @@
             LNG_MSJ_2: "La edad no es valida",
             LNG_MSJ_3: "El username ya existe",
             LNG_MSJ_4: "Debe seleccionar un rol para el usuario",
-            LNG_MSJ_5: "Ya existe una materia con ese nombre",
+            LNG_MSJ_5: "Ya existe un item con ese nombre",
             LNG_MSJ_6: "Debe ingresar los campos *",
 
 
@@ -149,6 +153,10 @@
             LNG_MATERIAS: "Materias",
             LNG_MATERIA: "Materia",
             LNG_TEMAS: "Temas",
+            LNG_TEMA: "Tema",
+
+            LNG_PRECIO:"Precio",
+            LNG_PRECHORA:"Precio Hora",
 
             LNG_ALUMNO: "Alumno",
             LNG_ADMIN: "Administrador",

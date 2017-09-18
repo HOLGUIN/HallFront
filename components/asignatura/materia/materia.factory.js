@@ -49,7 +49,6 @@
                 }, function (promise) {
                     reject(promise);
                 })
-
             });
         }
 

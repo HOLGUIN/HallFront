@@ -3,9 +3,9 @@
 
     angular.module('app.asignatura.tema', []).controller('TemaController', TemaController)
 
-    TemaController.$inject = ['temaFactory', 'SelectsFactory', '$state', '$scope', '$uibModal', '$mdDialog', 'toastr'];
+    TemaController.$inject = ['temaFactory', 'SelectsFactory', '$state', '$scope', '$uibModal', '$mdDialog', 'toastr', '$translate'];
 
-    function TemaController(temaFactory, SelectsFactory, $state, $scope, $uibModal, $mdDialog, toastr) {
+    function TemaController(temaFactory, SelectsFactory, $state, $scope, $uibModal, $mdDialog, toastr, $translate) {
 
         var self = this;
         self.temas = [];
@@ -33,18 +33,19 @@
         function deleteTema(modelo, index) {
             temaFactory.deleteTema(modelo).then(function (response) {
                 self.temas.splice(index, 1);
-                toastr.successhall("Se eliminó exitosamente");
+                toastr.successhall($translate.instant('LNG_BORRARSUC'));
             }, handleError);
         }
 
         function CreateOrEditTema(accion, hlntemaid, index) {
 
             var titulo = null;
+
             if (accion == "Crear") {
-                titulo = "Crear Tema";
+                titulo = $translate.instant('LNG_CREAR') + " " + $translate.instant('LNG_TEMA');
             }
             else if (accion == "Editar") {
-                titulo = "Editar Tema";
+                titulo = $translate.instant('LNG_EDITAR') + " " + $translate.instant('LNG_TEMA');
             }
             if (hlntemaid == null) {
                 hlntemaid = 0;
@@ -66,7 +67,7 @@
                         titulo: function () { return titulo },
                         index: function () { return index },
                         scope: function () { return self },
-                        handleError: function (){ return handleError}
+                        handleError: function () { return handleError }
                     }
                 });
                 modalInstance.result.then(function (data) {
@@ -77,7 +78,7 @@
         }
 
         function handleError(response) {
-            toastr.errorhall(response.data);
+            toastr.errorhall($translate.instant(response.data));
         }
 
         function showConfirm(ev, modelo, index) {
@@ -92,13 +93,12 @@
                     angular.element($cancelButton).addClass('md-raised hbtn-primary');
                     $actionsSection.children[0] = $confirmButton;
                     $actionsSection.children[1] = $cancelButton;
-
                 }
             })
-                .title('Desea eliminar este registro ?')
+                .title($translate.instant('LNG_BORRAR'))
                 .targetEvent(ev)
-                .ok('Aceptar')
-                .cancel('Cancelar')
+                .ok($translate.instant('LNG_ACEPTAR'))
+                .cancel($translate.instant('LGN_CANCEL'))
                 .hasBackdrop(false);
             $mdDialog.show(confirm).then(function () {
                 self.deleteTema(modelo, index);
@@ -109,7 +109,7 @@
     }
 
 
-    function ModalController($uibModalInstance, $scope, $http, temaFactory, toastr, titulo, index, scope, handleError) {
+    function ModalController($uibModalInstance, $scope, $http, temaFactory, toastr, $translate, titulo, index, scope, handleError) {
 
         var self = this;
         self.titulo = titulo;
@@ -138,7 +138,7 @@
                 self.tema = response.data;
                 self.temas.push(response.data);
                 cancel();
-                toastr.successhall("Se creo con exito.");
+                toastr.successhall($translate.instant('LNG_CREATESUCS'));
             }, handleError);
         }
 
@@ -147,7 +147,7 @@
             temaFactory.editarTema(modelo).then(function (response) {
                 self.temas[index] = response.data;
                 cancel();
-                toastr.successhall("Se editó con exito.");
+                toastr.successhall($translate.instant('LNG_EDITSUCS'));
             }, handleError);
         }
 

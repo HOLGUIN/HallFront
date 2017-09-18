@@ -128,7 +128,7 @@
             materiaFactory.editarMateria(modelo).then(function (response) {
                 self.materias[index] = response.data;
                 cancel();
-                handleError($translate.instant('LNG_EDITSUCS'));
+                toastr.successhall($translate.instant('LNG_EDITSUCS'));
             }, handleError);
         }
 
