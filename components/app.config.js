@@ -38,8 +38,11 @@
             LNG_TELEFONO: "Phone",
             LNG_CORREO: "Email",
             LNG_PAIS: "Country",
+            LNG_PAISES: "Countrys",
             LNG_DEPART: "Department",
+            LNG_DEPARTS: "Departments",
             LNG_CIUDAD: "City",
+            LNG_CIUDADES: "Citys",
             LNG_USERNAME: "Username",
             LNG_ACTIVO: "Active",
 
@@ -67,6 +70,8 @@
             LNG_MSJ_5: "An item with that name already exists",
             LNG_MSJ_6: "You must enter the fields *",
             LNG_MSJ_7: "Start time must be less than the final",
+            LNG_MSJ_8: "A department for this country already exists",
+            LNG_MSJ_9: "This city already exists for this department",
 
             LNG_BORRAR: "Do you want to delete this record?",
             LNG_BORRARSUC: "Successfully deleted",
@@ -80,6 +85,7 @@
             LNG_HF: "End Time",
             LNG_TH: "Total Hours",
 
+            LNG_CODIGO: "Code",
             LNG_PRECIO: "Price",
             LNG_PRECHORA: "Price Time",
 
@@ -122,8 +128,11 @@
             LNG_TELEFONO: "Telefono",
             LNG_CORREO: "Correo",
             LNG_PAIS: "Pais",
+            LNG_PAISES: "Paises",
             LNG_DEPART: "Departamento",
+            LNG_DEPARTS: "Departamentos",
             LNG_CIUDAD: "Ciudad",
+            LNG_CIUDADES: "Ciudades",
             LNG_USERNAME: "Username",
             LNG_ACTIVO: "Activo",
 
@@ -151,7 +160,8 @@
             LNG_MSJ_5: "Ya existe un item con ese nombre",
             LNG_MSJ_6: "Debe ingresar los campos *",
             LNG_MSJ_7: "La hora inicial debe ser menor a la final",
-
+            LNG_MSJ_8: "Ya existe un departamento para este pais",
+            LNG_MSJ_9: "Ya existe esta ciudad para este deparatamento",
 
             LNG_BORRAR: "Do you want to delete this record?",
             LNG_BORRARSUC: "Successfully deleted",
@@ -165,6 +175,7 @@
             LNG_HF: "Hora Final",
             LNG_TH: "Total Horas",
 
+            LNG_CODIGO: "Codigo",
             LNG_PRECIO: "Precio",
             LNG_PRECHORA: "Precio Hora",
 

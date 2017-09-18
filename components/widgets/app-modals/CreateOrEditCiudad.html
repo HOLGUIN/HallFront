@@ -1,4 +1,3 @@
-
 <div class="modal-header">
     <h3 class="modal-title text-center" id="modal-title" ng-bind="$ctrl.titulo"></h3>
 </div>
@@ -8,22 +7,22 @@
 
         <div class="row">
             <div class="col-sm-4 col-xs-4 col-md-4">
-                Pais <strong>*</strong>
+                <span translate="LNG_PAIS"></span> <strong>*</strong>
             </div>
             <div class="col-sm-6 col-xs-6 col-md-6">
 
-    <ui-select ng-model="$ctrl.scope.paises.selected" theme="selectize" reset-search-input="false" title="Seleccione un Pais"
+                <ui-select ng-model="$ctrl.scope.paises.selected" theme="selectize" reset-search-input="false" title="Seleccione un Pais"
                     ng-change="$ctrl.Depts($ctrl.scope.paises.selected);" append-to-body="true">
                     <ui-select-match placeholder="seleccionar...">{{$select.selected.Text}}</ui-select-match>
                     <ui-select-choices repeat="item in  $ctrl.scope.paises | filter : $select.search" refresh-delay="0">
                         <div ng-bind-html="item.Text | highlight: $select.search"></div>
                     </ui-select-choices>
-                    </ui-select>
+                </ui-select>
             </div>
         </div>
         <div class="row" style="margin-top:10px;">
             <div class="col-sm-4 col-xs-4 col-md-4">
-                Departamento <strong>*</strong>
+                <span translate="LNG_DEPART"></span> <strong>*</strong>
             </div>
             <div class="col-sm-6 col-xs-6 col-md-6">
                 <ui-select ng-model="$ctrl.departamentos.selected" theme="selectize" reset-search-input="false" title="Seleccione un Departamento"
@@ -32,12 +31,12 @@
                     <ui-select-choices repeat="item in  $ctrl.departamentos | filter : $select.search" refresh-delay="0">
                         <div ng-bind-html="item.Text | highlight: $select.search"></div>
                     </ui-select-choices>
-                    </ui-select>
+                </ui-select>
             </div>
         </div>
         <div class="row" style="margin-top:10px;">
             <div class="col-sm-4 col-xs-4 col-md-4">
-                Ciudad <strong>*</strong>
+                <span translate="LNG_CIUDAD"></span> <strong>*</strong>
             </div>
             <div class="col-sm-6 col-xs-6 col-md-6">
                 <input type="text" class="form-control" ng-model="$ctrl.Ciudad.nombreciu" required/>
@@ -45,7 +44,7 @@
         </div>
         <div class="row" style="margin-top:10px;">
             <div class="col-sm-4 col-xs-4 col-md-4">
-                Codigo Post
+                <span translate="LNG_CODIGO"></span>
             </div>
             <div class="col-sm-6 col-xs-6 col-md-6">
                 <input class="form-control" ng-model="$ctrl.Ciudad.codigopost" />
@@ -56,10 +55,10 @@
 <div class="modal-footer">
     <md-button class="md-raised hbtn-success" style="	background-color : #024959;
 	color:white;
-	margin:2px;" type="button" ng-if="$ctrl.Ciudad.hlnciudadid === 0" ng-click="$ctrl.CrearCiudad($ctrl.Ciudad)">Guardar
-        </md-button>
-        <md-button class="md-raised hbtn-success" type="button" ng-if="$ctrl.Ciudad.hlnciudadid > 0" ng-click="$ctrl.editarCiudad($ctrl.Ciudad)">Guardar
-        </md-button>
-        <md-button class="hbtn-primary md-raised " type="button" ng-click="$ctrl.cancel()">Cancelar
-        </md-button>
+	margin:2px;" type="button" ng-if="$ctrl.Ciudad.hlnciudadid === 0" ng-click="$ctrl.CrearCiudad($ctrl.Ciudad)"><span translate="LGN_GUARDAR"></span>
+    </md-button>
+    <md-button class="md-raised hbtn-success" type="button" ng-if="$ctrl.Ciudad.hlnciudadid > 0" ng-click="$ctrl.editarCiudad($ctrl.Ciudad)"><span translate="LGN_GUARDAR"></span>
+    </md-button>
+    <md-button class="hbtn-primary md-raised " type="button" ng-click="$ctrl.cancel()"><span translate="LGN_CANCEL"></span>
+    </md-button>
 </div>

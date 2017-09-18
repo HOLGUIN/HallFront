@@ -5,9 +5,9 @@
         .module('app.ubicacion.departamento')
         .controller('DepartamentoController', DepartamentoController);
 
-    DepartamentoController.$inject = ['DepartamentoFactory', 'SelectsFactory', '$state', '$scope', '$uibModal', '$mdDialog', 'toastr'];
+    DepartamentoController.$inject = ['DepartamentoFactory', 'SelectsFactory', '$state', '$scope', '$uibModal', '$mdDialog', 'toastr', '$translate'];
 
-    function DepartamentoController(DepartamentoFactory, SelectsFactory, $state, $scope, $uibModal, $mdDialog, toastr) {
+    function DepartamentoController(DepartamentoFactory, SelectsFactory, $state, $scope, $uibModal, $mdDialog, toastr, $translate) {
 
 
         var self = this;
@@ -35,7 +35,7 @@
         function deleteDept(modelo, index) {
             DepartamentoFactory.deleteDept(modelo).then(function (response) {
                 self.Depts.splice(index, 1);
-                toastr.successhall("Se eliminó exitosamente");
+                toastr.successhall($translate.instant('LNG_BORRARSUC'));
             }, handleError);
         }
 
@@ -44,10 +44,10 @@
             var titulo = null;
 
             if (accion == "Crear") {
-                titulo = "Crear Departamento";
+                titulo = $translate.instant('LNG_CREAR') + " " + $translate.instant('LNG_DEPART');
             }
             else if (accion == "Editar") {
-                titulo = "Editar Departamento";
+                titulo = $translate.instant('LNG_EDITAR') + " " + $translate.instant('LNG_DEPART');
             }
 
             if (hlndepartamentoid == null) {
@@ -70,7 +70,7 @@
                         titulo: function () { return titulo },
                         index: function () { return index },
                         scope: function () { return self },
-                        handleError:function(){return handleError}
+                        handleError: function () { return handleError }
                     }
                 });
                 modalInstance.result.then(function (data) {
@@ -81,7 +81,7 @@
         }
 
         function handleError(response) {
-            toastr.errorhall(response.data, "Error");
+            toastr.errorhall($translate.instant(response.data));
         }
 
         function showConfirm(ev, modelo, index) {
@@ -99,10 +99,10 @@
 
                 }
             })
-                .title('Desea eliminar este registro ?')
+                .title($translate.instant('LNG_BORRAR'))
                 .targetEvent(ev)
-                .ok('Aceptar')
-                .cancel('Cancelar')
+                .ok($translate.instant('LNG_ACEPTAR'))
+                .cancel($translate.instant('LGN_CANCEL'))
                 .hasBackdrop(false);
             $mdDialog.show(confirm).then(function () {
                 self.deleteDept(modelo, index);
@@ -113,7 +113,7 @@
     }
 
 
-    function ModalController($uibModalInstance, $scope, $http, DepartamentoFactory, toastr, titulo, index, scope, handleError) {
+    function ModalController($uibModalInstance, $translate, $scope, $http, DepartamentoFactory, toastr, titulo, index, scope, handleError) {
 
         var self = this;
         self.titulo = titulo;
@@ -123,7 +123,7 @@
         self.crearDept = crearDept;
         self.editarDept = editarDept;
         self.cancel = cancel;
-        
+
         //si el departamento tiene pais selecciona el pais correspondiente 
         if (self.Dept.hlnpaisid == 0) {
             scope.paises.selected = null;
@@ -139,7 +139,7 @@
                 self.Dept = response.data;
                 self.Depts.push(response.data);
                 cancel();
-                toastr.successhall("Se creo con exito.");
+                toastr.successhall($translate.instant('LNG_CREATESUCS'));
             }, handleError);
         }
 
@@ -148,7 +148,7 @@
             DepartamentoFactory.editarDept(modelo).then(function (response) {
                 self.Depts[index] = response.data;
                 cancel();
-                toastr.successhall("Se editó con exito.");
+                toastr.successhall($translate.instant('LNG_EDITSUCS'));
             }, handleError);
         }
 

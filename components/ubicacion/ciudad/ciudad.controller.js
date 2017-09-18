@@ -5,9 +5,9 @@
         .module('app.ubicacion.ciudad')
         .controller('CiudadController', CiudadController);
 
-    CiudadController.$inject = ['CiudadFactory', 'SelectsFactory', '$state', '$scope', '$uibModal', '$mdDialog', 'toastr'];
+    CiudadController.$inject = ['CiudadFactory', 'SelectsFactory', '$state', '$scope', '$uibModal', '$mdDialog', 'toastr', '$translate'];
 
-    function CiudadController(CiudadFactory, SelectsFactory, $state, $scope, $uibModal, $mdDialog, toastr) {
+    function CiudadController(CiudadFactory, SelectsFactory, $state, $scope, $uibModal, $mdDialog, toastr, $translate) {
 
         var self = this;
         self.Ciudades = [];
@@ -36,7 +36,7 @@
         function deleteCiudad(modelo, index) {
             CiudadFactory.deleteCiudad(modelo).then(function (response) {
                 self.Ciudades.splice(index, 1);
-                toastr.successhall("Se eliminó exitosamente");
+                toastr.successhall($translate.instant('LNG_BORRARSUC'));
             }, handleError);
         }
 
@@ -44,11 +44,12 @@
 
             var titulo = null;
 
+
             if (accion == "Crear") {
-                titulo = "Crear Ciudad";
+                titulo = $translate.instant('LNG_CREAR') + " " + $translate.instant('LNG_CIUDAD');
             }
             else if (accion == "Editar") {
-                titulo = "Editar Ciudad";
+                titulo = $translate.instant('LNG_EDITAR') + " " + $translate.instant('LNG_CIUDAD');
             }
 
             if (hlnciudadid == null) {
@@ -56,7 +57,7 @@
             }
 
             CiudadFactory.getCiudad(hlnciudadid).then(function (response) {
-            
+
                 self.Ciudad = response.data;
 
                 console.log(self);
@@ -73,7 +74,7 @@
                         titulo: function () { return titulo },
                         index: function () { return index },
                         scope: function () { return self },
-                        handleError: function (){return handleError}
+                        handleError: function () { return handleError }
                     }
                 });
                 modalInstance.result.then(function (data) {
@@ -84,9 +85,8 @@
         }
 
         function handleError(response) {
-           toastr.errorhall(response.data);
+            toastr.errorhall($translate.instant(response.data));
         }
-
 
         function showConfirm(ev, modelo, index) {
             // Appending dialog to document.body to cover sidenav in docs app
@@ -102,10 +102,10 @@
                     $actionsSection.children[1] = $cancelButton;
                 }
             })
-                .title('Desea eliminar este registro ?')
+                .title($translate.instant('LNG_BORRAR'))
                 .targetEvent(ev)
-                .ok('Aceptar')
-                .cancel('Cancelar')
+                .ok($translate.instant('LNG_ACEPTAR'))
+                .cancel($translate.instant('LGN_CANCEL'))
                 .hasBackdrop(false);
             $mdDialog.show(confirm).then(function () {
                 self.deleteCiudad(modelo, index);
@@ -116,7 +116,7 @@
     }
 
 
-    function ModalController($uibModalInstance, $scope, $http, CiudadFactory, toastr, titulo, index, scope, handleError) {
+    function ModalController($uibModalInstance, $translate, $scope, $http, CiudadFactory, toastr, titulo, index, scope, handleError) {
 
         var self = this;
         self.titulo = titulo;
@@ -130,34 +130,32 @@
         self.Depts = Depts;
 
         //selecciona el pais si tiene seleccionado el pais
-        if(self.Ciudad.hlnpaisid == 0)
-        {
+        if (self.Ciudad.hlnpaisid == 0) {
             scope.paises.selected = null;
-        }else{
-           scope.paises.selected = scope.paises.filter(function (item) {
+        } else {
+            scope.paises.selected = scope.paises.filter(function (item) {
                 return item.Value == self.Ciudad.hlnpaisid;
             })[0];
         }
-         
+
 
         //selecciona el departamento si tiene seleccioando un departamento 
-        if(self.Ciudad.hlndepartamentoid == 0)
-        {
+        if (self.Ciudad.hlndepartamentoid == 0) {
             self.departamentos.selected = null;
-        }else{
-           
-           self.departamentos = scope.departamentos.filter(function (item) {
+        } else {
+
+            self.departamentos = scope.departamentos.filter(function (item) {
                 return item.Group.Name == self.Ciudad.hlnpaisid;
             });
-              
-           self.departamentos.selected = scope.departamentos.filter(function (item) {
+
+            self.departamentos.selected = scope.departamentos.filter(function (item) {
                 return item.Value == self.Ciudad.hlndepartamentoid;
             })[0];
-        } 
-        
+        }
+
 
         function CrearCiudad(modelo) {
-               
+
             //asigna el pais y el departammento seleccionado 
             modelo.hlnpaisid = scope.paises.selected.Value;
             modelo.hlndepartamentoid = self.departamentos.selected.Value;
@@ -166,20 +164,20 @@
                 self.Ciudad = response.data;
                 self.Ciudades.push(response.data);
                 cancel();
-                toastr.successhall("Se creo con exito.");
+                toastr.successhall($translate.instant('LNG_CREATESUCS'));
             }, handleError);
         }
 
         function editarCiudad(modelo) {
-            
-             //asigna el pais y el departammento seleccionado 
+
+            //asigna el pais y el departammento seleccionado 
             modelo.hlnpaisid = scope.paises.selected.Value;
             modelo.hlndepartamentoid = self.departamentos.selected.Value;
 
             CiudadFactory.editarCiudad(modelo).then(function (response) {
                 self.Ciudades[index] = response.data;
                 cancel();
-                toastr.successhall("Se editó con exito.");
+                toastr.successhall($translate.instant('LNG_EDITSUCS'));
             }, handleError);
         }
 

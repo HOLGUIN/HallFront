@@ -5,9 +5,9 @@
         .module('app.ubicacion.pais')
         .controller('PaisController', PaisController);
 
-    PaisController.$inject = ['PaisFactory', '$state', '$scope', '$uibModal', '$mdDialog', 'toastr'];
+    PaisController.$inject = ['PaisFactory', '$state', '$scope', '$uibModal', '$mdDialog', 'toastr', '$translate'];
 
-    function PaisController(PaisFactory, $state, $scope, $uibModal, $mdDialog, toastr) {
+    function PaisController(PaisFactory, $state, $scope, $uibModal, $mdDialog, toastr, $translate) {
 
         var self = this;
         self.Paises = [];
@@ -27,7 +27,7 @@
         function deletePais(modelo, index) {
             PaisFactory.deletePais(modelo).then(function (response) {
                 self.Paises.splice(index, 1);
-                toastr.successhall("Se eliminó exitosamente.");
+                toastr.successhall($translate.instant('LNG_BORRARSUC'));
             }, handleError);
         }
 
@@ -36,10 +36,10 @@
             var titulo = null;
 
             if (accion == "Crear") {
-                titulo = "Crear Pais";
+                titulo = $translate.instant('LNG_CREAR') + " " + $translate.instant('LNG_PAIS');
             }
             else if (accion == "Editar") {
-                titulo = "Editar Pais";
+                titulo = $translate.instant('LNG_EDITAR') + " " + $translate.instant('LNG_PAIS');
             }
             if (hlnpaisid == null) {
                 hlnpaisid = 0;
@@ -72,9 +72,8 @@
         }
 
         function handleError(response) {
-            toastr.errorhall(response.data, "Error");
+            toastr.errorhall($translate.instant(response.data));
         }
-
 
         function showConfirm(ev, modelo, index) {
             // Appending dialog to document.body to cover sidenav in docs app
@@ -91,10 +90,10 @@
 
                 }
             })
-                .title('Desea eliminar este registro ?')
+                .title($translate.instant('LNG_BORRAR'))
                 .targetEvent(ev)
-                .ok('Aceptar')
-                .cancel('Cancelar')
+                .ok($translate.instant('LNG_ACEPTAR'))
+                .cancel($translate.instant('LGN_CANCEL'))
                 .hasBackdrop(false);
             $mdDialog.show(confirm).then(function () {
                 self.deletePais(modelo, index);
@@ -105,7 +104,7 @@
     }
 
 
-    function ModalController($uibModalInstance, $scope, $http, PaisFactory, toastr, titulo, index, scope, handleError) {
+    function ModalController($uibModalInstance, $translate, $scope, $http, PaisFactory, toastr, titulo, index, scope, handleError) {
 
         var self = this;
         self.titulo = titulo;
@@ -121,7 +120,7 @@
                 self.Pais = response.data;
                 self.Paises.push(response.data);
                 cancel();
-                toastr.successhall("Se creo con exito.");
+                toastr.successhall($translate.instant('LNG_CREATESUCS'));
             }, handleError);
         }
 
@@ -129,7 +128,7 @@
             PaisFactory.editarPais(modelo).then(function (response) {
                 self.Paises[index] = response.data;
                 cancel();
-                toastr.successhall("Se editó con exito.");
+                toastr.successhall($translate.instant('LNG_EDITSUCS'));
             }, handleError);
         }
 
