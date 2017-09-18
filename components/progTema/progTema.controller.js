@@ -5,9 +5,9 @@
         .module('app.progtema')
         .controller('progTemaController', progTemaController);
 
-    progTemaController.$inject = ['ProgTemaFactory', 'SelectsFactory', '$state', '$scope', '$uibModal', '$mdDialog', 'toastr', '$filter'];
+    progTemaController.$inject = ['ProgTemaFactory', 'SelectsFactory', '$state', '$scope', '$uibModal', '$mdDialog', 'toastr', '$filter', '$translate'];
 
-    function progTemaController(ProgTemaFactory, SelectsFactory, $state, $scope, $uibModal, $mdDialog, toastr, $filter) {
+    function progTemaController(ProgTemaFactory, SelectsFactory, $state, $scope, $uibModal, $mdDialog, toastr, $filter, $translate) {
 
         var self = this;
         self.progtemas = [];
@@ -37,7 +37,7 @@
         function deletePrgotema(modelo, index) {
             ProgTemaFactory.deleteProgTema(modelo).then(function (response) {
                 self.progtemas.splice(index, 1);
-                toastr.successhall("Se eliminó exitosamente.");
+                toastr.successhall($translate.instant('LNG_BORRARSUC'));
             }, handleError);
         }
 
@@ -45,10 +45,10 @@
 
             var titulo = null;
             if (accion == "Crear") {
-                titulo = "Programar Tema";
+                titulo = $translate.instant('LNG_CREAR') + " " + $translate.instant('LGN_CONFIG_MENU');
             }
             else if (accion == "Editar") {
-                titulo = "Editar Programación";
+                titulo = $translate.instant('LNG_EDITAR') + " " + $translate.instant('LGN_CONFIG_MENU');
             }
 
             if (hlnprogtemaid == null) {
@@ -82,7 +82,7 @@
         }
 
         function handleError(response) {
-            toastr.errorhall(response.data, "Error");
+            toastr.errorhall($translate.instant(response.data));
         }
 
         function showConfirm(ev, modelo, index) {
@@ -100,10 +100,10 @@
 
                 }
             })
-                .title('Desea eliminar este registro ?')
+                .title($translate.instant('LNG_BORRAR'))
                 .targetEvent(ev)
-                .ok('Aceptar')
-                .cancel('Cancelar')
+                .ok($translate.instant('LNG_ACEPTAR'))
+                .cancel($translate.instant('LGN_CANCEL'))
                 .hasBackdrop(false);
             $mdDialog.show(confirm).then(function () {
                 self.deletePrgotema(modelo, index);
@@ -113,7 +113,7 @@
         };
     }
 
-    function ModalController($uibModalInstance, $scope, $http, ProgTemaFactory, $filter, toastr, titulo, index, scope, handleError) {
+    function ModalController($uibModalInstance, $translate, $scope, $http, ProgTemaFactory, $filter, toastr, titulo, index, scope, handleError) {
 
         var self = this;
         self.titulo = titulo;
@@ -184,7 +184,7 @@
                 self.progtema = response.data;
                 self.progtemas.push(response.data);
                 cancel();
-                toastr.successhall("Se creo con exito.");
+                toastr.successhall($translate.instant('LNG_CREATESUCS'));
             }, handleError);
         }
 
@@ -207,7 +207,7 @@
             ProgTemaFactory.editarProgTema(modelo).then(function (response) {
                 self.progtemas[index] = response.data;
                 cancel();
-                toastr.successhall("Se editó con exito.");
+                toastr.successhall($translate.instant('LNG_EDITSUCS'));
             }, handleError);
         }
 

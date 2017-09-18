@@ -66,6 +66,7 @@
             LNG_MSJ_4: "You must select a role for the user",
             LNG_MSJ_5: "An item with that name already exists",
             LNG_MSJ_6: "You must enter the fields *",
+            LNG_MSJ_7: "Start time must be less than the final",
 
             LNG_BORRAR: "Do you want to delete this record?",
             LNG_BORRARSUC: "Successfully deleted",
@@ -75,8 +76,12 @@
             LNG_TEMAS: "Themes",
             LNG_TEMA: "Theme",
 
-            LNG_PRECIO:"Price",
-            LNG_PRECHORA:"Price Time",
+            LNG_HI: "Start Time",
+            LNG_HF: "End Time",
+            LNG_TH: "Total Hours",
+
+            LNG_PRECIO: "Price",
+            LNG_PRECHORA: "Price Time",
 
             LNG_ALUMNO: "Student",
             LNG_ADMIN: "Administrator",
@@ -145,6 +150,7 @@
             LNG_MSJ_4: "Debe seleccionar un rol para el usuario",
             LNG_MSJ_5: "Ya existe un item con ese nombre",
             LNG_MSJ_6: "Debe ingresar los campos *",
+            LNG_MSJ_7: "La hora inicial debe ser menor a la final",
 
 
             LNG_BORRAR: "Do you want to delete this record?",
@@ -155,8 +161,12 @@
             LNG_TEMAS: "Temas",
             LNG_TEMA: "Tema",
 
-            LNG_PRECIO:"Precio",
-            LNG_PRECHORA:"Precio Hora",
+            LNG_HI: "Hora Inicio",
+            LNG_HF: "Hora Final",
+            LNG_TH: "Total Horas",
+
+            LNG_PRECIO: "Precio",
+            LNG_PRECHORA: "Precio Hora",
 
             LNG_ALUMNO: "Alumno",
             LNG_ADMIN: "Administrador",

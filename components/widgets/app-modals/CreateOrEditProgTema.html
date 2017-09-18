@@ -1,4 +1,3 @@
-
 <div class="modal-header">
     <h3 class="modal-title text-center" id="modal-title" ng-bind="$ctrl.titulo"></h3>
 </div>
@@ -6,66 +5,63 @@
 
     <form class="Form " name="$ctrl.form">
 
-        <div class="row" >
+        <div class="row">
             <div class="col-sm-4 col-xs-4 col-md-4">
-                Materia <strong>*</strong>
+                <span translate="LNG_MATERIA"></span> <strong>*</strong>
             </div>
             <div class="col-sm-6 col-xs-6 col-md-6">
-                 
-                   <ui-select ng-model="$ctrl.scope.materias.selected" theme="selectize" reset-search-input="false" title="Seleccione una Materia"
+
+                <ui-select ng-model="$ctrl.scope.materias.selected" theme="selectize" reset-search-input="false" title="Seleccione una Materia"
                     ng-change="$ctrl.Temas($ctrl.scope.materias.selected);" append-to-body="true">
                     <ui-select-match placeholder="seleccionar...">{{$select.selected.Text}}</ui-select-match>
                     <ui-select-choices repeat="item in  $ctrl.scope.materias | filter : $select.search" refresh-delay="0">
                         <div ng-bind-html="item.Text | highlight: $select.search"></div>
                     </ui-select-choices>
-                    </ui-select>
+                </ui-select>
 
             </div>
         </div>
-      <div class="row" style="margin-top:10px;">
+        <div class="row" style="margin-top:10px;">
             <div class="col-sm-4 col-xs-4 col-md-4">
-                Tema <strong>*</strong>
+                <span translate="LNG_TEMA"></span> <strong>*</strong>
             </div>
             <div class="col-sm-6 col-xs-6 col-md-6">
-
-<ui-select ng-model="$ctrl.temas.selected" theme="selectize" reset-search-input="false" title="Seleccione una Materia"
-                    append-to-body="true">
+                <ui-select ng-model="$ctrl.temas.selected" theme="selectize" reset-search-input="false" title="Seleccione una Materia" append-to-body="true">
                     <ui-select-match placeholder="seleccionar...">{{$select.selected.Text}}</ui-select-match>
                     <ui-select-choices repeat="item in  $ctrl.temas | filter : $select.search" refresh-delay="0">
                         <div ng-bind-html="item.Text | highlight: $select.search"></div>
                     </ui-select-choices>
-                    </ui-select>
-
+                </ui-select>
             </div>
         </div>
-          <div class="row"  style="margin-top:10px;">
+        <div class="row" style="margin-top:10px;">
             <div class="col-sm-4 col-xs-4 col-md-4">
-                Profesor <strong>*</strong>
+                <span translate="LGN_PROFESOR"></span> <strong>*</strong>
             </div>
             <div class="col-sm-6 col-xs-6 col-md-6">
-               <ui-select ng-model="$ctrl.scope.profesores.selected" theme="selectize" reset-search-input="false" title="Seleccione una Materia"
+                <ui-select ng-model="$ctrl.scope.profesores.selected" theme="selectize" reset-search-input="false" title="Seleccione una Materia"
                     append-to-body="true">
                     <ui-select-match placeholder="seleccionar...">{{$select.selected.Text}}</ui-select-match>
                     <ui-select-choices repeat="item in  $ctrl.scope.profesores | filter : $select.search" refresh-delay="0">
                         <div ng-bind-html="item.Text | highlight: $select.search"></div>
                     </ui-select-choices>
-                    </ui-select>
+                </ui-select>
             </div>
         </div>
         <div class="row" style="margin-top:10px;">
             <div class="col-sm-4 col-xs-4 col-md-4">
-               Hora Inicio <strong>*</strong>
+                <span translate="LNG_HI"></span> <strong>*</strong>
             </div>
             <div class="col-sm-6 col-xs-6 col-md-6">
-              <input type="time" class="form-control" ng-model="$ctrl.progtema.hi" /> 
+                <input type="time" class="form-control" ng-model="$ctrl.progtema.hi" />
             </div>
         </div>
-         <div class="row" style="margin-top:10px;">
+        <div class="row" style="margin-top:10px;">
             <div class="col-sm-4 col-xs-4 col-md-4">
-               Hora Fin
+                <span translate="LNG_HF"></span> <strong>*</strong>
             </div>
             <div class="col-sm-6 col-xs-6 col-md-6">
-              <input type="time" class="form-control" ng-model="$ctrl.progtema.hf" /> 
+                <input type="time" class="form-control" ng-model="$ctrl.progtema.hf" />
             </div>
         </div>
     </form>
@@ -73,10 +69,10 @@
 <div class="modal-footer">
     <md-button class="md-raised hbtn-success" style="	background-color : #024959;
 	color:white;
-	margin:2px;" type="button" ng-if="$ctrl.progtema.hlnprogtemaid === 0" ng-click="$ctrl.crearProgTema($ctrl.progtema)">Guardar
+	margin:2px;" type="button" ng-if="$ctrl.progtema.hlnprogtemaid === 0" ng-click="$ctrl.crearProgTema($ctrl.progtema)"><span translate="LGN_GUARDAR"></span>
     </md-button>
-    <md-button class="md-raised hbtn-success" type="button" ng-if="$ctrl.progtema.hlnprogtemaid > 0" ng-click="$ctrl.editarProgTema($ctrl.progtema)">Guardar
+    <md-button class="md-raised hbtn-success" type="button" ng-if="$ctrl.progtema.hlnprogtemaid > 0" ng-click="$ctrl.editarProgTema($ctrl.progtema)"><span translate="LGN_GUARDAR"></span>
     </md-button>
-    <md-button class="hbtn-primary md-raised " type="button" ng-click="$ctrl.cancel()">Cancelar
+    <md-button class="hbtn-primary md-raised " type="button" ng-click="$ctrl.cancel()"><span translate="LGN_CANCEL"></span>
     </md-button>
 </div>

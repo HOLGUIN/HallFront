@@ -6,34 +6,39 @@
 
         </div>
         <div flex="20">
-            <md-button class="md-raised md-warn btn_crear" ng-click="$ctrl.CreateOrEditProgtema('Crear', null, null);" style="left: 0;" flex="50">Crear</md-button>
+            <md-button class="md-raised md-warn btn_crear" ng-click="$ctrl.CreateOrEditProgtema('Crear', null, null);" style="left: 0;"
+                flex="50">
+                <span translate="LNG_CREAR"></span>
+            </md-button>
         </div>
         <div flex style="text-align: right;">
-            <h1 style="margin-right:15px;" class="font-title">Programar Tema</h1>
+            <h1 style="margin-right:15px;" class="font-title">
+                <span translate="LNG_PROGTEMA_MENU"></span>
+            </h1>
         </div>
     </div>
 
-    
+
     <table datatable="ng" class="table table-bordered table-striped">
         <thead>
             <tr>
                 <th style="text-align:center;width:25%">
-                   Tema
+                    <span translate="LNG_TEMA"></span>
                 </th>
                 <th style="text-align:center;width:25%">
-                   Profesor
+                    <span translate="LGN_PROFESOR"></span>
                 </th>
                 <th style="text-align:center;width:15%">
-                    Hora inicio
+                    <span translate="LNG_HI"></span>
                 </th>
                 <th style="text-align: center;width:15%">
-                    Hora Final
+                    <span translate="LNG_HF"></span>
                 </th>
-                 <th style="text-align: center;">
-                    Total Horas
+                <th style="text-align: center;">
+                    <span translate="LNG_TH"></span>
                 </th>
                 <th style="text-align:center;">
-                    Acciones
+                    <span translate="LGN_ACCIONES"></span>
                 </th>
             </tr>
         </thead>
@@ -42,7 +47,7 @@
                 <td>
                     <span ng-bind="item.tema"></span>
                 </td>
-                  <td>
+                <td>
                     <span ng-bind="item.profesor"></span>
                 </td>
                 <td style="text-align: center;">
@@ -55,7 +60,7 @@
                     <span ng-bind="item.canthoras | number:2"></span>
                 </td>
                 <td style="text-align:center;">
-                    <a class="icon-pencil2 hico" href="" ng-click="$ctrl.CreateOrEditProgtema('Editar', item.hlnprogtemaid, $index);"></a> |
+                    <a class="icon-pencil2 hico" href="" ng-click="$ctrl.CreateOrEditProgtema('Editar', item.hlnprogtemaid, $index);"></a>                    |
                     <a class="icon-bin hico" ng-click="$ctrl.showConfirm($event, item, $index);"></a>
                 </td>
             </tr>
