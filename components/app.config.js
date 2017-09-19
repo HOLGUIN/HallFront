@@ -100,6 +100,7 @@
             LNG_UBICACION_MENU: "Location",
             LGN_CONFIG_MENU: "Configuration",
 
+            LNG_HORA:"Hour",
             LNG_TOMAR:"Take",
             LNG_ENTRE: "Between",
             LNG_SALIR: "Exit",
@@ -198,6 +199,7 @@
             LNG_UBICACION_MENU: "Ubicación",
             LGN_CONFIG_MENU: "Configuración",
 
+            LNG_HORA:"Hora",
             LNG_TOMAR:"Tomar",
             LNG_ENTRE: "Entre",
             LNG_SALIR: "Salir",
