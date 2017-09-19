@@ -5,7 +5,8 @@
             margin-top: 20px;
             margin-right: 10px;
         }
-         .ico {
+
+        .ico {
             font-size: 40px;
             padding: 20px;
         }
@@ -24,9 +25,8 @@
     <div layout="column" layout-align="center center">
         <form id="formDatos" name="formDatos" style="width: 40%;" ng-submit="$ctrl.EditConfig($ctrl.configuracion)">
 
-
             <div layout="row">
-                <span class="txt"><span translate="LNG_EDADMIN"></span></span> 
+                <span class="txt"><span translate="LNG_EDADMIN"></span></span>
 
                 <md-input-container flex="20" ng-show="$ctrl.change">
                     <input id="edad" name="edad" type="text" ng-model="$ctrl.configuracion.edad" class="Login-inputFields" />
@@ -34,12 +34,9 @@
                 <span ng-bind="$ctrl.configuracion.edad" class="txt" ng-show="!$ctrl.change"></span>
             </div>
 
-
             <div layout="row" style="margin-top: 70px;">
-                <md-button class="md-raised md-warn" ng-show="!$ctrl.change" type="button" ng-click="$ctrl.ChangeView();"
-                    flex=""><span ng-bind="$ctrl.tboton"></span></md-button>
-                    <md-button class="md-raised md-warn" ng-show="$ctrl.change" type="submit" ng-click="$ctrl.ChangeView();"
-                        flex=""><span ng-bind="$ctrl.sboton"></span></md-button>
+                <md-button class="md-raised md-warn" ng-show="!$ctrl.change" type="button" ng-click="$ctrl.ChangeView();" flex=""><span ng-bind="$ctrl.tboton"></span></md-button>
+                <md-button class="md-raised md-warn" ng-show="$ctrl.change" type="submit" ng-click="$ctrl.ChangeView();" flex=""><span ng-bind="$ctrl.sboton"></span></md-button>
             </div>
         </form>
 

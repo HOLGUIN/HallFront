@@ -7,19 +7,15 @@
                 <span class="titulo">HALLEARN</span>
             </a>
             <div class="options">
-
-
                 <div class="dropdown">
                     <md-button class="icon-user" data-toggle="dropdown">
                         <span ng-bind="$ctrl.currentUser"> </span><span class="caret" style="margin-left: 5px;margin-bottom: 5px;"></span>
                     </md-button>
                     <ul class="dropdown-menu" style="left: -60px;">
-                        <li><a href="#" ng-click="$ctrl.logout()"><span class="icon-key"></span> Cambiar Contraseña</a></li>
-                        <li><a href="#" ng-click="$ctrl.logout()"><span class="icon-exit"></span> Salir</a></li>
+                        <li><a href="#" ng-click="$ctrl.logout()"><span class="icon-key"></span>  <span translate="LNG_CAMBCONTRASENA"></span></a></li>
+                        <li><a href="#" ng-click="$ctrl.logout()"><span class="icon-exit"></span> <span translate="LNG_SALIR"></span></a></li>
                     </ul>
                 </div>
-
-
             </div>
         </div>
     </div>
@@ -49,9 +45,9 @@
                 </ul>
             </li>
             <li class="submenu_profesor" ng-show="$ctrl.showProfesor">
-                <a href=""><span class="icon-user"></span>Profesor <span class="caret icon-arrow-down6"></span></a>
+                <a href=""><span class="icon-user"></span><span translate="LGN_PROFESOR"></span> <span class="caret icon-arrow-down6"></span></a>
                 <ul class="children children_profesor">
-                    <li><a href=""><span class="icon-spinner6"></span>Iniciar Clase</a></li>
+                    <li><a href=""><span class="icon-spinner6"></span><span translate="LNG_INICIAR_CLASE"></span></a></li>
                 </ul>
             </li>
             <li class="submenu_admin" ng-show="$ctrl.showAdministrador">

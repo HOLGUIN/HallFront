@@ -15,6 +15,7 @@
         //Traduccion en ingles
         $translateProvider.translations('en', {
 
+            LNG_INICIAR_CLASE: "Start Class",
             LNG_INICIAR_SESION: "LOG IN",
             LNG_REGISTRAR: "SIGN IN ",
             LNG_USUARIO_LOG: "User",
@@ -99,6 +100,8 @@
             LNG_UBICACION_MENU: "Location",
             LGN_CONFIG_MENU: "Configuration",
 
+            LNG_SALIR: "Exit",
+            LNG_CAMBCONTRASENA: "Change Password",
             LNG_EDADMIN: "Minimum Age",
 
             BUTTON_LANG_EN: "English",
@@ -108,6 +111,7 @@
         //Traduccion en español
         $translateProvider.translations('es', {
 
+            LNG_INICIAR_CLASE: "Iniciar Clase",
             LNG_INICIAR_SESION: "INICIAR SESIÒN",
             LNG_REGISTRAR: "REGISTRARSE",
             LNG_USUARIO_LOG: "Usuario",
@@ -192,6 +196,8 @@
             LNG_UBICACION_MENU: "Ubicación",
             LGN_CONFIG_MENU: "Configuración",
 
+            LNG_SALIR: "Salir",
+            LNG_CAMBCONTRASENA: "Cambiar Contraseña",
             LNG_EDADMIN: "Edad Minima",
 
             BUTTON_LANG_EN: "Inglés",
