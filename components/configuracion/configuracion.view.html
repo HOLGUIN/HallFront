@@ -3,6 +3,7 @@
         .txt {
             font-size: 30px;
             margin-top: 20px;
+            margin-right: 10px;
         }
          .ico {
             font-size: 40px;
@@ -14,7 +15,9 @@
 
         </div>
         <div flex style="text-align: right;">
-            <h1 style="padding-right:15px;" class="font-title">Configuracion</h1>
+            <h1 style="padding-right:15px;" class="font-title">
+                <span translate="LGN_CONFIG_MENU"></span>
+            </h1>
         </div>
     </div>
 
@@ -23,7 +26,7 @@
 
 
             <div layout="row">
-                <span class="txt"> Edad Minima</Edad> 
+                <span class="txt"><span translate="LNG_EDADMIN"></span></span> 
 
                 <md-input-container flex="20" ng-show="$ctrl.change">
                     <input id="edad" name="edad" type="text" ng-model="$ctrl.configuracion.edad" class="Login-inputFields" />
@@ -33,10 +36,10 @@
 
 
             <div layout="row" style="margin-top: 70px;">
-                <md-button class="md-raised md-warn" ng-show="!$ctrl.change" type="button" style="z-index:{{$ctrl.zindex}}" ng-click="$ctrl.ChangeView();"
-                    flex="">Editar Configuración</md-button>
-                    <md-button class="md-raised md-warn" ng-show="$ctrl.change" type="submit" style="z-index:{{$ctrl.zindex}}" ng-click="$ctrl.ChangeView();"
-                        flex="">Guardar Configuración</md-button>
+                <md-button class="md-raised md-warn" ng-show="!$ctrl.change" type="button" ng-click="$ctrl.ChangeView();"
+                    flex=""><span ng-bind="$ctrl.tboton"></span></md-button>
+                    <md-button class="md-raised md-warn" ng-show="$ctrl.change" type="submit" ng-click="$ctrl.ChangeView();"
+                        flex=""><span ng-bind="$ctrl.sboton"></span></md-button>
             </div>
         </form>
 

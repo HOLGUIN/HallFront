@@ -98,6 +98,9 @@
             LNG_PROGTEMA_MENU: "Schedule Theme",
             LNG_UBICACION_MENU: "Location",
             LGN_CONFIG_MENU: "Configuration",
+
+            LNG_EDADMIN: "Minimum Age",
+
             BUTTON_LANG_EN: "English",
             BUTTON_LANG_ES: "Spanish"
         });
@@ -188,6 +191,9 @@
             LNG_PROGTEMA_MENU: "Programar Temas",
             LNG_UBICACION_MENU: "Ubicación",
             LGN_CONFIG_MENU: "Configuración",
+
+            LNG_EDADMIN: "Edad Minima",
+
             BUTTON_LANG_EN: "Inglés",
             BUTTON_LANG_ES: "Español"
         });

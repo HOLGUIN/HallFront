@@ -5,15 +5,18 @@
         .module('app.configuracion')
         .controller('ConfigController', ConfigController);
 
-    ConfigController.$inject = ['ConfigFactory', '$state', '$scope', 'toastr', '$window'];
+    ConfigController.$inject = ['ConfigFactory', '$state', '$scope', 'toastr', '$translate'];
 
-    function ConfigController(ConfigFactory, $state, $scope, toastr, $window) {
+    function ConfigController(ConfigFactory, $state, $scope, toastr, $translate) {
 
         var self = this;
         self.configuracion = {};
         self.EditConfig = EditConfig;
         self.change = false;
         self.ChangeView = ChangeView;
+         
+        self.tboton =  $translate.instant('LNG_EDITAR') + " " + $translate.instant('LGN_CONFIG_MENU');
+        self.sboton =  $translate.instant('LGN_GUARDAR') + " " + $translate.instant('LGN_CONFIG_MENU');
 
         getConfig();
 
@@ -28,13 +31,13 @@
         }
 
         function handleError(response) {
-            toastr.errorhall(response.data, "Error");
+            toastr.errorhall($translate.instant(response.data));
         }
 
         function EditConfig(modelo) {
             ConfigFactory.putConfig(modelo).then(function (response) {
                 self.configuracion = response.data;
-                toastr.successhall("Se editó con exito.");
+                toastr.successhall($translate.instant('LNG_EDITSUCS'));
             }, handleError);
         }
     }
