@@ -34,17 +34,17 @@
                                     <thead>
                                         <tr>
                                             <td colspan="2" class="col-md-5">
-                                               <strong>Tema:</strong> <span ng-bind="t.tema" ></span> <span type="button" style="margin-right: 30%;" ng-click="$ctrl.desctema(t.tema, t.desctema)" class="icon-question"  title="descripcion del tema"></span>  <strong>Precio:</strong> <span ng-bind="t.preciohora | currency"></span> x hora  
+                                               <strong><span translate="LNG_TEMA"></span>: </strong> <span ng-bind="t.tema" ></span> <span type="button" style="margin-right: 30%;" ng-click="$ctrl.desctema(t.tema, t.desctema)" class="icon-question"  title="descripcion del tema"></span>  <strong><span translate="LNG_PRECIO"></span>:</strong> <span ng-bind="t.preciohora | currency"></span> x hora  
                                             </td>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr ng-repeat="p in t.horarios">                                     
                                             <td style="vertical-align: middle; text-align: left;">
-                                                <span class="icon-alarm"></span> Entre: <span ng-bind="p.horaini"></span>                                                - <span ng-bind="p.horafin"></span>
+                                                <span class="icon-alarm"></span> <span translate="LNG_ENTRE"></span>: <span ng-bind="p.horaini"></span>                                                - <span ng-bind="p.horafin"></span>
                                             </td>
                                             <td style="text-align: center">
-                                                <md-button class="md-raised" style="	background-color : #024959;color:white;margin: 0">Tomar</md-button>
+                                                <md-button class="md-raised" style="	background-color : #024959;color:white;margin: 0"><span translate="LNG_TOMAR"></span></md-button>
                                             </td>
                                         </tr>
                                     </tbody>

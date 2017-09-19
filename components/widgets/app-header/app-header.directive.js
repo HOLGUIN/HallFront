@@ -3,7 +3,7 @@
 
     angular.module('app.header', []).directive('appHeader', appHeader);
 
-    appHeader.$inject = ['$state'];
+    appHeader.$inject = ['$state', "$translate"];
 
 
     function appHeader($state) {
@@ -20,7 +20,7 @@
             templateUrl: 'components/widgets/app-header/app-header.template.html'
         };
 
-        function AppHeaderController($scope, $window, $state, $uibModal, appHeaderFactory) {
+        function AppHeaderController($scope, $window, $state, $uibModal, appHeaderFactory, $translate) {
 
             var self = this;
 
@@ -46,6 +46,8 @@
             self.currentProfesor = usuario.profesor;
             self.currentAlumno = usuario.alumno;
             self.changePassword = changePassword;
+            self.changeLanguage = changeLanguage;
+            self.language = 'en';
 
             activate();
 
@@ -85,6 +87,14 @@
                     }
                 });
             };
+
+ 
+            //Metodo para cambiar el idioma de la aplicación
+            function changeLanguage(language)
+            {
+                self.language = language;
+                $translate.use(self.language);
+            }
 
             function menucontent() {
               //  alert();

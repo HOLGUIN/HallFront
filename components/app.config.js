@@ -100,6 +100,8 @@
             LNG_UBICACION_MENU: "Location",
             LGN_CONFIG_MENU: "Configuration",
 
+            LNG_TOMAR:"Take",
+            LNG_ENTRE: "Between",
             LNG_SALIR: "Exit",
             LNG_CAMBCONTRASENA: "Change Password",
             LNG_EDADMIN: "Minimum Age",
@@ -196,6 +198,8 @@
             LNG_UBICACION_MENU: "Ubicación",
             LGN_CONFIG_MENU: "Configuración",
 
+            LNG_TOMAR:"Tomar",
+            LNG_ENTRE: "Entre",
             LNG_SALIR: "Salir",
             LNG_CAMBCONTRASENA: "Cambiar Contraseña",
             LNG_EDADMIN: "Edad Minima",
