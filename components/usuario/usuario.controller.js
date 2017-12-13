@@ -14,7 +14,8 @@
         self.Usuarios = [];
         self.Usuario = {};
         self.CreateOrEditUsuario = CreateOrEditUsuario;
-        
+        self.ChangePassword = ChangePassword;
+
 
         getUsuarios();
         getListas();
@@ -41,20 +42,43 @@
             if (response.data != null || response.data != "") {
                 toastr.errorhall($translate.instant(response.data), "Error")
             } else {
-                    toastr.errorhall($translate.instant('LNG_ERROR'), "Error");            
+                toastr.errorhall($translate.instant('LNG_ERROR'), "Error");
             }
         }
+
+        function ChangePassword(hlnusuarioid) {
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: 'components/widgets/app-modals/ChangePassword.html',
+                controller: ModalPassword,
+                controllerAs: '$ctrl',
+                windowClass: 'u-modalPosition',
+                size: 'md',
+                resolve: {
+                    hlnusuarioid: function () { return hlnusuarioid },
+                    titulo: function () { return $translate.instant('LNG_CAMBCONTRASENA') },
+                    handleError: function () { return handleError }
+                }
+            });
+            modalInstance.result.then(function (data) {
+            }, function () {
+                //console.log('cerro modal');
+            });
+        }
+
 
         function CreateOrEditUsuario(accion, hlnusuarioid, index) {
 
             var titulo = null;
 
             if (accion == "Crear") {
-                var cruser = $translate.instant('LNG_CREAR')+" "+ $translate.instant('LNG_USUARIO_LOG'); 
+                var cruser = $translate.instant('LNG_CREAR') + " " + $translate.instant('LNG_USUARIO_LOG');
                 titulo = cruser;
             }
             else if (accion == "Editar") {
-                 var edtuser = $translate.instant('LNG_EDITAR')+" "+ $translate.instant('LNG_USUARIO_LOG'); 
+                var edtuser = $translate.instant('LNG_EDITAR') + " " + $translate.instant('LNG_USUARIO_LOG');
                 titulo = edtuser;
             }
 
@@ -223,4 +247,37 @@
         }
 
     }
+
+
+    function ModalPassword($uibModalInstance, $scope, $http, $translate, toastr, UsuarioFactory, hlnusuarioid, titulo, handleError) {
+        var self = this;
+        self.editPassword = editPassword;
+        self.titulo = titulo;
+        self.cancel = cancel;
+        self.password = null;
+        self.password2 = null;
+
+        function cancel() {
+            $uibModalInstance.close();
+        }
+
+
+        function editPassword() {
+
+            //validacion para campos vacios
+            if (self.password == null || self.password == "" || self.password2 == null || self.password2 == "") {
+                toastr.errorhall($translate.instant('LNG_MSJ_6'));
+            }
+            //validacion para contraseñas que no coinciden
+            else if(self.password != self.password2)
+            {
+                toastr.errorhall($translate.instant('LNG_MSJ_1'));
+            }else{
+               var response = UsuarioFactory.editPassword(self.password, hlnusuarioid);
+               console.log("response", response.value);
+            }
+        }
+
+    }
+
 }());

@@ -106,6 +106,7 @@
             LNG_SALIR: "Exit",
             LNG_CAMBCONTRASENA: "Change Password",
             LNG_EDADMIN: "Minimum Age",
+            LNG_REPETIR: "Repeat",
 
             BUTTON_LANG_EN: "English",
             BUTTON_LANG_ES: "Spanish"
@@ -205,6 +206,7 @@
             LNG_SALIR: "Salir",
             LNG_CAMBCONTRASENA: "Cambiar Contraseña",
             LNG_EDADMIN: "Edad Minima",
+            LNG_REPETIR: "Repetir",
 
             BUTTON_LANG_EN: "Inglés",
             BUTTON_LANG_ES: "Español"

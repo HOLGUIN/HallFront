@@ -15,8 +15,8 @@
             getUsuarios: getUsuarios,
             crearUsuario: crearUsuario,
             editarUsuario: editarUsuario,
-            deleteUsuario: deleteUsuario
-        
+            deleteUsuario: deleteUsuario,
+            editPassword: editPassword
         };
 
         
@@ -35,7 +35,6 @@
                 }, function (reason) {
                     reject(reason);
                 })
-
             });
         }
 
@@ -98,6 +97,31 @@
 
             });
         }
+
+
+
+        function editPassword(password, hlnusuarioid) {
+            return $q(function (resolve, reject) {
+
+                $http({
+                    url: API_URL + '/api/usuario',
+                    method: "PUT",
+                    params: {
+                        password : password,
+                        hlnusuarioid: hlnusuarioid
+                    },
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }).then(function (promise) {
+                    resolve(promise);
+                }, function (reason) {
+                    reject(reason);
+                })
+
+            });
+        }
+
 
         function deleteUsuario(modelo) {
             return $q(function (resolve, reject) {

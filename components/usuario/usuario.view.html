@@ -84,7 +84,8 @@
                     <span ng-if="item.alumno == false" class="icon-cross"></span>
                 </td>
                 <td style="text-align:center;">
-                    <a class="icon-pencil2 hico" href="" ng-click="$ctrl.CreateOrEditUsuario('Editar', item.hlnusuarioid, $index);"></a> 
+                    <a class="icon-pencil2 hico" href="" ng-click="$ctrl.CreateOrEditUsuario('Editar', item.hlnusuarioid, $index);"></a> |
+                    <a class="icon-key hico" href="" title="Cambiar el password" ng-click="$ctrl.ChangePassword(item.hlnusuarioid)"></a> 
                  <!--   <a class="icon-bin hico" ng-click="$ctrl.showConfirm($event, item, $index);"></a> -->
                 </td>
             </tr>
