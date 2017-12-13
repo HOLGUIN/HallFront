@@ -27,21 +27,20 @@
         $rootScope.$state = $state;
         $rootScope.$stateParams = $stateParams;
 
-        //editableOptions.theme = 'bs3';
-       //  editableThemes.bs3.inputClass = 'input-sm';
         // keep user logged in after page refresh
         $rootScope.$on('$locationChangeStart', function (event, next, current) {
 
             var publicPages = ['/login','/CrearUsuario'];
-            var restrictedPage = publicPages.indexOf($location.path()) === -1;
 
+            var restrictedPage = publicPages.indexOf($location.path()) === -1;
             var usuario = null;
                   
                  try{
+                  //consulta si hay un usuario logueado
                   usuario = JSON.parse($window.localStorage.usuario) ;
                  }catch(e){}
 
-            if (restrictedPage && !usuario.username) {
+            if (restrictedPage && usuario == null) {
                 $location.path('/login');
             } // redirect to login page if not logged in and trying to access a restricted page
         });

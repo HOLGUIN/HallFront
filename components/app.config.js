@@ -173,8 +173,8 @@
             LNG_MSJ_8: "Ya existe un departamento para este pais",
             LNG_MSJ_9: "Ya existe esta ciudad para este deparatamento",
 
-            LNG_BORRAR: "Do you want to delete this record?",
-            LNG_BORRARSUC: "Successfully deleted",
+            LNG_BORRAR: "¿Desea eliminar este registro?",
+            LNG_BORRARSUC: "Eliminado exitosamente",
 
             LNG_MATERIAS: "Materias",
             LNG_MATERIA: "Materia",

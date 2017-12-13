@@ -23,15 +23,12 @@
         }
 
         function setToken(data) {
-            console.log(data);
             if (data) {
                 store.setItem(key, data.md5);
                 store.setItem('usuario',JSON.stringify(data));
-  
             } else {
                 store.removeItem(key);
                 store.removeItem('usuario');
-
             }
         }
 

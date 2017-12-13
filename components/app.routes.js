@@ -3,7 +3,7 @@
     'use strict';
 
     angular
-        .module('app.routes', [ ])
+        .module('app.routes', [])
         .config(config);
 
     config.$inject = ['$stateProvider', '$urlRouterProvider'];
@@ -11,10 +11,10 @@
     function config($stateProvider, $urlRouterProvider) {
 
 
-       /* $urlRouterProvider.otherwise('/');*/
+        /* $urlRouterProvider.otherwise('/');*/
         $urlRouterProvider.when("", "/login");
-      $urlRouterProvider.when("/", "/login");
-    $urlRouterProvider.otherwise('/login');
+        $urlRouterProvider.when("/", "/login");
+        $urlRouterProvider.otherwise('/login');
 
         // app routes
         $stateProvider
@@ -28,7 +28,7 @@
                 templateUrl: 'components/home/home.view.html',
                 controller: 'HomeController',
                 controllerAs: '$ctrl',
-                      data: {
+                data: {
                     moduleTitle: 'Incio',
                     moduleName: 'home',
                     show: false
@@ -40,16 +40,16 @@
                 controller: 'LoginController',
                 controllerAs: '$ctrl'
             })
-            //.state('app.usuario',{
-              //  url:'/CrearUsuario' ,
-                // templateUrl:'components/usuario/usuario.view.html',
-                // controller: 'UsuarioController',
-                //controllerAs: '$ctrl'
-           // })
+        //.state('app.usuario',{
+        //  url:'/CrearUsuario' ,
+        // templateUrl:'components/usuario/usuario.view.html',
+        // controller: 'UsuarioController',
+        //controllerAs: '$ctrl'
+        // })
 
-            
-            
-            //;
+
+
+        //;
     }
 
 }());

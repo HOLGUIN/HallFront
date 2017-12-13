@@ -21,11 +21,10 @@
 
         function login(user, password) {
 
-            self.loading = true;
+            //self.loading = true;
             LoginFactory.login(user, password).then(function (response) {
                 $state.go('app.home');
             }, handleError);
-
         }
 
         initController();

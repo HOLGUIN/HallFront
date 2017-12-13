@@ -5,9 +5,9 @@
         .module('app.datos')
         .controller('DatosController', DatosController);
 
-    DatosController.$inject = ['UsuarioFactory', 'SelectsFactory', '$state', '$scope', '$window', 'toastr'];
+    DatosController.$inject = ['UsuarioFactory', 'SelectsFactory', '$state', '$scope', '$window', 'toastr', '$translate'];
 
-    function DatosController(UsuarioFactory, SelectsFactory, $state, $scope, $window, toastr) {
+    function DatosController(UsuarioFactory, SelectsFactory, $state, $scope, $window, toastr, $translate) {
 
         var usuario = JSON.parse($window.localStorage.usuario);
 
@@ -67,7 +67,8 @@
         }
 
         function handleError(response) {
-            toastr.errorhall(response.data, "Error");
+            console.log(response);
+            toastr.errorhall($translate.instant(response.data), "Error");
         }
 
         function EditUsuario(modelo) {
@@ -75,7 +76,7 @@
                 var response = response.data;
                 if (response.valida == true) {
                     self.usuario = response.modelo;
-                    toastr.successhall("Se edito exitosamente.");
+                    toastr.successhall($translate.instant('LNG_EDITSUCS'));
                 } else {
                     response.data = response.msj;
                     handleError(response)
