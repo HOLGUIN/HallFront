@@ -5,7 +5,7 @@
         .module('app')
         .factory('AuthTokenFactory', AuthTokenFactory);
 
-    AuthTokenFactory.$inject = ['$window'];
+    AuthTokenFactory.$inject = ['$window' ];
 
     function AuthTokenFactory($window) {
 
@@ -25,10 +25,12 @@
         function setToken(data) {
             if (data) {
                 store.setItem(key, data.md5);
-                store.setItem('usuario',JSON.stringify(data));
+                store.setItem('usuario',JSON.stringify(data));    
+                store.setItem('idioma', 'es');         
             } else {
                 store.removeItem(key);
                 store.removeItem('usuario');
+                store.removeItem('idioma');            
             }
         }
 

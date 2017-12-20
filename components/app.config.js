@@ -3,7 +3,7 @@
 
     angular.module('app.config', []).config(config);
 
-    function config($httpProvider, $mdThemingProvider, $translateProvider) {
+    function config($httpProvider, $mdThemingProvider, $translateProvider,$windowProvider) {
 
         //Esta es la configuracion necesaria para la plataforma multilenguaje
         $translateProvider.fallbackLanguage('en');
@@ -213,7 +213,8 @@
         });
 
         $translateProvider.useSanitizeValueStrategy('escape');
-        $translateProvider.preferredLanguage('en');
+
+        $translateProvider.preferredLanguage($windowProvider.$get().localStorage.idioma);
 
         //Configuracion para angular material
         $mdThemingProvider.theme('indigo')
@@ -227,6 +228,7 @@
             .warnPalette('red');
 
         // This is the absolutely vital part, without this, changes will not cascade down through the DOM.
+  
         $mdThemingProvider.alwaysWatchTheme(true);
 
         // This is the absolutely vital part, without this, changes will not cascade down through the DOM.

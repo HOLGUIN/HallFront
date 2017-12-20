@@ -46,8 +46,8 @@
             self.currentProfesor = usuario.profesor;
             self.currentAlumno = usuario.alumno;
             self.changePassword = changePassword;
-            self.changeLanguage = changeLanguage;
-            self.language = 'en';
+            self.changeLanguage = changeLanguage
+            self.language = $window.localStorage.idioma;
 
             activate();
 
@@ -88,18 +88,18 @@
                 });
             };
 
- 
+
             //Metodo para cambiar el idioma de la aplicación
-            function changeLanguage(language)
-            {
+            function changeLanguage(language) {
+                $window.localStorage.setItem('idioma', language)
                 self.language = language;
                 $translate.use(self.language);
             }
 
             function menucontent() {
-              //  alert();
+                //  alert();
                 $(".container-fluid").click(function () {
-                   // alert(contador);
+                    // alert(contador);
                     if (contador == 0) {
                         contador = 1;
                         $('nav').animate({
