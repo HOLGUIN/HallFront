@@ -32,6 +32,7 @@
             LNG_EDADREQ: "Age is required",
             LNG_CORREOREQ: "Email is required",
             LNG_CORREOINV: "The mail is invalid",
+            LNG_DESCTEMA: "Theme Description",
 
             LNG_NOMBRES: "Names",
             LNG_APELLIDOS: "Surnames",
@@ -93,8 +94,7 @@
 
             LNG_ALUMNO: "Student",
             LNG_ADMIN: "Administrator",
-            LNG_CLASES_MENU: "lessons",
-            LNG_TCLASE_MENU: "Take Class",
+            LNG_CLASES_MENU: "my classes",
             LNG_USUARIOS_MENU: "Users",
             LNG_ASIGN_MENU: "Subjects",
             LNG_PROGTEMA_MENU: "Schedule Theme",
@@ -108,6 +108,7 @@
             LNG_CAMBCONTRASENA: "Change Password",
             LNG_EDADMIN: "Minimum Age",
             LNG_REPETIR: "Repeat",
+            LNG_PROGTEMA: "Schedule Theme",
 
             BUTTON_LANG_EN: "English",
             BUTTON_LANG_ES: "Spanish"
@@ -133,6 +134,7 @@
             LNG_EDADREQ: "La edad es requerida",
             LNG_CORREOREQ: "El correo es requerido",
             LNG_CORREOINV: "El correo es invalido",
+            LNG_DESCTEMA: "Descripción del Tema",
 
             LNG_NOMBRES: "Nombres",
             LNG_APELLIDOS: "Apellidos",
@@ -194,8 +196,7 @@
 
             LNG_ALUMNO: "Alumno",
             LNG_ADMIN: "Administrador",
-            LNG_CLASES_MENU: "Clases",
-            LNG_TCLASE_MENU: "Tomar Clase",
+            LNG_CLASES_MENU: "Mis Clases",
             LNG_USUARIOS_MENU: "Usuarios",
             LNG_ASIGN_MENU: "Asignaturas",
             LNG_PROGTEMA_MENU: "Programar Temas",
@@ -209,6 +210,7 @@
             LNG_CAMBCONTRASENA: "Cambiar Contraseña",
             LNG_EDADMIN: "Edad Minima",
             LNG_REPETIR: "Repetir",
+            LNG_PROGTEMA: "Programar Tema",
 
             BUTTON_LANG_EN: "Inglés",
             BUTTON_LANG_ES: "Español"

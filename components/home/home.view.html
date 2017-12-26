@@ -16,9 +16,11 @@
         </div>
         <div class="row col-md-7" style="margin: 0 auto;">
             <div style="text-align: center">
-                <h3><span class="font-title">
-                   <span translate="LNG_PROGRAMA_CLASE"></span>
-                </span></h3>
+                <h3>
+                    <span class="font-title">
+                        <span translate="LNG_PROGRAMA_CLASE"></span>
+                    </span>
+                </h3>
             </div>
             <div>
                 <uib-accordion close-others="$ctrl.oneAtATime">
@@ -29,22 +31,34 @@
                                 <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
                             </uib-accordion-heading>
                             <div>
-
                                 <table class="table table-response table-bordered table-striped" style="margin: 0" ng-repeat="t in item.temas">
                                     <thead>
                                         <tr>
                                             <td colspan="2" class="col-md-5">
-                                               <strong><span translate="LNG_TEMA"></span>: </strong> <span ng-bind="t.tema" ></span> <span type="button" style="margin-right: 30%;" ng-click="$ctrl.desctema(t.tema, t.desctema)" class="icon-question"  title="descripcion del tema"></span>  <strong><span translate="LNG_PRECIO"></span>:</strong> <span ng-bind="t.preciohora | currency"></span> x <span translate="LNG_HORA"></span>  
+                                                <strong>
+                                                    <span translate="LNG_TEMA"></span>: </strong>
+                                                <span ng-bind="t.tema"></span>
+                                                <span type="button" style="margin-right: 30%;" ng-click="$ctrl.desctema(t.tema, t.desctema)"
+                                                    class="icon-question" title="descripcion del tema"></span>
+                                                <strong>
+                                                    <span translate="LNG_PRECIO"></span>:</strong>
+                                                <span ng-bind="t.preciohora | currency"></span> x
+                                                <span translate="LNG_HORA"></span>
                                             </td>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr ng-repeat="p in t.horarios">                                     
+                                        <tr ng-repeat="p in t.horarios">
                                             <td style="vertical-align: middle; text-align: left;">
-                                                <span class="icon-alarm"></span> <span translate="LNG_ENTRE"></span>: <span ng-bind="p.horaini"></span>                                                - <span ng-bind="p.horafin"></span>
+                                                <span class="icon-alarm"></span>
+                                                <span translate="LNG_ENTRE"></span>:
+                                                <span ng-bind="p.horaini"></span> -
+                                                <span ng-bind="p.horafin"></span>
                                             </td>
                                             <td style="text-align: center">
-                                                <md-button class="md-raised" style="	background-color : #024959;color:white;margin: 0"><span translate="LNG_TOMAR"></span></md-button>
+                                                <md-button class="md-raised" style="background-color : #024959;color:white;margin: 0" ng-click="$ctrl.TakeTema(t, item.materia, p.hlnprogtemaid)">
+                                                    <span translate="LNG_TOMAR"></span>
+                                                </md-button>
                                             </td>
                                         </tr>
                                     </tbody>

@@ -3,7 +3,7 @@
     'use strict';
 
     angular
-        .module('app.tomarclase')
+        .module('app.misclases')
         .config(config);
 
     config.$inject = ['$stateProvider', '$urlRouterProvider'];
@@ -13,10 +13,10 @@
         $urlRouterProvider.otherwise('/login');
 
         $stateProvider
-            .state('app.tomarclase', {
-                url: '/tomarclase',
-                templateUrl: 'components/tomarClase/tomarclase.view.html',
-                controller: 'tomarclaseController',
+            .state('app.misclases', {
+                url: '/misclases',
+                templateUrl: 'components/misClases/misClases.view.html',
+                controller: 'misclasesController',
                 controllerAs: '$ctrl'
             });
     }

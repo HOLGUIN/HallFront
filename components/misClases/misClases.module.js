@@ -1,6 +1,6 @@
 (function (window, angular, undefined) {
    'use strict';
 
-   angular.module('app.tomarclase', []);
+   angular.module('app.misclases', []);
 
 }(window, window.angular));

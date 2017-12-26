@@ -17,7 +17,7 @@
             'app.configuracion',
             'app.progtema',
             'app.programar',
-            'app.tomarclase'
+            'app.misclases'
         ]).run(run);
 
     run.$inject = ['$window', '$rootScope', '$location',  '$state', '$stateParams'];
