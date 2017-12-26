@@ -31,6 +31,7 @@
             LNG_APELLREQ: "Surnames are required",
             LNG_EDADREQ: "Age is required",
             LNG_CORREOREQ: "Email is required",
+            LNG_CORREOINV: "The mail is invalid",
 
             LNG_NOMBRES: "Names",
             LNG_APELLIDOS: "Surnames",
@@ -131,6 +132,7 @@
             LNG_APELLREQ: "Los apellidos son requeridos",
             LNG_EDADREQ: "La edad es requerida",
             LNG_CORREOREQ: "El correo es requerido",
+            LNG_CORREOINV: "El correo es invalido",
 
             LNG_NOMBRES: "Nombres",
             LNG_APELLIDOS: "Apellidos",
@@ -213,8 +215,8 @@
         });
 
         $translateProvider.useSanitizeValueStrategy('escape');
-
-        $translateProvider.preferredLanguage($windowProvider.$get().localStorage.idioma);
+        var idioma = $windowProvider.$get().localStorage.idioma;
+        $translateProvider.preferredLanguage(idioma != null ? idioma : 'es' );
 
         //Configuracion para angular material
         $mdThemingProvider.theme('indigo')

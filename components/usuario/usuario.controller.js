@@ -184,49 +184,72 @@
             })[0];
         }
 
+        function validaciones(modelo) {
+            var val = { valida: true, data: "" };
+            if (/^\w+([\.\+\-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/.test(modelo.correo) == false) {
+                val.valida = false;
+                val.data = "LNG_CORREOINV";
+            }
 
+            return val;
+        }
 
         //Metodo para crear usuario
         function CrearUsuario(modelo) {
 
+            var val = validaciones(modelo)
 
-            modelo.hlnpaisid = self.paises.selected.Value;
-            modelo.hlndepartamentoid = self.depts.selected.Value;
-            modelo.hlnciudadid = self.ciudades.selected.Value;
+            if (val.valida) {
+                modelo.hlnpaisid = self.paises.selected.Value;
+                modelo.hlndepartamentoid = self.depts.selected.Value;
+                modelo.hlnciudadid = self.ciudades.selected.Value;
 
-            UsuarioFactory.crearUsuario(modelo).then(function (response) {
-                var response = response.data;
-                if (response.valida == true) {
-                    self.modelo.Usuario = response.modelo;
-                    self.modelo.Usuario.toast = true;
-                    self.modelo.Usuarios.push(response.modelo);
-                    cancel();
-                    toastr.successhall($translate.instant('LNG_CREATESUCS'));
-                } else {
-                    response.data = response.msj;
-                    handleError(response);
-                }
-            }, handleError);
+
+
+                UsuarioFactory.crearUsuario(modelo).then(function (response) {
+                    var response = response.data;
+                    if (response.valida == true) {
+                        self.modelo.Usuario = response.modelo;
+                        self.modelo.Usuario.toast = true;
+                        self.modelo.Usuarios.push(response.modelo);
+                        cancel();
+                        toastr.successhall($translate.instant('LNG_CREATESUCS'));
+                    } else {
+                        response.data = response.msj;
+                        handleError(response);
+                    }
+                }, handleError);
+
+            } else {
+                handleError(val);
+            }
+
         }
 
         function editarUsuario(modelo) {
 
-            //selecciona la ubicacion seleccionada
-            modelo.hlnpaisid = self.paises.selected.Value;
-            modelo.hlndepartamentoid = self.depts.selected.Value;
-            modelo.hlnciudadid = self.ciudades.selected.Value;
+            var val = validaciones(modelo)
 
-            UsuarioFactory.editarUsuario(modelo).then(function (response) {
-                var response = response.data;
-                if (response.valida == true) {
-                    self.Usuarios[index] = response.modelo;
-                    toastr.successhall($translate.instant('LNG_EDITSUCS'));
-                    cancel();
-                } else {
-                    response.data = response.msj;
-                    handleError(response);
-                }
-            }, handleError);
+            if (val.valida) {
+                //selecciona la ubicacion seleccionada
+                modelo.hlnpaisid = self.paises.selected.Value;
+                modelo.hlndepartamentoid = self.depts.selected.Value;
+                modelo.hlnciudadid = self.ciudades.selected.Value;
+
+                UsuarioFactory.editarUsuario(modelo).then(function (response) {
+                    var response = response.data;
+                    if (response.valida == true) {
+                        self.Usuarios[index] = response.modelo;
+                        toastr.successhall($translate.instant('LNG_EDITSUCS'));
+                        cancel();
+                    } else {
+                        response.data = response.msj;
+                        handleError(response);
+                    }
+                }, handleError);
+            } else {
+                handleError(val);
+            }
         }
 
         function cancel() {
@@ -269,12 +292,11 @@
                 toastr.errorhall($translate.instant('LNG_MSJ_6'));
             }
             //validacion para contraseñas que no coinciden
-            else if(self.password != self.password2)
-            {
+            else if (self.password != self.password2) {
                 toastr.errorhall($translate.instant('LNG_MSJ_1'));
-            }else{
-               var response = UsuarioFactory.editPassword(self.password, hlnusuarioid);
-               console.log("response", response.value);
+            } else {
+                var response = UsuarioFactory.editPassword(self.password, hlnusuarioid);
+                console.log("response", response.value);
             }
         }
 

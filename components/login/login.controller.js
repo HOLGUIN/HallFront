@@ -5,22 +5,28 @@
         .module('app')
         .controller('LoginController', LoginController);
 
-    LoginController.$inject = ['LoginFactory', '$state', '$scope'];
+    LoginController.$inject = ['LoginFactory', '$state', '$scope', '$window'];
 
-    function LoginController(LoginFactory, $state, $scope) {
+    function LoginController(LoginFactory, $state, $scope, $window) {
 
         var self = this;
         self.login = login;
         self.CrearUsuario = CrearUsuario;
-        
-        function CrearUsuario()
-        {
+      //  self.language = 'es';
+       // self.changeLanguage = changeLanguage;
+
+        function CrearUsuario() {
             console.log("Ingreso");
             $state.go('app.usuario');
         }
 
-        function login(user, password) {
+        //Metodo para cambiar el idioma de la aplicación
+        //function changeLanguage(language) {
+          //  $window.localStorage.setItem('idioma', language)
+          //  self.language = language;
+        //}
 
+        function login(user, password) {
             //self.loading = true;
             LoginFactory.login(user, password).then(function (response) {
                 $state.go('app.home');
@@ -35,8 +41,8 @@
         }
 
         function handleError(response) {
-           // console.log('--- login error ---');
-           // console.log(response.data);
+            // console.log('--- login error ---');
+            // console.log(response.data);
             self.handleError = response.data;
             self.loading = false;
             return self.handleError

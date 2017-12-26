@@ -3,12 +3,12 @@
 </div>
 <div class="modal-body" id="modal-body">
 
-    <form class="Form frm-center" name="$ctrl.form" style="margin: 0 auto;">
+    <form class="Form frm-center" name="$ctrl.form" style="margin: 0 auto;" action="">
 
         <div class="row">
             <div class="col-sm-4 col-xs-4 col-md-4">
                 <span translate="LNG_EDAD"></span> <strong>*</strong>
-                <input class="form-control" type="text" ng-model="$ctrl.Usuario.edad" />
+                <input class="form-control" type="text" ng-model="$ctrl.Usuario.edad" required />
             </div>
             <div class="col-sm-4 col-xs-4 col-md-4">
                 <md-checkbox ng-model="$ctrl.Usuario.activo" class="md-primary" aria-label="Administrador" style="margin-top: 25px;">
@@ -20,11 +20,11 @@
         <div class="row">
             <div class="col-sm-4 col-xs-4 col-md-4">
                 <span translate="LNG_NOMBRES"></span> <strong>*</strong>
-                <input type="text" class="form-control" ng-model="$ctrl.Usuario.nombres" />
+                <input type="text" class="form-control" ng-model="$ctrl.Usuario.nombres" required/>
             </div>
             <div class="col-sm-4 col-xs-4 col-md-4">
                 <span translate="LNG_APELLIDOS"></span> <strong>*</strong>
-                <input type="text" class="form-control" ng-model="$ctrl.Usuario.apellidos" />
+                <input type="text" class="form-control" ng-model="$ctrl.Usuario.apellidos" required/>
             </div>
             <div class="col-sm-4 col-xs-4 col-md-4">
                 <md-checkbox ng-model="$ctrl.Usuario.administrador" aria-label="Administrador" style="margin-top: 25px;" class="md-primary">
@@ -69,7 +69,7 @@
             <div class="col-sm-4 col-xs-4 col-md-4">
                 <span translate="LNG_PAIS"></span> <strong>*</strong>
                 <ui-select ng-model="$ctrl.paises.selected" theme="selectize" reset-search-input="false" title="Seleccione una Pais" ng-change="$ctrl.Depts($ctrl.paises.selected.Value);"
-                    append-to-body="true">
+                    append-to-body="true" required>
                     <ui-select-match placeholder="seleccionar...">{{$select.selected.Text}}</ui-select-match>
                     <ui-select-choices repeat="item in  $ctrl.paises | filter : $select.search" refresh-delay="0">
                         <div ng-bind-html="item.Text | highlight: $select.search"></div>

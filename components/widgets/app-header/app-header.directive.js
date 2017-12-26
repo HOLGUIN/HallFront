@@ -128,6 +128,7 @@
             }
 
             function logout() {
+                $translate.use(self.language);
                 $state.go('login');
             };
 
