@@ -3,8 +3,7 @@
 
     angular
         .module('app', [
-            
-            'app.libraries',            
+            'app.libraries',
             'app.constants',
             'app.routes',
             'app.config',
@@ -17,10 +16,11 @@
             'app.configuracion',
             'app.progtema',
             'app.programar',
-            'app.misclases'
+            'app.misclases',
+            'app.clasesAsings'
         ]).run(run);
 
-    run.$inject = ['$window', '$rootScope', '$location',  '$state', '$stateParams'];
+    run.$inject = ['$window', '$rootScope', '$location', '$state', '$stateParams'];
 
     function run($window, $rootScope, $location, $state, $stateParams) {
 
@@ -30,15 +30,15 @@
         // keep user logged in after page refresh
         $rootScope.$on('$locationChangeStart', function (event, next, current) {
 
-            var publicPages = ['/login','/CrearUsuario'];
+            var publicPages = ['/login', '/CrearUsuario'];
 
             var restrictedPage = publicPages.indexOf($location.path()) === -1;
             var usuario = null;
-                  
-                 try{
-                  //consulta si hay un usuario logueado
-                  usuario = JSON.parse($window.localStorage.usuario) ;
-                 }catch(e){}
+
+            try {
+                //consulta si hay un usuario logueado
+                usuario = JSON.parse($window.localStorage.usuario);
+            } catch (e) { }
 
             if (restrictedPage && usuario == null) {
                 $location.path('/login');

@@ -5,6 +5,19 @@
 
     function config($httpProvider, $mdThemingProvider, $translateProvider,$windowProvider) {
 
+
+        $mdThemingProvider.theme('dark-grey').backgroundPalette('blue-grey').dark();
+        $mdThemingProvider.theme('dark-orange').backgroundPalette('deep-orange').dark();
+        $mdThemingProvider.theme('dark-purple').backgroundPalette('deep-purple').dark();
+        $mdThemingProvider.theme('dark-blue').backgroundPalette('blue').dark();
+        $mdThemingProvider.theme('dark-lime').backgroundPalette('lime').dark();
+        $mdThemingProvider.theme('dark-teal').backgroundPalette('teal').dark();
+        $mdThemingProvider.theme('dark-amber').backgroundPalette('amber').dark();
+        $mdThemingProvider.theme('dark-brown').backgroundPalette('brown').dark();
+        $mdThemingProvider.theme('dark-indigo').backgroundPalette('indigo').dark();
+        $mdThemingProvider.theme('dark-pink').backgroundPalette('pink').dark();
+
+
         //Esta es la configuracion necesaria para la plataforma multilenguaje
         $translateProvider.fallbackLanguage('en');
         $translateProvider.registerAvailableLanguageKeys(['en', 'es'], {

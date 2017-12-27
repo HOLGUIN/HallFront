@@ -6,7 +6,6 @@
 <div ui-view="">
 
     <div class="row ">
-
         <div class="row col-md-5" style="margin: 0 auto">
             <div style="margin-top: 12%">
                 <video style="width: 100%" controls>
@@ -56,7 +55,7 @@
                                                 <span ng-bind="p.horafin"></span>
                                             </td>
                                             <td style="text-align: center">
-                                                <md-button class="md-raised" style="background-color : #024959;color:white;margin: 0" ng-click="$ctrl.TakeTema(t, item.materia, p.hlnprogtemaid)">
+                                                <md-button class="md-raised" style="background-color : #024959;color:white;margin: 0" ng-click="$ctrl.TakeTema(t, item.materia, p)">
                                                     <span translate="LNG_TOMAR"></span>
                                                 </md-button>
                                             </td>
@@ -65,16 +64,9 @@
                                 </table>
                             </div>
                         </div>
-
                     </div>
-
                 </uib-accordion>
-
             </div>
-
-
         </div>
     </div>
-
-
 </div>

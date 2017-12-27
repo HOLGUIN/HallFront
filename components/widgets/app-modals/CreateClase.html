@@ -9,7 +9,7 @@
             <h4 ng-bind="$ctrl.materia"></h4>
         </div>
         <div class="col-md-6">
-            <h5>({{$ctrl.tema.tema}})</h5>
+            <h5>({{$ctrl.tema.tema}}){{$ctrl.h.horaini}}-{{$ctrl.h.horafin}}</h5>
         </div>
     </div>
 
@@ -18,7 +18,7 @@
             Fecha
         </div>
         <div class="col-md-6">
-            <input type="date" class="form-control" ng-model="$ctrl.clase.fecha">
+            <input type="date" class="form-control" ng-model="$ctrl.clase.fecha" min="{{$ctrl.fechamin | date:'yyyy-MM-dd'}}" required>
         </div>
     </div>
 
@@ -27,13 +27,12 @@
             Hora
         </div>
         <div class="col-md-3">
-            <input type="time" class="form-control" ng-model="$ctrl.clase.horaini">
+            <input type="time" class="form-control" ng-model="$ctrl.clase.horaini" min="{{$ctrl.h.horaini}}" max="{{$ctrl.h.horafin}}"  ng-blur="$ctrl.changehour($ctrl.clase)" required>
         </div>
         <div class="col-md-3">
-            <input type="time" class="form-control" ng-model="$ctrl.clase.horafin">
+            <input type="time" class="form-control" ng-model="$ctrl.clase.horafin" min="{{$ctrl.h.horaini}}" max="{{$ctrl.h.horafin}}" ng-blur="$ctrl.changehour($ctrl.clase)" required>
         </div>
     </div>
-
 </div>
 
 
