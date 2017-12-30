@@ -295,8 +295,10 @@
             else if (self.password != self.password2) {
                 toastr.errorhall($translate.instant('LNG_MSJ_1'));
             } else {
-                var response = UsuarioFactory.editPassword(self.password, hlnusuarioid);
-                console.log("response", response.value);
+                UsuarioFactory.editPassword(self.password, hlnusuarioid).then(function (response) {
+                    toastr.successhall($translate.instant('LNG_EDITSUCS'));
+                    cancel();
+                }, handleError);
             }
         }
 

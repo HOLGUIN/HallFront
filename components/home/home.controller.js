@@ -6,9 +6,9 @@
 
 
 
-    HomeController.$inject = ['$state', '$window', 'ProgramFactory', '$uibModal', '$translate', 'claseFactory', '$filter', 'toastr'];
+    HomeController.$inject = ['$state', '$window', 'ProgramFactory', '$uibModal', '$translate', 'claseFactory', '$filter', 'toastr', 'clasesAsingsFactory'];
 
-    function HomeController($state, $window, ProgramFactory, $uibModal, $translate, claseFactory, $filter, toastr) {
+    function HomeController($state, $window, ProgramFactory, $uibModal, $translate, claseFactory, $filter, toastr, clasesAsingsFactory) {
 
         /* jshint validthis: true */
         var self = this;
@@ -36,6 +36,13 @@
 
         function handleError(response) {
             toastr.errorhall(response);
+        }
+
+        function getHoraAsg(hlnprogtemaid, fecha) {
+            clasesAsingsFactory.getClasesAsings(hlnprogtemaid, fecha).then(function (response) {
+                var response = response.data;
+                return response;
+            }, handleError);
         }
 
         function desctema(tema, desctema) {
@@ -113,7 +120,7 @@ function ModalController($uibModalInstance, $scope, titulo, tema, desctema) {
 
 }
 
-function ModalTekeTema($uibModalInstance, $scope, titulo, tema, materia, claseFactory, hlnusuarioid, horario, $filter, handleError) {
+function ModalTekeTema($uibModalInstance, $scope, titulo, tema, materia, claseFactory, hlnusuarioid, horario, $filter, handleError, clasesAsingsFactory) {
 
     var self = this;
     self.tema = tema;
@@ -122,6 +129,8 @@ function ModalTekeTema($uibModalInstance, $scope, titulo, tema, materia, claseFa
     self.materia = materia;
     self.SaveClass = SaveClass;
     self.changehour = changehour;
+    self.horasAsg = [];
+
     self.fechamin = new Date();
     console.log(tema);
 
@@ -142,7 +151,18 @@ function ModalTekeTema($uibModalInstance, $scope, titulo, tema, materia, claseFa
     self.clase = clase;
     self.h = horario;
 
-    console.log(horario);
+
+
+
+
+    function getHoraAsg(hlnprogtemaid, fecha) {
+        clasesAsingsFactory.getClasesAsings(hlnprogtemaid, fecha).then(function (response) {
+            self.horasAsg = response.data;
+        }, handleError);
+    }
+    getHoraAsg(self.clase.hlnprogtemaid, self.clase.fecha);
+
+
     function cancel() {
         $uibModalInstance.close();
     }
@@ -155,6 +175,8 @@ function ModalTekeTema($uibModalInstance, $scope, titulo, tema, materia, claseFa
             clase.horafin = newHour(clase.horaini, 1);
         } else if (clase.horafin < clase.horaini) {
             clase.horafin = newHour(clase.horaini, 1);
+        } else if (validaHourOcupadas(clase.horaini, clase.horafin)) {
+            handleError('error');
         }
     }
 
@@ -171,20 +193,38 @@ function ModalTekeTema($uibModalInstance, $scope, titulo, tema, materia, claseFa
         }
     }
 
-    function SaveClass(clase) {
+    function getHoraAsgs(hlnprogtemaid, fecha) {
+        self.horasAsg = [];
+        self.horasAsg = getHoraAsg(hlnprogtemaid, fecha);
+    }
 
-        // clase.horaini = $filter('date')(clase.horaini, "HH:mm:ss");
-        // clase.horafin = $filter('date')(clase.horafin, "HH:mm:ss");
+    function validaHourOcupadas(hi, hf) {
+        for (i = 0; i < self.horasAsg.length; i++) {
+            var shi = new Date("1970-01-01T" + self.horasAsg[i].horaini);
+            var shf = new Date("1970-01-01T" + self.horasAsg[i].horafin);
+
+            if ((shi.getTime() >= hi.getTime() && shf.getTime() < hf.getTime()) ||
+                (hi.getTime() >= shi.getTime() && hi.getTime() < shf.getTime()) ||
+                (hf.getTime() > shi.getTime() && hf.getTime() < shf.getTime()) ||
+                (hf.getTime() > shi.getTime() && hf.getTime() <= shf.getTime())) {
+                return true;
+                break;
+            }
+        }
+    }
+
+
+    function SaveClass(clase) {
         if (clase.fecha == undefined) {
             clase.fecha = new Date();
         } else {
-
-
-            //clase.horaini = $filter('date')(clase.horaini, "HH:mm:ss");
-            //clase.horafin = $filter('date')(clase.horafin, "HH:mm:ss");
-            // claseFactory.postClase(clase);
+            clase.horaini = $filter('date')(clase.horaini, "HH:mm:ss");
+            clase.horafin = $filter('date')(clase.horafin, "HH:mm:ss");
+            claseFactory.postClase(clase).then(function (response) {
+                var response = response.data
+                cancel();
+            }, handleError);
         }
-
     }
 
 }

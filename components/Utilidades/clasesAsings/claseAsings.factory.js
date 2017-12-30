@@ -13,14 +13,15 @@
             getClasesAsings: getClasesAsings
         };
 
-        function getClasesAsings(id, fecha) {
+        function getClasesAsings(hlnprogtemaid, fecha) {
             return $q(function (resolve, reject) {
 
                 $http({
                     url: API_URL + '/api/ClasesAsg',
                     method: "Get",
                     params: {
-                        id : id
+                        hlnprogtemaid : hlnprogtemaid,
+                        fecha : fecha
                     },
                     headers: {
                         'Content-Type': 'application/json'

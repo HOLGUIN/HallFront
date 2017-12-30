@@ -18,7 +18,8 @@
             Fecha
         </div>
         <div class="col-md-6">
-            <input type="date" class="form-control" ng-model="$ctrl.clase.fecha" min="{{$ctrl.fechamin | date:'yyyy-MM-dd'}}" required>
+            <input type="date" class="form-control" ng-model="$ctrl.clase.fecha" min="{{$ctrl.fechamin | date:'yyyy-MM-dd'}}" ng-blur="$ctrl.getHoraAsgs($ctrl.clase.hlnprogtemaid, $ctrl.clase.fecha)"
+                required>
         </div>
     </div>
 
@@ -27,10 +28,12 @@
             Hora
         </div>
         <div class="col-md-3">
-            <input type="time" class="form-control" ng-model="$ctrl.clase.horaini" min="{{$ctrl.h.horaini}}" max="{{$ctrl.h.horafin}}"  ng-blur="$ctrl.changehour($ctrl.clase)" required>
+            <input type="time" class="form-control" ng-model="$ctrl.clase.horaini" min="{{$ctrl.h.horaini}}" max="{{$ctrl.h.horafin}}"
+                ng-blur="$ctrl.changehour($ctrl.clase)" required>
         </div>
         <div class="col-md-3">
-            <input type="time" class="form-control" ng-model="$ctrl.clase.horafin" min="{{$ctrl.h.horaini}}" max="{{$ctrl.h.horafin}}" ng-blur="$ctrl.changehour($ctrl.clase)" required>
+            <input type="time" class="form-control" ng-model="$ctrl.clase.horafin" min="{{$ctrl.h.horaini}}" max="{{$ctrl.h.horafin}}"
+                ng-blur="$ctrl.changehour($ctrl.clase)" required>
         </div>
     </div>
 </div>
