@@ -2,6 +2,10 @@
     .panel-group {
         margin-bottom: 3px !important;
     }
+
+    .panel-body {
+        padding-top: 0% !important;
+    }
 </style>
 <div ui-view="">
 
@@ -30,6 +34,25 @@
                                 <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
                             </uib-accordion-heading>
                             <div>
+
+                                <div class="timeline" style="margin-right: 20px;">
+                                    <div class="inactive" style="width:10px;margin-left: 10%">
+                                        <div class="inactive-start">
+                                            <span class="titulo_tl" translate="LNG_HORAS_OCP"></span>
+                                        </div>
+                                    </div>
+                                    <div class="inactive" style="width:12px;"></div>
+                                </div>
+
+                                <div class="timeline">
+                                    <div class="active" style="width:10px;margin-left: 30%; margin-bottom: 4%">
+                                        <div class="start">
+                                            <span class="titulo_tl" translate="LNG_HORAS_DSP"></span>
+                                        </div>
+                                    </div>
+                                    <div class="active" style="width:12px;"></div>
+                                </div>
+
                                 <table class="table table-response table-bordered table-striped" style="margin: 0" ng-repeat="t in item.temas">
                                     <thead>
                                         <tr>
@@ -37,8 +60,7 @@
                                                 <strong>
                                                     <span translate="LNG_TEMA"></span>: </strong>
                                                 <span ng-bind="t.tema"></span>
-                                                <span type="button" style="margin-right: 30%;" ng-click="$ctrl.desctema(t.tema, t.desctema)"
-                                                    class="icon-question" title="descripcion del tema"></span>
+                                                <span type="button" style="margin-right: 30%;" ng-click="$ctrl.desctema(t.tema, t.desctema)" class="icon-question" title="descripcion del tema"></span>
                                                 <strong>
                                                     <span translate="LNG_PRECIO"></span>:</strong>
                                                 <span ng-bind="t.preciohora | currency"></span> x
@@ -46,8 +68,8 @@
                                             </td>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr ng-repeat="p in t.horarios">
+                                    <tbody ng-repeat="p in t.horarios">
+                                        <tr>
                                             <td style="vertical-align: middle; text-align: left;">
                                                 <span class="icon-alarm"></span>
                                                 <span translate="LNG_ENTRE"></span>:
@@ -58,6 +80,33 @@
                                                 <md-button class="md-raised" style="background-color : #024959;color:white;margin: 0" ng-click="$ctrl.TakeTema(t, item.materia, p)">
                                                     <span translate="LNG_TOMAR"></span>
                                                 </md-button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <span translate="LNG_DISP_CLASS"></span>
+                                                    </div>
+                                                    <div class="col-md-5">
+                                                        <input type="date" class="form-control" 
+                                                               ng-model="$ctrl.fechaconsulta" 
+                                                               min="{{$ctrl.fechamin | date:'yyyy-MM-dd'}}" 
+                                                               ng-change="$ctrl.getClasesAsingslt(p.hlnprogtemaid, $ctrl.fechaconsulta, p)"
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                                <div class="timeline">
+                                                    <div ng-repeat="i in p.linetime" class="{{i.class_line}}" ng-style="{width: $index == 0 ? '4%' :' 10%'}">
+                                                        <div class="{{i.class_ball}}">
+                                                            <span class="titulo_tl" ng-bind="i.hora"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </td>
                                         </tr>
                                     </tbody>

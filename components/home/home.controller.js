@@ -16,6 +16,10 @@
         self.desctema = desctema;
         self.TakeTema = TakeTema;
         self.oneAtATime = true;
+        self.getClasesAsingslt = getClasesAsingslt;
+        self.line = [];
+        self.fechaconsulta = new Date();
+        self.fechamin = new Date();
         self.status = {
             isCustomHeaderOpen: false,
             isFirstOpen: true,
@@ -43,6 +47,18 @@
                 var response = response.data;
                 return response;
             }, handleError);
+        }
+
+        function getClasesAsingslt(hlnprogtemaid, fecha, h) {
+
+            if(fecha == undefined || fecha == null || fecha == "")
+            {
+              handleError('La fecha no es valida');
+            }else{
+                clasesAsingsFactory.getClasesAsingslt(hlnprogtemaid, fecha).then(function (response) {
+                    h.linetime = response.data;
+                }, handleError);
+            }
         }
 
         function desctema(tema, desctema) {

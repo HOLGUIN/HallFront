@@ -3,7 +3,7 @@
 
     angular.module('app.config', []).config(config);
 
-    function config($httpProvider, $mdThemingProvider, $translateProvider,$windowProvider) {
+    function config($httpProvider, $mdThemingProvider, $translateProvider, $windowProvider) {
 
 
         $mdThemingProvider.theme('dark-grey').backgroundPalette('blue-grey').dark();
@@ -114,8 +114,8 @@
             LNG_UBICACION_MENU: "Location",
             LGN_CONFIG_MENU: "Configuration",
 
-            LNG_HORA:"Hour",
-            LNG_TOMAR:"Take",
+            LNG_HORA: "Hour",
+            LNG_TOMAR: "Take",
             LNG_ENTRE: "Between",
             LNG_SALIR: "Exit",
             LNG_CAMBCONTRASENA: "Change Password",
@@ -124,7 +124,11 @@
             LNG_PROGTEMA: "Schedule Theme",
 
             BUTTON_LANG_EN: "English",
-            BUTTON_LANG_ES: "Spanish"
+            BUTTON_LANG_ES: "Spanish",
+
+            LNG_DISP_CLASS: "Class Availability",
+            LNG_HORAS_OCP: "Busy Hours",
+            LNG_HORAS_DSP: "Hours Available"
         });
 
         //Traduccion en español
@@ -216,8 +220,8 @@
             LNG_UBICACION_MENU: "Ubicación",
             LGN_CONFIG_MENU: "Configuración",
 
-            LNG_HORA:"Hora",
-            LNG_TOMAR:"Tomar",
+            LNG_HORA: "Hora",
+            LNG_TOMAR: "Tomar",
             LNG_ENTRE: "Entre",
             LNG_SALIR: "Salir",
             LNG_CAMBCONTRASENA: "Cambiar Contraseña",
@@ -226,12 +230,17 @@
             LNG_PROGTEMA: "Programar Tema",
 
             BUTTON_LANG_EN: "Inglés",
-            BUTTON_LANG_ES: "Español"
+            BUTTON_LANG_ES: "Español",
+
+
+            LNG_DISP_CLASS: "Disponibilidad de Clases",
+            LNG_HORAS_OCP: "Horas Ocupadas",
+            LNG_HORAS_DSP: "Horas Disponibles"
         });
 
         $translateProvider.useSanitizeValueStrategy('escape');
         var idioma = $windowProvider.$get().localStorage.idioma;
-        $translateProvider.preferredLanguage(idioma != null ? idioma : 'es' );
+        $translateProvider.preferredLanguage(idioma != null ? idioma : 'es');
 
         //Configuracion para angular material
         $mdThemingProvider.theme('indigo')
@@ -245,7 +254,7 @@
             .warnPalette('red');
 
         // This is the absolutely vital part, without this, changes will not cascade down through the DOM.
-  
+
         $mdThemingProvider.alwaysWatchTheme(true);
 
         // This is the absolutely vital part, without this, changes will not cascade down through the DOM.

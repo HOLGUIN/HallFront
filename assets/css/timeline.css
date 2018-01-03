@@ -1,0 +1,77 @@
+.timeline {
+    padding-top: 0;
+    padding-left: 15px;
+    margin-bottom: 15px;
+    vertical-align: middle;
+}
+
+.timeline .active {
+    background: #024959;
+    height: 0.2rem;
+    float: left;
+    position: relative;
+}
+
+.timeline .inactive {
+    background: #e32636;
+    height: 0.2rem;
+    float: left;
+    position: relative;
+}
+
+.timeline .start {
+    height: 1rem;
+    width: 1rem;
+    position: absolute;
+    right: 0;
+    background: #024959;
+    border-radius: 50%;
+    top: -0.4125rem;
+    right: -0.625rem;
+    z-index: 5;
+}
+
+.timeline .inactive-start {
+    height: 1rem;
+    width: 1rem;
+    position: absolute;
+    right: 0;
+    background: #e32636;
+    border-radius: 50%;
+    top: -0.4125rem;
+    right: -0.625rem;
+    z-index: 5;
+}
+
+.timeline .medium_rigth {
+    height: 1rem;
+    width: 1rem;
+    position: absolute;
+    right: 0;
+    background: linear-gradient(to right, #024959, #e32636);
+    border-radius: 50%;
+    top: -0.4125rem;
+    right: -0.625rem;
+    z-index: 5;
+}
+
+.timeline .medium_left {
+    height: 1rem;
+    width: 1rem;
+    position: absolute;
+    right: 0;
+    background: linear-gradient(to left, #024959, #e32636);
+    border-radius: 50%;
+    top: -0.4125rem;
+    right: -0.625rem;
+    z-index: 5;
+}
+
+.titulo_tl {
+    position: absolute;
+    font-size: 10px;
+    width: 200px;
+    right: -90px;
+    top: 10px;
+    text-align: center;
+}
