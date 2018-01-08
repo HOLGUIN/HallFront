@@ -1,21 +1,83 @@
 <div class="modal-header">
-    <h3 class="modal-title text-center" id="modal-title" ng-bind="$ctrl.titulo"></h3>
+    <h3 class="modal-title text-center font-title" id="modal-title" ng-bind="$ctrl.titulo"></h3>
 </div>
 
 <div class="modal-body" id="modal-body">
 
-    <div class="row">
-        <div class="col-md-3">
-            <h4 ng-bind="$ctrl.materia"></h4>
-        </div>
-        <div class="col-md-6">
-            <h5>({{$ctrl.tema.tema}}){{$ctrl.h.horaini}}-{{$ctrl.h.horafin}}</h5>
-        </div>
-    </div>
 
     <div class="row" style="margin-top: 10px;">
+        <div class="col-md-3 ">
+            <span class="font-title" translate="LNG_MATERIA"></span>
+        </div>
+        <div class="col-md-6 ">
+            <span ng-bind="$ctrl.materia"></span>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 10px;">
         <div class="col-md-3">
-            Fecha
+            <span class="font-title" translate="LNG_TEMA"></span>
+        </div>
+        <div class="col-md-4">
+            <span>{{$ctrl.tema.tema}} </span>
+        </div>
+        <div class="col-md-5">
+            <strong>({{$ctrl.h.horaini}} - {{$ctrl.h.horafin}})</strong>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 10px;">
+        <div class="col-md-3 ">
+            <span class="font-title" translate="LNG_PRECIO"></span>
+        </div>
+        <div class="col-md-6 ">
+            <span ng-bind="$ctrl.tema.preciohora | currency"></span> x
+            <span translate="LNG_HORA"></span>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 10px;">
+        <div class="col-md-4 ">
+            <span class="font-title" translate="LNG_TH"></span>
+        </div>
+        <div class="col-md-2 ">
+            0
+        </div>
+        <div class="col-md-2 ">
+            <span class="font-title" translate="LNG_TT"></span>
+        </div>
+        <div class="col-md-2 ">
+            0
+        </div>
+    </div>
+    <hr style="margin: 10px;border-top: 1px solid silver">
+
+    <div class="hbtn-success text-white" ng-bind="$ctrl.mensaje" style="padding: 15px;border-radius: 15px;margin-bottom: 10px;opacity: 0.7;">
+
+    </div>
+
+    <div class="row">
+        <div class="md-6">
+            <div class="timeline" style="margin-right: 20px;padding-left: 30%;">
+                <div class="inactive" style="width:10px;">
+                    <div class="inactive-start">
+                        <span class="titulo_tl" translate="LNG_HORAS_OCP"></span>
+                    </div>
+                </div>
+                <div class="inactive" style="width:12px;"></div>
+            </div>
+        </div>
+        <div class="md-6">
+            <div class="timeline">
+                <div class="active" style="width:10px;margin-left: 30%;">
+                    <div class="start">
+                        <span class="titulo_tl" translate="LNG_HORAS_DSP"></span>
+                    </div>
+                </div>
+                <div class="active" style="width:12px;"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 28px;">
+        <div class="col-md-3 font-title" style="padding-top: 5px; ">
+            <span class="font-title" translate="LNG_FECHA"></span>
         </div>
         <div class="col-md-6">
             <input type="date" class="form-control" ng-model="$ctrl.clase.fecha" min="{{$ctrl.fechamin | date:'yyyy-MM-dd'}}" ng-blur="$ctrl.getHoraAsgs($ctrl.clase.hlnprogtemaid, $ctrl.clase.fecha)"
@@ -24,8 +86,8 @@
     </div>
 
     <div class="row" style="margin-top: 10px;">
-        <div class="col-md-3">
-            Hora
+        <div class="col-md-3" style="padding-top: 5px; ">
+            <span class="font-title" translate="LNG_HORA"></span>
         </div>
         <div class="col-md-3">
             <input type="time" class="form-control" ng-model="$ctrl.clase.horaini" min="{{$ctrl.h.horaini}}" max="{{$ctrl.h.horafin}}"
@@ -35,6 +97,24 @@
             <input type="time" class="form-control" ng-model="$ctrl.clase.horafin" min="{{$ctrl.h.horaini}}" max="{{$ctrl.h.horafin}}"
                 ng-blur="$ctrl.changehour($ctrl.clase)" required>
         </div>
+    </div>
+    <div class="row" style="margin-top: 30px;">
+        <div class="col-md-12">
+            <div class="timeline col-md-12 col-sm-12" style="margin-left: 30%">
+                <div ng-repeat="i in $ctrl.linetime" class="{{i.class_line}}" ng-style="{width: $index == 0 ? '0' :' 10%'}">
+                    <div class="{{i.class_ball}}">
+                        <span class="titulo_tl" ng-bind="i.hora"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<hr style="margin: 10px;border-top: 1px solid silver">
+
+<div class="row">
+    <div class="col-md-12" style="text-align: center; margin: 20px;">
+        Opciones de pago
     </div>
 </div>
 

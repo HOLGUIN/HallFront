@@ -7,17 +7,24 @@
         padding-top: 0% !important;
     }
 </style>
-<div ui-view="">
+<div ui-view="" class="margin-body">
 
     <div class="row ">
-        <div class="row col-md-5" style="margin: 0 auto">
-            <div style="margin-top: 12%">
+        <div class="row col-md-7" style="margin: 0 auto">
+            <div style="margin-top: 30px;">
+                <div uib-carousel active="active" interval="$ctrl.myInterval" no-wrap="noWrapSlides">
+                    <div uib-slide ng-repeat="slide in $ctrl.slides track by slide.id" index="slide.id">
+                        <img ng-src="{{slide.image}}" style="margin:auto;">
+                    </div>
+                </div>
+            </div>
+            <div style="margin-top: 10px;">
                 <video style="width: 100%" controls>
                     <source src="assets/video/prueba.mp4" type="video/mp4">
                 </video>
             </div>
         </div>
-        <div class="row col-md-7" style="margin: 0 auto;">
+        <div class="row col-md-5" style="margin: 0 auto;">
             <div style="text-align: center">
                 <h3>
                     <span class="font-title">
@@ -28,32 +35,13 @@
             <div>
                 <uib-accordion close-others="$ctrl.oneAtATime">
                     <div ng-repeat="item in $ctrl.programas">
-                        <div uib-accordion-group class="panel-default" is-open="status.open">
+                        <div uib-accordion-group class="panel-default" is-open="$ctrl.status.open">
                             <uib-accordion-heading>
                                 <span ng-bind="item.materia"></span>
-                                <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                                <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': $ctrl.status.open, 'glyphicon-chevron-right': !$ctrl.status.open}"></i>
                             </uib-accordion-heading>
                             <div>
-
-                                <div class="timeline" style="margin-right: 20px;">
-                                    <div class="inactive" style="width:10px;margin-left: 10%">
-                                        <div class="inactive-start">
-                                            <span class="titulo_tl" translate="LNG_HORAS_OCP"></span>
-                                        </div>
-                                    </div>
-                                    <div class="inactive" style="width:12px;"></div>
-                                </div>
-
-                                <div class="timeline">
-                                    <div class="active" style="width:10px;margin-left: 30%; margin-bottom: 4%">
-                                        <div class="start">
-                                            <span class="titulo_tl" translate="LNG_HORAS_DSP"></span>
-                                        </div>
-                                    </div>
-                                    <div class="active" style="width:12px;"></div>
-                                </div>
-
-                                <table class="table table-response table-bordered table-striped" style="margin: 0" ng-repeat="t in item.temas">
+                                <table class="table table-response table-bordered table-striped" style="margin: 0; margin-top: 15px;" ng-repeat="t in item.temas">
                                     <thead>
                                         <tr>
                                             <td colspan="2" class="col-md-5">
@@ -68,7 +56,7 @@
                                             </td>
                                         </tr>
                                     </thead>
-                                    <tbody ng-repeat="p in t.horarios">
+                                    <tbody ng-repeat="p in t.horarios" style="border: 2px;">
                                         <tr>
                                             <td style="vertical-align: middle; text-align: left;">
                                                 <span class="icon-alarm"></span>
@@ -80,33 +68,6 @@
                                                 <md-button class="md-raised" style="background-color : #024959;color:white;margin: 0" ng-click="$ctrl.TakeTema(t, item.materia, p)">
                                                     <span translate="LNG_TOMAR"></span>
                                                 </md-button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="2">
-                                                <div class="row">
-                                                    <div class="col-md-3">
-                                                        <span translate="LNG_DISP_CLASS"></span>
-                                                    </div>
-                                                    <div class="col-md-5">
-                                                        <input type="date" class="form-control" 
-                                                               ng-model="$ctrl.fechaconsulta" 
-                                                               min="{{$ctrl.fechamin | date:'yyyy-MM-dd'}}" 
-                                                               ng-change="$ctrl.getClasesAsingslt(p.hlnprogtemaid, $ctrl.fechaconsulta, p)"
-                                                        />
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="2">
-                                                <div class="timeline">
-                                                    <div ng-repeat="i in p.linetime" class="{{i.class_line}}" ng-style="{width: $index == 0 ? '4%' :' 10%'}">
-                                                        <div class="{{i.class_ball}}">
-                                                            <span class="titulo_tl" ng-bind="i.hora"></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
                                             </td>
                                         </tr>
                                     </tbody>

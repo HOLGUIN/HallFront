@@ -98,7 +98,7 @@
 
             function menucontent() {
                 //  alert();
-                $(".container-fluid").click(function () {
+                $(".margin-body").click(function () {
                     // alert(contador);
                     if (contador == 0) {
                         contador = 1;

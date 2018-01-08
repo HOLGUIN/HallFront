@@ -96,10 +96,12 @@
             LNG_MATERIA: "Subject",
             LNG_TEMAS: "Themes",
             LNG_TEMA: "Theme",
+            LNG_FECHA: "Date",
 
             LNG_HI: "Start Time",
             LNG_HF: "End Time",
             LNG_TH: "Total Hours",
+            LNG_TT: "Total",
 
             LNG_CODIGO: "Code",
             LNG_PRECIO: "Price",
@@ -128,7 +130,9 @@
 
             LNG_DISP_CLASS: "Class Availability",
             LNG_HORAS_OCP: "Busy Hours",
-            LNG_HORAS_DSP: "Hours Available"
+            LNG_HORAS_DSP: "Hours Available",
+            LNG_MSJ_PC: "Select the date and the hours you want to take",
+            LNG_CERRAR: "Close"
         });
 
         //Traduccion en español
@@ -202,10 +206,12 @@
             LNG_MATERIA: "Materia",
             LNG_TEMAS: "Temas",
             LNG_TEMA: "Tema",
+            LNG_FECHA: "Fecha",
 
             LNG_HI: "Hora Inicio",
             LNG_HF: "Hora Final",
             LNG_TH: "Total Horas",
+            LNG_TT: "Total",
 
             LNG_CODIGO: "Codigo",
             LNG_PRECIO: "Precio",
@@ -235,7 +241,9 @@
 
             LNG_DISP_CLASS: "Disponibilidad de Clases",
             LNG_HORAS_OCP: "Horas Ocupadas",
-            LNG_HORAS_DSP: "Horas Disponibles"
+            LNG_HORAS_DSP: "Horas Disponibles",
+            LNG_MSJ_PC: "Selecciona la fecha y las horas que quieres tomar",
+            LNG_CERRAR: "Cerrar"
         });
 
         $translateProvider.useSanitizeValueStrategy('escape');

@@ -15,15 +15,33 @@
         self.programas = [];
         self.desctema = desctema;
         self.TakeTema = TakeTema;
-        self.oneAtATime = true;
+        self.oneAtATime = false;
         self.getClasesAsingslt = getClasesAsingslt;
         self.line = [];
         self.fechaconsulta = new Date();
         self.fechamin = new Date();
+
+
+        //Variables Slide
+        self.myInterval = 4000;
+        self.slides = [];
+        var currIndex =0
+        var newWidth = 600;
+
+        for (var u = 1; u <= 4; u++) {
+            newWidth += u;
+            self.slides.push({
+                image: '//unsplash.it/' + newWidth + '/300',
+                text: ['Nice image','Awesome photograph','That is so cool','I love that'][self.slides.length % 4],
+                id: currIndex++
+              });
+        }
+
         self.status = {
             isCustomHeaderOpen: false,
             isFirstOpen: true,
-            isFirstDisabled: false
+            isFirstDisabled: false,
+            open: true
         };
 
         var usuario = JSON.parse($window.localStorage.usuario);
@@ -34,6 +52,16 @@
         function getProgramas() {
             ProgramFactory.getProgramas().then(function (response) {
                 var response = response.data
+                //le coloca una hora a cada uno de los objetos horario
+                // angular.forEach(response, function (item) {
+                //    angular.forEach(item.temas, function (temas) {
+                //       angular.forEach(temas.horarios, function (h) {
+                //           h.fechaconsult = new Date();
+                //       });
+                //   });
+                // });
+
+
                 self.programas = response;
             }, handleError);
         }
@@ -51,10 +79,10 @@
 
         function getClasesAsingslt(hlnprogtemaid, fecha, h) {
 
-            if(fecha == undefined || fecha == null || fecha == "")
-            {
-              handleError('La fecha no es valida');
-            }else{
+            if (fecha == undefined || fecha == null || fecha == "") {
+                handleError('La fecha no es valida');
+            } else {
+                self.fechaconsulta = fecha;
                 clasesAsingsFactory.getClasesAsingslt(hlnprogtemaid, fecha).then(function (response) {
                     h.linetime = response.data;
                 }, handleError);
@@ -87,8 +115,6 @@
         }
 
         function TakeTema(tema, materia, horario) {
-
-
 
             var titulo = $translate.instant('LNG_PROGTEMA');
 
@@ -136,7 +162,7 @@ function ModalController($uibModalInstance, $scope, titulo, tema, desctema) {
 
 }
 
-function ModalTekeTema($uibModalInstance, $scope, titulo, tema, materia, claseFactory, hlnusuarioid, horario, $filter, handleError, clasesAsingsFactory) {
+function ModalTekeTema($uibModalInstance, $scope, titulo, tema, materia, claseFactory, hlnusuarioid, horario, $filter, handleError, clasesAsingsFactory, $translate) {
 
     var self = this;
     self.tema = tema;
@@ -145,11 +171,12 @@ function ModalTekeTema($uibModalInstance, $scope, titulo, tema, materia, claseFa
     self.materia = materia;
     self.SaveClass = SaveClass;
     self.changehour = changehour;
+    self.getHoraAsgs = getHoraAsgs;
+    self.linetime = [];
     self.horasAsg = [];
+    self.mensaje = $translate.instant('LNG_MSJ_PC');
 
     self.fechamin = new Date();
-    console.log(tema);
-
     //objeto para almacenar una clase
     var clase = {
         fecha: new Date(),
@@ -164,12 +191,10 @@ function ModalTekeTema($uibModalInstance, $scope, titulo, tema, materia, claseFa
         precio: 0
     };
 
+    getClasesAsingslt(clase.hlnprogtemaid, clase.fecha);
+
     self.clase = clase;
     self.h = horario;
-
-
-
-
 
     function getHoraAsg(hlnprogtemaid, fecha) {
         clasesAsingsFactory.getClasesAsings(hlnprogtemaid, fecha).then(function (response) {
@@ -211,6 +236,7 @@ function ModalTekeTema($uibModalInstance, $scope, titulo, tema, materia, claseFa
 
     function getHoraAsgs(hlnprogtemaid, fecha) {
         self.horasAsg = [];
+        getClasesAsingslt(hlnprogtemaid, fecha);
         self.horasAsg = getHoraAsg(hlnprogtemaid, fecha);
     }
 
@@ -231,14 +257,30 @@ function ModalTekeTema($uibModalInstance, $scope, titulo, tema, materia, claseFa
 
 
     function SaveClass(clase) {
+        console.log(clase);
         if (clase.fecha == undefined) {
             clase.fecha = new Date();
         } else {
+            clase.fecha = $filter('date')(clase.fecha, "yyyy-MM-dd");
             clase.horaini = $filter('date')(clase.horaini, "HH:mm:ss");
             clase.horafin = $filter('date')(clase.horafin, "HH:mm:ss");
             claseFactory.postClase(clase).then(function (response) {
                 var response = response.data
                 cancel();
+            }, handleError);
+        }
+    }
+
+
+    function getClasesAsingslt(hlnprogtemaid, fecha) {
+
+        if (fecha == undefined || fecha == null || fecha == "") {
+            handleError('La fecha no es valida');
+        } else {
+            self.fechaconsulta = fecha;
+            clasesAsingsFactory.getClasesAsingslt(hlnprogtemaid, fecha).then(function (response) {
+                self.linetime = response.data;
+                console.log(self.linetime);
             }, handleError);
         }
     }
