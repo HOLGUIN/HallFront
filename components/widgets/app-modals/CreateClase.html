@@ -38,18 +38,18 @@
             <span class="font-title" translate="LNG_TH"></span>
         </div>
         <div class="col-md-2 ">
-            0
+            <span ng-bind="$ctrl.preciototal.cantidad"></span>
         </div>
         <div class="col-md-2 ">
             <span class="font-title" translate="LNG_TT"></span>
         </div>
         <div class="col-md-2 ">
-            0
+            <span ng-bind="$ctrl.preciototal.prec_total | currency"></span>
         </div>
     </div>
     <hr style="margin: 10px;border-top: 1px solid silver">
 
-    <div class="hbtn-success text-white" ng-bind="$ctrl.mensaje" style="padding: 15px;border-radius: 15px;margin-bottom: 10px;opacity: 0.7;">
+    <div class="hbtn-success text-white" ng-bind="$ctrl.mensaje" style="padding: 15px;border-radius: 5px;margin-bottom: 10px;opacity: 0.7;">
 
     </div>
 
@@ -80,22 +80,21 @@
             <span class="font-title" translate="LNG_FECHA"></span>
         </div>
         <div class="col-md-6">
-            <input type="date" class="form-control" ng-model="$ctrl.clase.fecha" min="{{$ctrl.fechamin | date:'yyyy-MM-dd'}}" ng-blur="$ctrl.getHoraAsgs($ctrl.clase.hlnprogtemaid, $ctrl.clase.fecha)"
+            <input type="date" class="form-control" ng-model="$ctrl.clase.fecha" min="{{$ctrl.fechamin | date:'yyyy-MM-dd'}}" ng-change="$ctrl.getHoraAsgs($ctrl.clase.hlnprogtemaid)"
                 required>
         </div>
     </div>
-
     <div class="row" style="margin-top: 10px;">
         <div class="col-md-3" style="padding-top: 5px; ">
             <span class="font-title" translate="LNG_HORA"></span>
         </div>
         <div class="col-md-3">
-            <input type="time" class="form-control" ng-model="$ctrl.clase.horaini" min="{{$ctrl.h.horaini}}" max="{{$ctrl.h.horafin}}"
-                ng-blur="$ctrl.changehour($ctrl.clase)" required>
+            <input type="time" class="form-control" ng-model="$ctrl.clase.horaini" min="{{$ctrl.h.horaini}}" max="{{$ctrl.lastdate.horaini}}"
+                ng-change="$ctrl.changehour($ctrl.clase)" ng-disabled="$ctrl.disablefield" required>
         </div>
         <div class="col-md-3">
             <input type="time" class="form-control" ng-model="$ctrl.clase.horafin" min="{{$ctrl.h.horaini}}" max="{{$ctrl.h.horafin}}"
-                ng-blur="$ctrl.changehour($ctrl.clase)" required>
+                ng-change="$ctrl.changehour($ctrl.clase)" ng-disabled="$ctrl.disablefield" required>
         </div>
     </div>
     <div class="row" style="margin-top: 30px;">
@@ -109,18 +108,20 @@
             </div>
         </div>
     </div>
+    <div class="col-md-12" ng-show="$ctrl.disablefield">
+        <div class="hbtn-primary text-white" ng-bind="$ctrl.mensaje2" style="padding: 10px;border-radius: 5px;margin-bottom: 10px;opacity: 0.7;margin-top: 10px;"></div>
+    </div>
 </div>
 <hr style="margin: 10px;border-top: 1px solid silver">
 
 <div class="row">
-    <div class="col-md-12" style="text-align: center; margin: 20px;">
+    <div class="col-md-12" style="text-align: center; margin: 20px;" ng-show="!$ctrl.disablefield">
         Opciones de pago
     </div>
 </div>
 
-
 <div class="modal-footer">
-    <md-button class="md-raised hbtn-success" type="button" ng-click="$ctrl.SaveClass($ctrl.clase)">
+    <md-button class="md-raised hbtn-success" type="button" ng-click="$ctrl.SaveClass($ctrl.clase)" ng-show="!$ctrl.disablefield">
         <span translate="LGN_GUARDAR"></span>
     </md-button>
     <md-button class="hbtn-primary md-raised " type="button" ng-click="$ctrl.cancel()">

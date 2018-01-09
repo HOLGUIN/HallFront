@@ -25,16 +25,16 @@
         //Variables Slide
         self.myInterval = 4000;
         self.slides = [];
-        var currIndex =0
+        var currIndex = 0
         var newWidth = 600;
 
         for (var u = 1; u <= 4; u++) {
             newWidth += u;
             self.slides.push({
                 image: '//unsplash.it/' + newWidth + '/300',
-                text: ['Nice image','Awesome photograph','That is so cool','I love that'][self.slides.length % 4],
+                text: ['Nice image', 'Awesome photograph', 'That is so cool', 'I love that'][self.slides.length % 4],
                 id: currIndex++
-              });
+            });
         }
 
         self.status = {
@@ -51,30 +51,13 @@
 
         function getProgramas() {
             ProgramFactory.getProgramas().then(function (response) {
-                var response = response.data
-                //le coloca una hora a cada uno de los objetos horario
-                // angular.forEach(response, function (item) {
-                //    angular.forEach(item.temas, function (temas) {
-                //       angular.forEach(temas.horarios, function (h) {
-                //           h.fechaconsult = new Date();
-                //       });
-                //   });
-                // });
-
-
+                var response = response.data;
                 self.programas = response;
             }, handleError);
         }
 
         function handleError(response) {
             toastr.errorhall(response);
-        }
-
-        function getHoraAsg(hlnprogtemaid, fecha) {
-            clasesAsingsFactory.getClasesAsings(hlnprogtemaid, fecha).then(function (response) {
-                var response = response.data;
-                return response;
-            }, handleError);
         }
 
         function getClasesAsingslt(hlnprogtemaid, fecha, h) {
@@ -174,12 +157,18 @@ function ModalTekeTema($uibModalInstance, $scope, titulo, tema, materia, claseFa
     self.getHoraAsgs = getHoraAsgs;
     self.linetime = [];
     self.horasAsg = [];
+    self.horasLb = [];
+    self.disablefield = false;
+    self.preciototal = {
+        cantidad: 0,
+        prec_total: 0
+    }
     self.mensaje = $translate.instant('LNG_MSJ_PC');
-
+    self.mensaje2 = $translate.instant('LNG_MSJ_PCERR')
     self.fechamin = new Date();
     //objeto para almacenar una clase
     var clase = {
-        fecha: new Date(),
+        fecha: new Date(0),
         horaini: '',
         horafin: '',
         hlnusuarioid: hlnusuarioid,
@@ -196,29 +185,99 @@ function ModalTekeTema($uibModalInstance, $scope, titulo, tema, materia, claseFa
     self.clase = clase;
     self.h = horario;
 
+    self.lastdate = null;
+
+    //Este metodo identifica cuales son las horas ocupadas y disponibles
     function getHoraAsg(hlnprogtemaid, fecha) {
+
         clasesAsingsFactory.getClasesAsings(hlnprogtemaid, fecha).then(function (response) {
-            self.horasAsg = response.data;
+
+            self.lastdate = response.data[response.data.length - 1];
+
+            self.horasAsg = response.data.filter(function (item) {
+                return item.busy == true;
+            });
+
+            self.horasLb = response.data.filter(function (item) {
+                return item.busy == false;
+            });
+
+            if (self.horasLb.length == 0) {
+                self.disablefield = true;
+                self.clase.horaini = null;
+                self.clase.horafin = null;
+            } else {
+                self.disablefield = false;
+                self.clase.horaini = new Date("1970-01-01T" + self.horasLb[0].horaini);
+                self.clase.horafin = new Date("1970-01-01T" + self.horasLb[0].horafin);
+            }
+
+            recalcularModal(clase.horaini, clase.horafin);
+
         }, handleError);
     }
     getHoraAsg(self.clase.hlnprogtemaid, self.clase.fecha);
 
 
     function cancel() {
+        self.disablefield = false;
         $uibModalInstance.close();
     }
 
     function changehour(clase) {
+
         if (clase.horaini == undefined || clase.horafin == undefined) {
-            clase.horaini = new Date("1970-01-01T" + self.h.horaini);
+            clase.horaini = new Date("1970-01-01T" + self.horasLb[0].horaini);
             clase.horafin = newHour(clase.horaini, 1);
-        } else if (horaigual(clase.horaini, clase.horafin)) {
+        } else {
+            //Esto es para que las horas siempre sean netas
+            clase.horaini = new Date("1970-01-01T" + clase.horaini.getHours() + ":00:00");
+            clase.horafin = new Date("1970-01-01T" + clase.horafin.getHours() + ":00:00");
+        }
+
+        var aux = new Date();
+        var aux_time = new Date("1970-01-01T" + OrganizarHora(aux));
+        clase.fecha.setHours(0, 0, 0, 0);
+        aux.setHours(0, 0, 0, 0);
+
+
+        if (horaigual(clase.horaini, clase.horafin)) {
             clase.horafin = newHour(clase.horaini, 1);
         } else if (clase.horafin < clase.horaini) {
             clase.horafin = newHour(clase.horaini, 1);
         } else if (validaHourOcupadas(clase.horaini, clase.horafin)) {
-            handleError('error');
+            clase.horaini = new Date("1970-01-01T" + self.horasLb[0].horaini);
+            clase.horafin = newHour(clase.horaini, 1);
+        } 
+        
+        if (horaigual(aux, clase.fecha) && aux_time.getTime() > clase.horaini.getTime() ) {
+            handleError("error de fecha");
         }
+
+        //Recalcula los valores de cantidad de hora y precio total
+        recalcularModal(clase.horaini, clase.horafin);
+    }
+
+    function OrganizarHora(date) {
+
+        var hora;
+
+        if (date.getHours() < 10) {
+            hora = "0" + date.getHours();
+        } else {
+            hora = date.getHours()
+        }
+        if (date.getMinutes() < 10) {
+            hora = hora + ":0" + date.getMinutes();
+        } else {
+            hora = hora + ":" + date.getMinutes();
+        }
+        if (date.getSeconds() < 10) {
+            hora = hora + ":0" + date.getSeconds();
+        } else {
+            hora = hora + ":" + date.getSeconds();
+        }
+        return hora;
     }
 
     function newHour(date, hour) {
@@ -234,10 +293,13 @@ function ModalTekeTema($uibModalInstance, $scope, titulo, tema, materia, claseFa
         }
     }
 
-    function getHoraAsgs(hlnprogtemaid, fecha) {
+    function getHoraAsgs(hlnprogtemaid) {
         self.horasAsg = [];
-        getClasesAsingslt(hlnprogtemaid, fecha);
-        self.horasAsg = getHoraAsg(hlnprogtemaid, fecha);
+        if (clase.fecha == undefined || clase.fecha == null || clase.fecha == "") {
+            clase.fecha = new Date();
+        }
+        getClasesAsingslt(hlnprogtemaid, clase.fecha);
+        getHoraAsg(hlnprogtemaid, clase.fecha);
     }
 
     function validaHourOcupadas(hi, hf) {
@@ -280,9 +342,16 @@ function ModalTekeTema($uibModalInstance, $scope, titulo, tema, materia, claseFa
             self.fechaconsulta = fecha;
             clasesAsingsFactory.getClasesAsingslt(hlnprogtemaid, fecha).then(function (response) {
                 self.linetime = response.data;
-                console.log(self.linetime);
             }, handleError);
         }
+    }
+
+
+
+    function recalcularModal(fechaini, fechafin) {
+        var cantidad = (((fechafin - fechaini) / 1000) / 60) / 60;
+        self.preciototal.cantidad = cantidad;
+        self.preciototal.prec_total = cantidad * tema.preciohora;
     }
 
 }

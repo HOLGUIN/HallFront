@@ -132,6 +132,7 @@
             LNG_HORAS_OCP: "Busy Hours",
             LNG_HORAS_DSP: "Hours Available",
             LNG_MSJ_PC: "Select the date and the hours you want to take",
+            LNG_MSJ_PCERR: "This date does not have available hours",
             LNG_CERRAR: "Close"
         });
 
@@ -243,6 +244,7 @@
             LNG_HORAS_OCP: "Horas Ocupadas",
             LNG_HORAS_DSP: "Horas Disponibles",
             LNG_MSJ_PC: "Selecciona la fecha y las horas que quieres tomar",
+            LNG_MSJ_PCERR: "Esta fecha no tiene horas disponibles",
             LNG_CERRAR: "Cerrar"
         });
 
