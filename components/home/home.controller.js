@@ -159,6 +159,8 @@ function ModalTekeTema($uibModalInstance, $scope, titulo, tema, materia, claseFa
     self.horasAsg = [];
     self.horasLb = [];
     self.disablefield = false;
+    self.h = horario;
+    self.lastdate = null;
     self.preciototal = {
         cantidad: 0,
         prec_total: 0
@@ -180,12 +182,8 @@ function ModalTekeTema($uibModalInstance, $scope, titulo, tema, materia, claseFa
         precio: 0
     };
 
-    getClasesAsingslt(clase.hlnprogtemaid, clase.fecha);
-
     self.clase = clase;
-    self.h = horario;
 
-    self.lastdate = null;
 
     //Este metodo identifica cuales son las horas ocupadas y disponibles
     function getHoraAsg(hlnprogtemaid, fecha) {
@@ -202,25 +200,24 @@ function ModalTekeTema($uibModalInstance, $scope, titulo, tema, materia, claseFa
                 return item.busy == false;
             });
 
-            if (self.horasLb.length == 0) {
-                self.disablefield = true;
+            if (self.horasLb.length <= 0) {    
                 self.clase.horaini = null;
                 self.clase.horafin = null;
-            } else {
-                self.disablefield = false;
+                self.disablefield = true;
+            } else {             
                 self.clase.horaini = new Date("1970-01-01T" + self.horasLb[0].horaini);
                 self.clase.horafin = new Date("1970-01-01T" + self.horasLb[0].horafin);
+                self.disablefield = false;
             }
-
-            recalcularModal(clase.horaini, clase.horafin);
+            getClasesAsingslt(hlnprogtemaid, fecha);
+            recalcularModal(self.clase.horaini, self.clase.horafin);
 
         }, handleError);
     }
-    getHoraAsg(self.clase.hlnprogtemaid, self.clase.fecha);
+
 
 
     function cancel() {
-        self.disablefield = false;
         $uibModalInstance.close();
     }
 
@@ -231,14 +228,23 @@ function ModalTekeTema($uibModalInstance, $scope, titulo, tema, materia, claseFa
             clase.horafin = newHour(clase.horaini, 1);
         } else {
             //Esto es para que las horas siempre sean netas
-            clase.horaini = new Date("1970-01-01T" + clase.horaini.getHours() + ":00:00");
-            clase.horafin = new Date("1970-01-01T" + clase.horafin.getHours() + ":00:00");
+            var hour;
+            if (clase.horaini.getHours() < 10) {
+                hour = "0" + clase.horaini.getHours() + ":00:00";
+            } else {
+                clase.horaini = new Date("1970-01-01T" + clase.horaini.getHours() + ":00:00");
+            }
+            if (clase.horafin.getHours() < 10) {
+                hour = "0" + clase.horafin.getHours() + ":00:00";
+            } else {
+                clase.horafin = new Date("1970-01-01T" + clase.horafin.getHours() + ":00:00");
+            }
         }
 
-        var aux = new Date();
-        var aux_time = new Date("1970-01-01T" + OrganizarHora(aux));
-        clase.fecha.setHours(0, 0, 0, 0);
-        aux.setHours(0, 0, 0, 0);
+        // var aux = new Date();
+        // var aux_time = new Date("1970-01-01T" + OrganizarHora(aux));
+        // clase.fecha.setHours(0, 0, 0, 0);
+        // aux.setHours(0, 0, 0, 0);
 
 
         if (horaigual(clase.horaini, clase.horafin)) {
@@ -248,11 +254,11 @@ function ModalTekeTema($uibModalInstance, $scope, titulo, tema, materia, claseFa
         } else if (validaHourOcupadas(clase.horaini, clase.horafin)) {
             clase.horaini = new Date("1970-01-01T" + self.horasLb[0].horaini);
             clase.horafin = newHour(clase.horaini, 1);
-        } 
-        
-        if (horaigual(aux, clase.fecha) && aux_time.getTime() > clase.horaini.getTime() ) {
-            handleError("error de fecha");
         }
+
+        //if (horaigual(aux, clase.fecha) && aux_time.getTime() > clase.horaini.getTime() ) {
+        //    handleError("error de fecha");
+        // }
 
         //Recalcula los valores de cantidad de hora y precio total
         recalcularModal(clase.horaini, clase.horafin);

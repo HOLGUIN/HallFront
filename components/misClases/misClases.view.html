@@ -7,12 +7,42 @@
         height: 300px;
     }
 </style>
-<div ui-view="" class="margin-body">
+<div ui-view="" class="margin-body content">
 
     <div flex style="text-align: right;">
         <h1 style="padding-right:15px;" class="font-title">
             <span translate="LNG_CLASES_MENU"></span>
         </h1>
+    </div>
+
+    <div ng-repeat="item in $ctrl.clases.clases_vistas" class="row">
+
+        <span ng-bind="item.materia"></span>
+        <hr>
+        <div ng-repeat="t in item.temas">
+            <span ng-bind="t.tema"></span>
+            <br>
+            <div ng-repeat="c in t.clases">
+
+                <div class="col-md-3">
+                    <md-card md-theme="{{ 'dark-grey'  }}" md-theme-watch>
+                        <md-card-title>
+                            <md-card-title-text>
+                                <span class="md-headline" ng-bind="c.fecha"></span>
+                                <span class="md-subhead">Large</span>
+                            </md-card-title-text>              
+                        </md-card-title>
+                        <md-card-content>
+                            contenido de la carta
+                        </md-card-content>
+                        <md-card-actions layout="row" layout-align="end center">
+                            <md-button class=" icon-redo2"></md-button> 
+                          </md-card-actions>
+                    </md-card>
+                </div>
+
+            </div>
+        </div>
     </div>
 
 

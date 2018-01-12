@@ -24,18 +24,6 @@
 
             var self = this;
 
-            self.showConfig = false;
-            self.showTemplate = false;
-            self.showAssistant = false;
-            self.showMonitor = false;
-
-            self.showConfig1 = false;
-            self.showTemplate1 = false;
-            self.showAssistant1 = false;
-            self.showMonitor1 = false;
-
-            self.posicion = 1;
-
             var currentProfile = $window.localStorage.perfilid;
 
             self.logout = logout;
@@ -137,50 +125,23 @@
                     animation: true,
                     ariaLabelledBy: 'modal-title',
                     ariaDescribedBy: 'modal-body',
-                    templateUrl: 'components/widgets/app-header/app-modal-password.html',
+                    templateUrl: 'components/widgets/app-modals/ChangePassword.html',
                     controller: ModalController,
                     controllerAs: '$ctrl',
                     windowClass: 'u-modalPosition',
-                    size: 'lg',
-                    resolve: {
-                        items: function () {
-                            return 'holaaa';
-                        }
-                    }
-                });
-
-                modalInstance.result.then(function (data) {
-
-                }, function () {
-                    //console.log('cerro modal');
+                    size: 'md'
                 });
             }
 
         };
     }
 
-    function ModalController(appHeaderFactory, $window, $uibModalInstance) {
+    function ModalController($uibModalInstance) {
         var self = this;
 
-        self.nameModule = 'Cambiar Contraseña';
-        self.confirmChange = confirmChange;
+        self.password = null;
+        self.password2 = null;
         self.cancel = cancel;
-
-        function confirmChange() {
-            var changes = {
-                usuarioid: $window.localStorage.usuarioid,
-                contrasena_actual: self.passwordactual,
-                contrasena_nueva: self.passwordnew,
-                contrasena_nueva2: self.passwordnew2
-            };
-
-            appHeaderFactory.updatePassword($window.localStorage.usuarioid, changes).then(function (response) {
-                $uibModalInstance.close('');
-            }, function (reason) {
-                //console.log(reason);
-                self.error = reason.data;
-            });
-        }
 
         function cancel() {
             $uibModalInstance.close();
@@ -189,20 +150,5 @@
     };
 
 
-    //Modal logout 
-
-    self.showToast2 = showToast2;
-
-    function showToast2() {
-        var toast = $mdToast.simple()
-            .textContent('Hello World!')
-            .action('OK')
-            .highlightAction(false);
-        $mdToast.show(toast).then(function (response) {
-            if (response == 'ok') {
-                alert('You clicked \'OK\'.');
-            }
-        });
-    }
 
 }());

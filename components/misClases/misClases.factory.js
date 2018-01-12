@@ -21,7 +21,7 @@
                     url: API_URL + '/api/Clase',
                     method: "Get",
                     params: {
-                        alumnoid: hlnusuarioid
+                        alumnoid: parseInt(hlnusuarioid)
                     },
                     headers: {
                         'Content-Type': 'application/json'

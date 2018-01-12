@@ -1,94 +1,94 @@
 <div ui-view="" class="margin-body">
 
-
-    <div layout="row" layout-sm="row" layout-xl="row" layout-xs="row" style="margin-top: 10px;margin-bottom: 15px;">
-       <!-- <div id="toaster" ng-if="$ctrl.Usuario.toast == true">
-
-        </div>-->
-        <div flex="50">
-            <md-button class="md-raised md-warn btn_crear" ng-click="$ctrl.CreateOrEditUsuario('Crear', null, null);" style="left: 0;"
-                flex="50"><span translate="LNG_CREAR"></span></md-button>
-        </div>
-        <div flex style="text-align: right;">
-            <h1 style="margin-right:15px;" class="font-title"><span translate="LNG_USUARIOS_MENU"></span></h1>
-        </div>
+    <div class="content">
+            <div layout="row" layout-sm="row" layout-xl="row" layout-xs="row" style="margin-top: 10px;margin-bottom: 15px;">
+                    <div flex="50">
+                        <md-button class="md-raised md-warn btn_crear" ng-click="$ctrl.CreateOrEditUsuario('Crear', null, null);" style="left: 0;"
+                            flex="50"><span translate="LNG_CREAR"></span></md-button>
+                    </div>
+                    <div flex style="text-align: right;">
+                        <h1 style="margin-right:15px;" class="font-title"><span translate="LNG_USUARIOS_MENU"></span></h1>
+                    </div>
+                </div>
+            
+            
+                <table datatable="ng" class="table table-bordered table-striped table-responsive">
+                    <thead>
+                        <tr>
+                            <th style="text-align:center;width:25%">
+                                <span translate="LNG_NOMBRES"></span>
+                            </th>
+                            <th style="text-align:center;width:25%">
+                                 <span translate="LNG_APELLIDOS"></span>
+                            </th>
+                            <th style="text-align:center;width:25%">
+                               <span translate="LNG_USERNAME"></span>
+                            </th>
+                            <th style="text-align: center;">
+                                <span translate=" LNG_TELEFONO"></span>
+                            </th>
+                            <th style="text-align:center;width:25%">
+                               <span translate="LNG_PAIS"></span>
+                            </th>
+                            <th style="text-align:center;width:25%">
+                                <span translate="LNG_ACTIVO"></span>
+                            </th>
+                            <th style="text-align:center;width:25%">
+                                <span translate="LNG_ADMIN_TBL"></span>
+                            </th>
+                              <th style="text-align:center;width:25%">
+                                <span translate="LGN_PROFESOR"></span>
+                            </th>
+                            <th style="text-align:center;width:25%">
+                                <span translate="LGN_ALUMNO"></span>
+                            </th>
+                            <th style="text-align:center;">
+                               <span translate="LGN_ACCIONES"></span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in $ctrl.Usuarios">
+                            <td>
+                                <span ng-bind="item.nombres"></span>
+                            </td>
+                            <td>
+                                <span ng-bind="item.apellidos"></span>
+                            </td>
+                            <td>
+                                <span ng-bind="item.username"></span>
+                            </td>
+                            <td>
+                                <span ng-bind="item.telefono"></span>
+                            </td>
+                            <td>
+                                <span ng-bind="item.pais"></span>
+                            </td>
+                            <td style="text-align: center;">
+                                <span ng-if="item.activo == true" class="icon-checkmark"></span>
+                                <span ng-if="item.activo == false" class="icon-cross"></span>
+                            </td>
+                            <td style="text-align: center;">
+                                <span ng-if="item.administrador == true" class="icon-checkmark"></span>
+                                <span ng-if="item.administrador == false" class="icon-cross"></span>
+                            </td>
+                            <td style="text-align: center;">
+                                <span ng-if="item.profesor == true" class="icon-checkmark"></span>
+                                <span ng-if="item.profesor == false" class="icon-cross"></span>
+                            </td>
+                               <td style="text-align: center;">
+                                <span ng-if="item.alumno == true" class="icon-checkmark"></span>
+                                <span ng-if="item.alumno == false" class="icon-cross"></span>
+                            </td>
+                            <td style="text-align:center;">
+                                <a class="icon-pencil2 hico" href="" ng-click="$ctrl.CreateOrEditUsuario('Editar', item.hlnusuarioid, $index);"></a> |
+                                <a class="icon-key hico" href="" title="Cambiar el password" ng-click="$ctrl.ChangePassword(item.hlnusuarioid)"></a> 
+                             <!--   <a class="icon-bin hico" ng-click="$ctrl.showConfirm($event, item, $index);"></a> -->
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
     </div>
 
 
-    <table datatable="ng" class="table table-bordered table-striped">
-        <thead>
-            <tr>
-                <th style="text-align:center;width:25%">
-                    <span translate="LNG_NOMBRES"></span>
-                </th>
-                <th style="text-align:center;width:25%">
-                     <span translate="LNG_APELLIDOS"></span>
-                </th>
-                <th style="text-align:center;width:25%">
-                   <span translate="LNG_USERNAME"></span>
-                </th>
-                <th style="text-align: center;">
-                    <span translate=" LNG_TELEFONO"></span>
-                </th>
-                <th style="text-align:center;width:25%">
-                   <span translate="LNG_PAIS"></span>
-                </th>
-                <th style="text-align:center;width:25%">
-                    <span translate="LNG_ACTIVO"></span>
-                </th>
-                <th style="text-align:center;width:25%">
-                    <span translate="LNG_ADMIN_TBL"></span>
-                </th>
-                  <th style="text-align:center;width:25%">
-                    <span translate="LGN_PROFESOR"></span>
-                </th>
-                <th style="text-align:center;width:25%">
-                    <span translate="LGN_ALUMNO"></span>
-                </th>
-                <th style="text-align:center;">
-                   <span translate="LGN_ACCIONES"></span>
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="item in $ctrl.Usuarios">
-                <td>
-                    <span ng-bind="item.nombres"></span>
-                </td>
-                <td>
-                    <span ng-bind="item.apellidos"></span>
-                </td>
-                <td>
-                    <span ng-bind="item.username"></span>
-                </td>
-                <td>
-                    <span ng-bind="item.telefono"></span>
-                </td>
-                <td>
-                    <span ng-bind="item.pais"></span>
-                </td>
-                <td style="text-align: center;">
-                    <span ng-if="item.activo == true" class="icon-checkmark"></span>
-                    <span ng-if="item.activo == false" class="icon-cross"></span>
-                </td>
-                <td style="text-align: center;">
-                    <span ng-if="item.administrador == true" class="icon-checkmark"></span>
-                    <span ng-if="item.administrador == false" class="icon-cross"></span>
-                </td>
-                <td style="text-align: center;">
-                    <span ng-if="item.profesor == true" class="icon-checkmark"></span>
-                    <span ng-if="item.profesor == false" class="icon-cross"></span>
-                </td>
-                   <td style="text-align: center;">
-                    <span ng-if="item.alumno == true" class="icon-checkmark"></span>
-                    <span ng-if="item.alumno == false" class="icon-cross"></span>
-                </td>
-                <td style="text-align:center;">
-                    <a class="icon-pencil2 hico" href="" ng-click="$ctrl.CreateOrEditUsuario('Editar', item.hlnusuarioid, $index);"></a> |
-                    <a class="icon-key hico" href="" title="Cambiar el password" ng-click="$ctrl.ChangePassword(item.hlnusuarioid)"></a> 
-                 <!--   <a class="icon-bin hico" ng-click="$ctrl.showConfirm($event, item, $index);"></a> -->
-                </td>
-            </tr>
-        </tbody>
-    </table>
 </div>

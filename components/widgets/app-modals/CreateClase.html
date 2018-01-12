@@ -2,7 +2,7 @@
     <h3 class="modal-title text-center font-title" id="modal-title" ng-bind="$ctrl.titulo"></h3>
 </div>
 
-<div class="modal-body" id="modal-body">
+<div class="modal-body" id="modal-body" ng-cloak="">
 
 
     <div class="row" style="margin-top: 10px;">
@@ -111,14 +111,16 @@
     <div class="col-md-12" ng-show="$ctrl.disablefield">
         <div class="hbtn-primary text-white" ng-bind="$ctrl.mensaje2" style="padding: 10px;border-radius: 5px;margin-bottom: 10px;opacity: 0.7;margin-top: 10px;"></div>
     </div>
-</div>
-<hr style="margin: 10px;border-top: 1px solid silver">
 
-<div class="row">
-    <div class="col-md-12" style="text-align: center; margin: 20px;" ng-show="!$ctrl.disablefield">
-        Opciones de pago
+    <hr style="margin: 10px;border-top: 1px solid silver">
+
+    <div class="row">
+        <div class="col-md-12" style="text-align: center; margin: 20px;" ng-show="!$ctrl.disablefield">
+            Opciones de pago
+        </div>
     </div>
 </div>
+
 
 <div class="modal-footer">
     <md-button class="md-raised hbtn-success" type="button" ng-click="$ctrl.SaveClass($ctrl.clase)" ng-show="!$ctrl.disablefield">
