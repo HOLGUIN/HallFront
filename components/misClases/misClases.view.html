@@ -1,11 +1,7 @@
 <style>
-    #divchat {
-        border-radius: 25px;
-        border: 2px solid red;
-        padding: 20px;
-        width: 100%;
-        height: 300px;
-    }
+    .md-subheader.md-default-theme.md-primary, .md-subheader.md-primary{
+        color: black !important
+    };
 </style>
 <div ui-view="" class="margin-body content">
 
@@ -15,153 +11,47 @@
         </h1>
     </div>
 
-    <div ng-repeat="item in $ctrl.clases.clases_vistas" class="row">
+    <div  style="height: 500px" >
 
-        <span ng-bind="item.materia"></span>
-        <hr>
-        <div ng-repeat="t in item.temas">
-            <span ng-bind="t.tema"></span>
-            <br>
-            <div ng-repeat="c in t.clases">
+        <md-content  md-theme="altTheme" style="height: 100%">
 
-                <div class="col-md-3">
-                    <md-card md-theme="{{ 'dark-grey'  }}" md-theme-watch>
-                        <md-card-title>
-                            <md-card-title-text>
-                                <span class="md-headline" ng-bind="c.fecha"></span>
-                                <span class="md-subhead">Large</span>
-                            </md-card-title-text>              
-                        </md-card-title>
-                        <md-card-content>
-                            contenido de la carta
-                        </md-card-content>
-                        <md-card-actions layout="row" layout-align="end center">
-                            <md-button class=" icon-redo2"></md-button> 
-                          </md-card-actions>
-                    </md-card>
-                </div>
+        <section ng-repeat="item in $ctrl.clases.clases_vistas">
+            <md-subheader class="md-primary">
 
-            </div>
-        </div>
-    </div>
+            <md-l ist layout-padding>
+                <md-list-item class="md-3-line" ng-repeat="t in item.temas">
+                    <div class="col-md-12">
+                            <md-subheader class="md-primary">
+                                    <span ng-bind="item.materia" style="padding: 0px;" class="font-title"></span> 
+                                    <span  style="padding: 0px;" class="font-title">></span> 
+                                    <span ng-bind="t.tema" style="padding: 0px;" class="font-title"></span>
+                                </md-subheader>
+                       
+                        <div ng-repeat="c in t.clases">
+                            <div class="col-md-3">
+                                <md-card md-theme="{{ 'dark-grey' }}" md-theme-watch>
+                                    <md-card-title>
+                                        <md-card-title-text>
+                                            <span class="md-headline" ng-bind="c.fecha |  date:'medium'"></span>
+                                            <!--<span class="md-subhead">Large</span> -->
+                                        </md-card-title-text>
+                                    </md-card-title>
+                                    <!-- <md-card-content>
+                                        contenido de la carta
+                                    </md-card-content>-->
+                                    <md-card-actions layout="row" layout-align="end center">
+                                        <md-button class=" icon-redo2"></md-button>
+                                    </md-card-actions>
+                                </md-card>
+                            </div>
+                        </div>
+                    </div>
+                </md-list-item>
+            </md-list>
+        </section>
+        </md-content>
 
 
-    <div class="row">
-
-        <div class="col-md-3">
-            <md-card md-theme="{{ 'dark-grey'  }}" md-theme-watch>
-                <md-card-title>
-                    <md-card-title-text>
-                        <span class="md-headline">Card with image</span>
-                        <span class="md-subhead">Large</span>
-                    </md-card-title-text>              
-                </md-card-title>
-                <md-card-content>
-                    contenido de la carta
-                </md-card-content>
-                <md-card-actions layout="row" layout-align="end center">
-                    <md-button class=" icon-redo2"></md-button> 
-                  </md-card-actions>
-            </md-card>
-        </div>
-        <div class="col-md-3">
-            <md-card md-theme="{{ 'dark-lime'  }}" md-theme-watch>
-                <md-card-title>
-                    <md-card-title-text>
-                        <span class="md-headline">Card with image</span>
-                        <span class="md-subhead">Large</span>
-                    </md-card-title-text>
-                    <md-card-title-media>
-                        <div class="md-media-lg card-media"></div>
-                    </md-card-title-media>
-                </md-card-title>
-            </md-card>
-        </div>
-        <div class="col-md-3">
-            <md-card md-theme="{{ 'dark-orange'  }}" md-theme-watch>
-                <md-card-title>
-                    <md-card-title-text>
-                        <span class="md-headline">Card with image</span>
-                        <span class="md-subhead">Large</span>
-                    </md-card-title-text>
-                    <md-card-title-media>
-                        <div class="md-media-lg card-media"></div>
-                    </md-card-title-media>
-                </md-card-title>
-            </md-card>
-        </div>
-        <div class="col-md-3">
-            <md-card md-theme="{{ 'dark-teal'  }}" md-theme-watch>
-                <md-card-title>
-                    <md-card-title-text>
-                        <span class="md-headline">Card with image</span>
-                        <span class="md-subhead">Large</span>
-                    </md-card-title-text>
-                    <md-card-title-media>
-                        <div class="md-media-lg card-media"></div>
-                    </md-card-title-media>
-                </md-card-title>
-            </md-card>
-        </div>
 
     </div>
-    <div class="row">
-
-        <div class="col-md-3">
-            <md-card md-theme="{{ 'dark-amber'  }}" md-theme-watch>
-                <md-card-title>
-                    <md-card-title-text>
-                        <span class="md-headline">Card with image</span>
-                        <span class="md-subhead">Large</span>
-                    </md-card-title-text>
-                
-                </md-card-title>
-                <md-card-content>
-                    contenido de la carta
-                </md-card-content>
-            </md-card>
-        </div>
-        <div class="col-md-3">
-            <md-card md-theme="{{ 'dark-brown'  }}" md-theme-watch>
-                <md-card-title>
-                    <md-card-title-text>
-                        <span class="md-headline">Card with image</span>
-                        <span class="md-subhead">Large</span>
-                    </md-card-title-text>
-                    <md-card-title-media>
-                        <div class="md-media-lg card-media"></div>
-                    </md-card-title-media>
-                </md-card-title>
-            </md-card>
-        </div>
-        <div class="col-md-3">
-            <md-card md-theme="{{ 'dark-indigo'  }}" md-theme-watch>
-                <md-card-title>
-                    <md-card-title-text>
-                        <span class="md-headline">Card with image</span>
-                        <span class="md-subhead">Large</span>
-                    </md-card-title-text>
-                    <md-card-title-media>
-                        <div class="md-media-lg card-media"></div>
-                    </md-card-title-media>
-                </md-card-title>
-            </md-card>
-        </div>
-        <div class="col-md-3">
-            <md-card md-theme="{{ 'dark-pink'  }}" md-theme-watch>
-                <md-card-title>
-                    <md-card-title-text>
-                        <span class="md-headline">Card with image</span>
-                        <span class="md-subhead">Large</span>
-                    </md-card-title-text>
-                    <md-card-title-media>
-                        <div class="md-media-lg card-media"></div>
-                    </md-card-title-media>
-                </md-card-title>
-            </md-card>
-        </div>
-
-    </div>
-
-
 </div>
