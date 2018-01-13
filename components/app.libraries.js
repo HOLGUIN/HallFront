@@ -7,7 +7,6 @@
         'ui.bootstrap',
         'ngMaterial',
         'ngAnimate',
-        'app.widgets',
         'datatables',
         'ui.select',
         'toastr',

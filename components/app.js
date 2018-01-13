@@ -8,6 +8,7 @@
             'app.routes',
             'app.config',
             'app.core',
+            'app.widgets',
             'app.selectList',
             'app.usuario',
             'app.asignatura',
