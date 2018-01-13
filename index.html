@@ -3,80 +3,46 @@
 
 <head>
     <title>Hallearn</title>
-
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">    
+    <!-- css de la aplicacion -->
     <link rel="stylesheet" href="assets/css/menu_css.css" />
     <link rel="stylesheet" href="assets/css/timeline.css" />
     <link rel="stylesheet" href="assets/css/menu.css" />
-    <link rel="stylesheet" href="node_modules/angular-material/angular-material.min.css">
-    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
     <link rel="stylesheet" href="assets/css/app.css">
     <link rel="stylesheet" href="assets/css/style.css" />
-
-    <!-- css para utilizar toastr-->
-    <link rel="stylesheet" href="node_modules/angular-toastr/dist/angular-toastr.css">
-
-    <!-- Css datatables -->
-    <link rel="stylesheet" href="node_modules/datatables/media/css/jquery.dataTables.min.css">
-    <!-- Metodos a cambiar -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/angular-datatables/0.6.0/css/angular-datatables.css" rel="stylesheet">
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+    <!-- Otros css -->
+    <link rel="stylesheet" href="node_modules/angular-material/angular-material.min.css">
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="node_modules/angular-toastr/dist/angular-toastr.min.css">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="node_modules/angular-ui-select/select.min.css">
     <link rel="stylesheet" href="node_modules/selectize/dist/css/selectize.default.css">
-    <link rel="stylesheet" href="node_modules/selectize/dist/css/selectize.css">
-    <link rel="stylesheet" href="node_modules/angular-ui-select/select.css">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="node_modules/datatables/media/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="node_modules/angular-datatables-master/demo/src/archives/dist/css/angular-datatables.min.css">
 </head>
 
 <body id="">
 
     <div class="app contenido" ui-view=""></div>
 
-    <script src="node_modules/jquery/dist/jquery.js"></script>
-    <!--Carge de File Menu-->
+    <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="node_modules/angular/angular.min.js"></script>
+    <script type="text/javascript" src="bower_components/angular-i18n/angular-locale_es-es.js"></script>
+    <script type="text/javascript" src="bower_components/angular-google-analytics/dist/angular-google-analytics.min.js"></script>
+    <script type="text/javascript" src="node_modules/angular-translate/dist/angular-translate.min.js"></script>
+    <script type="text/javascript" src="node_modules/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script type="text/javascript" src="node_modules/angular-animate/angular-animate.min.js"></script>
+    <script type="text/javascript" src="node_modules/angular-aria/angular-aria.min.js"></script>
+    <script type="text/javascript" src="node_modules/angular-material/angular-material.min.js"></script>
+    
+    <script type="text/javascript" src="node_modules/angular-ui-select/select.min.js"></script>
+    <script type="text/javascript" src="node_modules/angular-toastr/dist/angular-toastr.tpls.min.js"></script>
+    <script type="text/javascript" src="node_modules/angular-ui-bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <script type="text/javascript" src="node_modules/datatables/media/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="node_modules/angular-datatables-master/demo/src/archives/dist/angular-datatables.min.js"></script> 
 
-    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="node_modules/angular/angular.js"></script>
-    <!--Carga el modulo que se encargara de la traduccion de la pagina-->
-    <script src="node_modules/angular-translate/dist/angular-translate.js"></script>
-    <script src="node_modules/angular-messages/angular-messages.js"></script>
-    <script src="node_modules/angular-ui-router/release/angular-ui-router.js"></script>
-    <script src="node_modules/angular-animate/angular-animate.min.js"></script>
-    <script src="node_modules/angular-aria/angular-aria.min.js"></script>
-    <script src="node_modules/angular-material/angular-material.min.js"></script>
-    <script src="node_modules/angular-sanitize/angular-sanitize.js"></script>
-
-    <script src="node_modules/angular-ui-select/select.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-select/0.18.1/select.js"></script>
-
-    <script src="node_modules/angular-websocket/dist/angular-websocket.js"></script>
-
-
-    <!--Carge de Datatable-->
-    <script src="node_modules/datatables/media/js/jquery.dataTables.min.js"></script>
-    <!-- <script src="node_modules/angular-datatables/dist/angular-datatables.js"></script> -->
-
-    <!-- Link a cambiar -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-datatables/0.6.0/angular-datatables.js"></script>
-
-    <!-- script para utilizar toasr-->
-    <!--<script type="text/javascript" src="node_modules/angular-toastr/src/toastr.config.js"></script>-->
-    <script type="text/javascript" src="node_modules/angular-toastr/dist/angular-toastr.tpls.js"></script>
-
-    <!--Carge de Json Schema Form -->
-    <script type="text/javascript" src="node_modules/tv4/tv4.js"></script>
-    <script type="text/javascript" src="node_modules/objectpath/lib/ObjectPath.js"></script>
-    <script type="text/javascript" src="node_modules/angular-schema-form/dist/schema-form.min.js"></script>
-    <script type="text/javascript" src="node_modules/angular-schema-form/dist/bootstrap-decorator.min.js"></script>
-    <script src="bower_components/ng-ckeditor/libs/ckeditor/ckeditor.js"></script>
-    <script src="bower_components/ng-ckeditor/ng-ckeditor.js"></script>
-    <script src="node_modules/angular-sweetalert/SweetAlert.min.js"></script>
-    <script src="node_modules/sweetalert/lib/sweet-alert.min.js"></script>
-    <script src="node_modules/angular-ui-bootstrap/ui-bootstrap-tpls.js"></script>
-
-    <!-- referencia a socket.io -->
-    <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
-    <!-- <script src="node_modules/socket.io-client/dist/socket.io.js"></script> -->
 
     <!-- application scripts -->
     <script src="components/app.js"></script>
@@ -86,25 +52,21 @@
     <script src="components/app.routes.js"></script>
     <script src="components/widgets/app-widgets-module.js"></script>
 
-
+    <!--Modulo de Home Bryan Holguin 13/febrero/2017-->
     <script src="components/login/auth-interceptor.factory.js"></script>
     <script src="components/login/auth-token.factory.js"></script>
     <script src="components/login/login.factory.js"></script>
     <script src="components/login/login.controller.js"></script>
 
+    <!--Modulo de Home Bryan Holguin 13/febrero/2017-->
     <script src="components/widgets/app-header/app-header.directive.js"></script>
     <script src="components/widgets/app-header/app-header.factory.js"></script>
-
-
-
 
     <!--Modulo de Home Bryan Holguin 13/febrero/2017-->
     <script src="components/home/home.controller.js"></script>
 
-
     <!--Modulo de Core Bryan Holguin 13/febrero/2017-->
     <script src="components/core/core.module.js"></script>
-
 
     <!--Modulo de Usuarios Bryan Holguin 2/febrero/2017-->
     <script src="components/usuario/usuario.module.js"></script>
@@ -112,12 +74,10 @@
     <script src="components/usuario/usuario.factory.js"></script>
     <script src="components/usuario/usuario.routes.js"></script>
 
-
     <!--Modulo de Materias Bryan Holguin 13/febrero/2017-->
     <script src="components/asignatura/asignatura.module.js"></script>
     <script src="components/asignatura/asignatura.controller.js"></script>
     <script src="components/asignatura/asignatura.routes.js"></script>
-
 
     <!--Modulo de Materias Bryan Holguin 13/febrero/2017-->
     <script src="components/asignatura/materia/materia.module.js"></script>
@@ -135,13 +95,11 @@
     <script src="components/ubicacion/ubicacion.controller.js"></script>
     <script src="components/ubicacion/ubicacion.routes.js"></script>
 
-
     <!--Modulo de pais Bryan Holguin 06/marzo/2017-->
     <script src="components/ubicacion/pais/pais.module.js"></script>
     <script src="components/ubicacion/pais/pais.controller.js"></script>
     <script src="components/ubicacion/pais/pais.factory.js"></script>
     <script src="components/ubicacion/pais/pais.routes.js"></script>
-
 
     <!--Modulo de departamento Bryan Holguin 06/marzo/2017-->
     <script src="components/ubicacion/departamento/departamento.module.js"></script>
@@ -160,18 +118,15 @@
     <script src="components/misDatos/datos.controller.js"></script>
     <script src="components/misDatos/datos.routes.js"></script>
 
-
     <!--Modulo de ciudad Bryan Holguin 06/marzo/2017-->
     <script src="components/Utilidades/selectList/selectList.module.js"></script>
     <script src="components/Utilidades/selectList/selectList.factory.js"></script>
-
 
     <!--Modulo de departamento Bryan Holguin 06/marzo/2017-->
     <script src="components/configuracion/configuracion.module.js"></script>
     <script src="components/configuracion/configuracion.controller.js"></script>
     <script src="components/configuracion/configuracion.factory.js"></script>
     <script src="components/configuracion/configuracion.routes.js"></script>
-
 
     <!--Modulo para programar tema Bryan Holguin 06/marzo/2017-->
     <script src="components/progTema/progTema.module.js"></script>
@@ -182,7 +137,6 @@
     <!--Modulo para Programar clase las clases Bryan Holguin 06/marzo/2017-->
     <script src="components/home/programar/programar.module.js"></script>
     <script src="components/home/programar/programar.factory.js"></script>
-
 
     <!--Modulo para tomar clase Bryan Holguin 09/mayo/2017-->
     <script src="components/misClases/misClases.module.js"></script>

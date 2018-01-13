@@ -1,57 +1,61 @@
 <style>
-    .md-subheader.md-default-theme.md-primary, .md-subheader.md-primary{
+    html {
+        overflow-y: hidden !important;
+    }
+
+
+    .md-subheader.md-default-theme.md-primary,
+    .md-subheader.md-primary {
         color: black !important
-    };
+    }
+
+    footer {
+        height: 50px !important;
+    }
 </style>
 <div ui-view="" class="margin-body content">
 
-    <div flex style="text-align: right;">
+    <div flex style="text-align: right;margin-bottom: 10px;">
         <h1 style="padding-right:15px;" class="font-title">
             <span translate="LNG_CLASES_MENU"></span>
         </h1>
     </div>
-
-    <div  style="height: 500px" >
-
-        <md-content  md-theme="altTheme" style="height: 100%">
-
-        <section ng-repeat="item in $ctrl.clases.clases_vistas">
-            <md-subheader class="md-primary">
-
-            <md-l ist layout-padding>
-                <md-list-item class="md-3-line" ng-repeat="t in item.temas">
-                    <div class="col-md-12">
-                            <md-subheader class="md-primary">
-                                    <span ng-bind="item.materia" style="padding: 0px;" class="font-title"></span> 
-                                    <span  style="padding: 0px;" class="font-title">></span> 
+    <div style="height:78vh !important;">
+        <md-content md-theme="altTheme" style="height: 100%; ">
+            <section ng-repeat="item in $ctrl.clases.clases_vistas">
+                <md-subheader class="md-primary">
+                    <md-l ist layout-padding>
+                        <md-list-item class="md-4-line" ng-repeat="t in item.temas">
+                            <div class="col-md-12">
+                                <md-subheader class="md-primary">
+                                    <span ng-bind="item.materia" style="padding: 0px;" class="font-title"></span>
+                                    <span style="padding: 0px;" class="font-title">></span>
                                     <span ng-bind="t.tema" style="padding: 0px;" class="font-title"></span>
                                 </md-subheader>
-                       
-                        <div ng-repeat="c in t.clases">
-                            <div class="col-md-3">
-                                <md-card md-theme="{{ 'dark-grey' }}" md-theme-watch>
-                                    <md-card-title>
-                                        <md-card-title-text>
-                                            <span class="md-headline" ng-bind="c.fecha |  date:'medium'"></span>
-                                            <!--<span class="md-subhead">Large</span> -->
-                                        </md-card-title-text>
-                                    </md-card-title>
-                                    <!-- <md-card-content>
-                                        contenido de la carta
-                                    </md-card-content>-->
-                                    <md-card-actions layout="row" layout-align="end center">
-                                        <md-button class=" icon-redo2"></md-button>
-                                    </md-card-actions>
-                                </md-card>
+
+                                <div ng-repeat="c in t.clases">
+                                    <div class="col-md-3">
+                                        <md-card md-theme="{{ 'dark-grey' }}" md-theme-watch>
+                                            <md-card-title>
+                                                <md-card-title-text>
+                                                    <span class="md-headline" ng-bind="c.fecha |  date:'fullDate'" style="font-size:15px; "></span>
+                                                    <span class="md-subhead">
+                                                        <span translate="LNG_TH"></span>:
+                                                        <span ng-bind="c.canthoras"></span>
+                                                    </span>
+                                                </md-card-title-text>
+                                            </md-card-title>
+                                            <md-card-actions layout="row" layout-align="end center">
+                                                <md-button class=" icon-redo2"></md-button>
+                                            </md-card-actions>
+                                        </md-card>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                </md-list-item>
-            </md-list>
-        </section>
+                        </md-list-item>
+                        </md-list>
+            </section>
         </md-content>
-
-
 
     </div>
 </div>
