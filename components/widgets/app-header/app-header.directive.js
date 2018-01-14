@@ -6,7 +6,7 @@
     appHeader.$inject = ['$state', "$translate"];
 
 
-    function appHeader($state) {
+    function appHeader($state, $scope) {
 
         return {
             restrict: 'E',

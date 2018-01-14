@@ -79,7 +79,6 @@
             LNG_CORREOREQ: "Email is required",
             LNG_CORREOINV: "The mail is invalid",
             LNG_DESCTEMA: "Theme Description",
-
             LNG_NOMBRES: "Names",
             LNG_APELLIDOS: "Surnames",
             LNG_EDAD: "Age",
@@ -94,23 +93,19 @@
             LNG_CIUDADES: "Citys",
             LNG_USERNAME: "Username",
             LNG_ACTIVO: "Active",
-
             LGN_PROFESOR: "Teacher",
             LGN_ALUMNO: "Student",
             LGN_ACCIONES: "Actions",
-
             LGN_CONFIRM: "Confirm",
             LGN_GUARDAR: "Save",
             LGN_CANCEL: "Cancel",
             LGN_DESCRIP: "Description",
-
             LNG_ADMIN_TBL: "Admin",
             LNG_CREAR: "Create",
             LNG_EDITAR: "Edit",
             LNG_ACEPTAR: "Ok",
             LNG_EDITSUCS: "Was successfully edited",
             LNG_CREATESUCS: "Was created successfully",
-
             LNG_ERROR: "An error occurred in the process",
             LNG_MSJ_1: "Passwords do not match",
             LNG_MSJ_2: "Age is not valid",
@@ -121,25 +116,20 @@
             LNG_MSJ_7: "Start time must be less than the final",
             LNG_MSJ_8: "A department for this country already exists",
             LNG_MSJ_9: "This city already exists for this department",
-
             LNG_BORRAR: "Do you want to delete this record?",
             LNG_BORRARSUC: "Successfully deleted",
-
             LNG_MATERIAS: "Subjects",
             LNG_MATERIA: "Subject",
             LNG_TEMAS: "Themes",
             LNG_TEMA: "Theme",
             LNG_FECHA: "Date",
-
             LNG_HI: "Start Time",
             LNG_HF: "End Time",
             LNG_TH: "Total Hours",
             LNG_TT: "Total",
-
             LNG_CODIGO: "Code",
             LNG_PRECIO: "Price",
             LNG_PRECHORA: "Price Time",
-
             LNG_ALUMNO: "Student",
             LNG_ADMIN: "Administrator",
             LNG_CLASES_MENU: "my classes",
@@ -148,7 +138,6 @@
             LNG_PROGTEMA_MENU: "Schedule Theme",
             LNG_UBICACION_MENU: "Location",
             LGN_CONFIG_MENU: "Configuration",
-
             LNG_HORA: "Hour",
             LNG_TOMAR: "Take",
             LNG_ENTRE: "Between",
@@ -157,10 +146,8 @@
             LNG_EDADMIN: "Minimum Age",
             LNG_REPETIR: "Repeat",
             LNG_PROGTEMA: "Schedule Theme",
-
             BUTTON_LANG_EN: "English",
             BUTTON_LANG_ES: "Spanish",
-
             LNG_DISP_CLASS: "Class Availability",
             LNG_HORAS_OCP: "Busy Hours",
             LNG_HORAS_DSP: "Hours Available",
@@ -190,7 +177,6 @@
             LNG_CORREOREQ: "El correo es requerido",
             LNG_CORREOINV: "El correo es invalido",
             LNG_DESCTEMA: "Descripción del Tema",
-
             LNG_NOMBRES: "Nombres",
             LNG_APELLIDOS: "Apellidos",
             LNG_EDAD: "Edad",
@@ -205,23 +191,19 @@
             LNG_CIUDADES: "Ciudades",
             LNG_USERNAME: "Username",
             LNG_ACTIVO: "Activo",
-
             LGN_PROFESOR: "Profesor",
             LGN_ALUMNO: "Alumno",
             LGN_ACCIONES: "Acciones",
-
             LGN_CONFIRM: "Confirmar",
             LGN_GUARDAR: "Guardar",
             LGN_CANCEL: "Cancelar",
             LGN_DESCRIP: "Descripción",
-
             LNG_ADMIN_TBL: "Admin",
             LNG_CREAR: "Crear",
             LNG_EDITAR: "Editar",
             LNG_ACEPTAR: "Aceptar",
             LNG_EDITSUCS: "Se editó con exíto",
             LNG_CREATESUCS: "Se creo con exíto",
-
             LNG_ERROR: "Ocurrio un error en el proceso",
             LNG_MSJ_1: "Las contraseñas no coinciden",
             LNG_MSJ_2: "La edad no es valida",
@@ -232,25 +214,20 @@
             LNG_MSJ_7: "La hora inicial debe ser menor a la final",
             LNG_MSJ_8: "Ya existe un departamento para este pais",
             LNG_MSJ_9: "Ya existe esta ciudad para este deparatamento",
-
             LNG_BORRAR: "¿Desea eliminar este registro?",
             LNG_BORRARSUC: "Eliminado exitosamente",
-
             LNG_MATERIAS: "Materias",
             LNG_MATERIA: "Materia",
             LNG_TEMAS: "Temas",
             LNG_TEMA: "Tema",
             LNG_FECHA: "Fecha",
-
             LNG_HI: "Hora Inicio",
             LNG_HF: "Hora Final",
             LNG_TH: "Total Horas",
             LNG_TT: "Total",
-
             LNG_CODIGO: "Codigo",
             LNG_PRECIO: "Precio",
             LNG_PRECHORA: "Precio Hora",
-
             LNG_ALUMNO: "Alumno",
             LNG_ADMIN: "Administrador",
             LNG_CLASES_MENU: "Mis Clases",
@@ -259,7 +236,6 @@
             LNG_PROGTEMA_MENU: "Programar Temas",
             LNG_UBICACION_MENU: "Ubicación",
             LGN_CONFIG_MENU: "Configuración",
-
             LNG_HORA: "Hora",
             LNG_TOMAR: "Tomar",
             LNG_ENTRE: "Entre",
@@ -268,11 +244,8 @@
             LNG_EDADMIN: "Edad Minima",
             LNG_REPETIR: "Repetir",
             LNG_PROGTEMA: "Programar Tema",
-
             BUTTON_LANG_EN: "Inglés",
             BUTTON_LANG_ES: "Español",
-
-
             LNG_DISP_CLASS: "Disponibilidad de Clases",
             LNG_HORAS_OCP: "Horas Ocupadas",
             LNG_HORAS_DSP: "Horas Disponibles",

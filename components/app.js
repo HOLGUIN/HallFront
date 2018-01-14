@@ -9,6 +9,7 @@
             'app.config',
             'app.core',
             'app.widgets',
+            'app.header',
             'app.selectList',
             'app.usuario',
             'app.asignatura',

@@ -80,7 +80,7 @@
                 animation: true,
                 ariaLabelledBy: 'modal-title',
                 ariaDescribedBy: 'modal-body',
-                templateUrl: 'components/widgets/app-modals/TemaDescripcion.html',
+                templateUrl: './components/widgets/app-modals/TemaDescripcion.html',
                 controller: ModalController,
                 controllerAs: '$ctrl',
                 windowClass: 'u-modalPosition',
