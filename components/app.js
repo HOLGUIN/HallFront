@@ -7,6 +7,7 @@
             'app.constants',
             'app.routes',
             'app.config',
+            'app.home',
             'app.core',
             'app.widgets',
             'app.header',

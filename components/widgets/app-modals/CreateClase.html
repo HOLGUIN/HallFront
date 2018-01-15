@@ -1,3 +1,24 @@
+<style>
+    #style-2::-webkit-scrollbar {
+        height: 7px;
+        width: 0px;
+        background-color: #F5F5F5;
+    }
+
+    #style-2::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+        background-color: rgb(121, 121, 121);
+    }
+
+    .content-timeline{
+        margin: 10px; 
+        margin-top: 20px;
+        overflow: auto !important;
+        height: 50px;
+        text-align: center;
+    }
+</style>
 <div class="modal-header">
     <h3 class="modal-title text-center font-title" id="modal-title" ng-bind="$ctrl.titulo"></h3>
 </div>
@@ -97,17 +118,16 @@
                 ng-change="$ctrl.changehour($ctrl.clase)" ng-disabled="$ctrl.disablefield" required>
         </div>
     </div>
-    <div class="row" style="margin-top: 30px;">
-        <div class="col-md-12">
-            <div class="timeline col-md-12 col-sm-12" style="margin-left: 30%">
-                <div ng-repeat="i in $ctrl.linetime" class="{{i.class_line}}" ng-style="{width: $index == 0 ? '0' :' 10%'}">
-                    <div class="{{i.class_ball}}">
-                        <span class="titulo_tl" ng-bind="i.hora"></span>
-                    </div>
+    <div class="row content-timeline" id="style-2">
+        <div class="timeline" style="margin-top: 10px;margin-left: 15px;display: inline-flex">
+            <div ng-repeat="i in $ctrl.linetime" class="{{i.class_line}}" ng-style="{width: $index == 0 ? '0' :' 60px'}">
+                <div class="{{i.class_ball}}">
+                    <span class="titulo_tl" ng-bind="i.hora"></span>
                 </div>
             </div>
         </div>
     </div>
+
     <div class="col-md-12" ng-show="$ctrl.disablefield">
         <div class="hbtn-primary text-white" ng-bind="$ctrl.mensaje2" style="padding: 10px;border-radius: 5px;margin-bottom: 10px;opacity: 0.7;margin-top: 10px;"></div>
     </div>

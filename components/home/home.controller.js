@@ -1,10 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('app').controller('HomeController', HomeController);
-
-
-
+    angular.module('app.home').controller('HomeController', HomeController);
 
     HomeController.$inject = ['$state', '$window', 'ProgramFactory', '$uibModal', '$translate', 'claseFactory', '$filter', 'toastr', 'clasesAsingsFactory'];
 
@@ -109,7 +106,7 @@
                 controller: ModalTekeTema,
                 controllerAs: '$ctrl',
                 windowClass: 'u-modalPosition',
-                size: 'md',
+                size: 'lg',
                 resolve: {
                     titulo: function () { return titulo },
                     tema: function () { return tema },
