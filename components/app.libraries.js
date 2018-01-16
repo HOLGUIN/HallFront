@@ -6,6 +6,7 @@
         'ui.router',
         'ui.bootstrap',
         'ngMaterial',
+        'ngSanitize',
         'ngAnimate',
         'datatables',
         'ui.select',
