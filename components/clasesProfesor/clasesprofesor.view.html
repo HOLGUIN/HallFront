@@ -1,0 +1,28 @@
+
+<div ui-view="" class="margin-body content">
+
+    <div flex style="text-align: right;margin-bottom: 10px;">
+        <h1 style="padding-right:15px;" class="font-title">
+            <span translate="LNG_CLASEPROG"></span>
+        </h1>
+    </div>
+
+    <div style="margin-top:30px;" ng-repeat="c in $ctrl.clases">
+        <div class="col-md-3">
+            <md-card md-theme="{{ 'dark-grey' }}" md-theme-watch>
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline" ng-bind="c.fecha |  date:'fullDate'" style="font-size:15px; "></span>
+                        <span class="md-subhead">
+                            <span translate="LNG_TH"></span>:
+                            <span ng-bind="c.canthoras"></span>
+                        </span>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-actions layout="row" layout-align="end center">
+                    <md-button class=" icon-redo2"></md-button>
+                </md-card-actions>
+            </md-card>
+        </div>
+    </div>
+</div>

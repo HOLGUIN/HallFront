@@ -12,16 +12,37 @@
 
         return {
             getClasesAlumnos: getClasesAlumnos,
+            getClasesProfesor: getClasesProfesor,
             postClase: postClase
         };
 
-        function getClasesAlumnos(hlnusuarioid) {
+        function getClasesAlumnos(hlnusuarioid, activo) {
             return $q(function (resolve, reject) {
                 $http({
                     url: API_URL + '/api/Clase',
                     method: "Get",
                     params: {
-                        alumnoid: parseInt(hlnusuarioid)
+                        alumnoid: parseInt(hlnusuarioid),
+                        activo: activo
+                    },
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }).then(function (promise) {
+                    resolve(promise);
+                }, function (reason) {
+                    reject(reason);
+                })
+            });
+        }
+
+        function getClasesProfesor(profesorid) {
+            return $q(function (resolve, reject) {
+                $http({
+                    url: API_URL + '/api/Clase',
+                    method: "Get",
+                    params: {
+                        profesorid: parseInt(profesorid)
                     },
                     headers: {
                         'Content-Type': 'application/json'

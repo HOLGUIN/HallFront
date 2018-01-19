@@ -10,23 +10,42 @@
             <div class="options">
                 <div class="dropdown">
                     <md-button data-toggle="dropdown" style="min-width:10px !important; margin:0">
-                            <img ng-src="assets/img/español.png" ng-show="$ctrl.language == 'es'"/>
-                            <img ng-src="assets/img/ingles.png" ng-show="$ctrl.language == 'en'"/>
+                        <img ng-src="assets/img/español.png" ng-show="$ctrl.language == 'es'" />
+                        <img ng-src="assets/img/ingles.png" ng-show="$ctrl.language == 'en'" />
                     </md-button>
                     <ul class="dropdown-menu" style="left:0px;margin-top: 10px;min-width:30px !important;text-align:center">
-                        <li style="margin-bottom:5px;"><a style="padding:0" href="" ng-click="$ctrl.changeLanguage('es')"><img ng-src="assets/img/español.png"/></a></li>
-                        <li><a style="padding:0" href="" ng-click="$ctrl.changeLanguage('en')"><img ng-src="assets/img/ingles.png"/></a></li>
+                        <li style="margin-bottom:5px;">
+                            <a style="padding:0" href="" ng-click="$ctrl.changeLanguage('es')">
+                                <img ng-src="assets/img/español.png" />
+                            </a>
+                        </li>
+                        <li>
+                            <a style="padding:0" href="" ng-click="$ctrl.changeLanguage('en')">
+                                <img ng-src="assets/img/ingles.png" />
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
             <div class="options">
                 <div class="dropdown">
                     <md-button class="icon-user" data-toggle="dropdown" style="margin:0 ">
-                        <span ng-bind="$ctrl.currentUser"> </span><span class="caret" style="margin-left: 5px;margin-bottom: 5px;"></span>
+                        <span ng-bind="$ctrl.currentUser"> </span>
+                        <span class="caret" style="margin-left: 5px;margin-bottom: 5px;"></span>
                     </md-button>
                     <ul class="dropdown-menu" style="left:-30px;margin-top: 10px;">
-                        <li><a href="#" ng-click="$ctrl.changePassword()"><span class="icon-key"></span>  <span translate="LNG_CAMBCONTRASENA"></span></a></li>
-                        <li><a href="#" ng-click="$ctrl.logout()"><span class="icon-exit"></span> <span translate="LNG_SALIR"></span></a></li>
+                        <li>
+                            <a href="#" ng-click="$ctrl.changePassword()">
+                                <span class="icon-key"></span>
+                                <span translate="LNG_CAMBCONTRASENA"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" ng-click="$ctrl.logout()">
+                                <span class="icon-exit"></span>
+                                <span translate="LNG_SALIR"></span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
 
@@ -38,45 +57,97 @@
     <nav>
         <ul>
             <li>
-                <a href="" ui-sref="app.home"><span class="icon-home3"></span>
+                <a href="" ui-sref="app.home">
+                    <span class="icon-home3"></span>
                     <span translate="LNG_INICIO"></span>
                 </a>
             </li>
             <li>
-                <a href="" ui-sref="app.datos"><span class="icon-profile"></span>
+                <a href="" ui-sref="app.datos">
+                    <span class="icon-profile"></span>
                     <span translate="LNG_DATOS"></span>
                 </a>
             </li>
             <li class="submenu_alumno" ng-show="$ctrl.showAlumno">
-                <a href=""><span class="icon-user"></span>
+                <a href="">
+                    <span class="icon-user"></span>
                     <span translate="LNG_ALUMNO"></span>
-                    <span class="caret icon-arrow-down6"></span> </a>
+                    <span class="caret icon-arrow-down6"></span>
+                </a>
                 <ul class="children children_alumno">
-                    <li><a href="" ui-sref="app.misclases"><span class="icon-spinner6"></span>
-                        <span translate="LNG_CLASES_MENU"></span>
-                    </a></li>
+                    <li>
+                        <a href="" ui-sref="app.clasesprog">
+                            <span class="icon-spinner6"></span>
+                            <span translate="LNG_CLASEPROG"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" ui-sref="app.misclases">
+                            <span class="icon-spinner6"></span>
+                            <span translate="LNG_CLASES_MENU"></span>
+                        </a>
+                    </li>
                 </ul>
             </li>
             <li class="submenu_profesor" ng-show="$ctrl.showProfesor">
-                <a href=""><span class="icon-user"></span><span translate="LGN_PROFESOR"></span> <span class="caret icon-arrow-down6"></span></a>
+                <a href="">
+                    <span class="icon-user"></span>
+                    <span translate="LGN_PROFESOR"></span>
+                    <span class="caret icon-arrow-down6"></span>
+                </a>
                 <ul class="children children_profesor">
-                    <li><a href=""><span class="icon-spinner6"></span><span translate="LNG_INICIAR_CLASE"></span></a></li>
+                    <li>
+                        <a href="" ui-sref="app.clasesprofesor">
+                            <span class="icon-spinner6"></span>
+                            <span translate="LNG_INICIAR_CLASE"></span>
+                        </a>
+                    </li>
                 </ul>
             </li>
             <li class="submenu_admin" ng-show="$ctrl.showAdministrador">
-                <a href=""><span class="icon-user-tie"></span>
+                <a href="">
+                    <span class="icon-user-tie"></span>
                     <span translate="LNG_ADMIN"></span>
-                    <span class="caret icon-arrow-down6"></span></a>
+                    <span class="caret icon-arrow-down6"></span>
+                </a>
                 <ul class="children children_admin">
-                    <li><a href="" ui-sref="app.usuario"><span class="icon-spinner6"></span><span translate="LNG_USUARIOS_MENU"></span></a></li>
-                    <li><a href="" ui-sref="app.asignatura"><span class="icon-spinner6"></span><span translate="LNG_ASIGN_MENU"></span></a></li>
-                    <li><a href="" ui-sref="app.progtema"><span class="icon-spinner6"></span><span translate="LNG_PROGTEMA_MENU"></span></a></li>
-                    <li><a href="" ui-sref="app.ubicacion"><span class="icon-spinner6"></span><span translate=" LNG_UBICACION_MENU"></span></a></li>
-                    <li><a href="" ui-sref="app.configuracion"><span class="icon-spinner6"></span><span translate="LGN_CONFIG_MENU"></span></a></li>
+                    <li>
+                        <a href="" ui-sref="app.usuario">
+                            <span class="icon-spinner6"></span>
+                            <span translate="LNG_USUARIOS_MENU"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" ui-sref="app.asignatura">
+                            <span class="icon-spinner6"></span>
+                            <span translate="LNG_ASIGN_MENU"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" ui-sref="app.progtema">
+                            <span class="icon-spinner6"></span>
+                            <span translate="LNG_PROGTEMA_MENU"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" ui-sref="app.ubicacion">
+                            <span class="icon-spinner6"></span>
+                            <span translate=" LNG_UBICACION_MENU"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" ui-sref="app.configuracion">
+                            <span class="icon-spinner6"></span>
+                            <span translate="LGN_CONFIG_MENU"></span>
+                        </a>
+                    </li>
                 </ul>
             </li>
             <li>
-                <a href="" class="open_list"><span class="icon-cancel-circle"></span><span translate="LNG_CERRAR"></span></a>
+                <a href="" class="open_list">
+                    <span class="icon-cancel-circle"></span>
+                    <span translate="LNG_CERRAR"></span>
+                </a>
             </li>
         </ul>
     </nav>

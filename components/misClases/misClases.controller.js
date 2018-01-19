@@ -17,7 +17,7 @@
         getClases();
 
         function getClases() {
-            claseFactory.getClasesAlumnos(usuario.hlnusuarioid).then(function (response) {
+            claseFactory.getClasesAlumnos(usuario.hlnusuarioid, false).then(function (response) {
                 self.clases = response.data;
                 console.log(self.clases);
             }, handleError);

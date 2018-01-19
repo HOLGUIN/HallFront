@@ -100,7 +100,7 @@
         <div class="col-md-3 font-title" style="padding-top: 5px; ">
             <span class="font-title" translate="LNG_FECHA"></span>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6" style="margin-top: 5px;">
             <input type="date" class="form-control" ng-model="$ctrl.clase.fecha" min="{{$ctrl.fechamin | date:'yyyy-MM-dd'}}" ng-change="$ctrl.getHoraAsgs($ctrl.clase.hlnprogtemaid)"
                 required>
         </div>
@@ -109,11 +109,11 @@
         <div class="col-md-3" style="padding-top: 5px; ">
             <span class="font-title" translate="LNG_HORA"></span>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-3" style="margin-top: 5px;">
             <input type="time" class="form-control" ng-model="$ctrl.clase.horaini" min="{{$ctrl.h.horaini}}" max="{{$ctrl.lastdate.horaini}}"
                 ng-change="$ctrl.changehour($ctrl.clase)" ng-disabled="$ctrl.disablefield" required>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-3" style="margin-top: 5px;">
             <input type="time" class="form-control" ng-model="$ctrl.clase.horafin" min="{{$ctrl.h.horaini}}" max="{{$ctrl.h.horafin}}"
                 ng-change="$ctrl.changehour($ctrl.clase)" ng-disabled="$ctrl.disablefield" required>
         </div>
@@ -143,7 +143,7 @@
 
 
 <div class="modal-footer">
-    <md-button class="md-raised hbtn-success" type="button" ng-click="$ctrl.SaveClass($ctrl.clase)" ng-show="!$ctrl.disablefield">
+    <md-button class="md-raised hbtn-success" type="button" ng-click="$ctrl.Confirm($ctrl.clase, $ctrl.preciototal)" ng-show="!$ctrl.disablefield">
         <span translate="LGN_GUARDAR"></span>
     </md-button>
     <md-button class="hbtn-primary md-raised " type="button" ng-click="$ctrl.cancel()">

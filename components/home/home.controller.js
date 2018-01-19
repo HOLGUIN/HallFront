@@ -142,14 +142,13 @@ function ModalController($uibModalInstance, $scope, titulo, tema, desctema) {
 
 }
 
-function ModalTekeTema($uibModalInstance, $scope, titulo, tema, materia, claseFactory, hlnusuarioid, horario, $filter, handleError, clasesAsingsFactory, $translate) {
+function ModalTekeTema($uibModalInstance, $scope, $uibModal, titulo, tema, materia, hlnusuarioid, horario, $filter, handleError, clasesAsingsFactory, $translate) {
 
     var self = this;
     self.tema = tema;
     self.cancel = cancel;
     self.titulo = titulo;
     self.materia = materia;
-    self.SaveClass = SaveClass;
     self.changehour = changehour;
     self.getHoraAsgs = getHoraAsgs;
     self.linetime = [];
@@ -158,6 +157,7 @@ function ModalTekeTema($uibModalInstance, $scope, titulo, tema, materia, claseFa
     self.disablefield = false;
     self.h = horario;
     self.lastdate = null;
+    self.Confirm = Confirm;
     self.preciototal = {
         cantidad: 0,
         prec_total: 0
@@ -167,7 +167,7 @@ function ModalTekeTema($uibModalInstance, $scope, titulo, tema, materia, claseFa
     self.fechamin = new Date();
     //objeto para almacenar una clase
     var clase = {
-        fecha: new Date(0),
+        fecha: null,
         horaini: '',
         horafin: '',
         hlnusuarioid: hlnusuarioid,
@@ -178,9 +178,10 @@ function ModalTekeTema($uibModalInstance, $scope, titulo, tema, materia, claseFa
         profesorid: 0,
         precio: 0
     };
-
+    clase.fecha = new Date();
     self.clase = clase;
 
+    getHoraAsg(self.clase.hlnprogtemaid, self.clase.fecha);
 
     //Este metodo identifica cuales son las horas ocupadas y disponibles
     function getHoraAsg(hlnprogtemaid, fecha) {
@@ -197,6 +198,7 @@ function ModalTekeTema($uibModalInstance, $scope, titulo, tema, materia, claseFa
                 return item.busy == false;
             });
 
+            //Validacion para desabilitar los campos de la hora
             if (self.horasLb.length <= 0) {
                 self.clase.horaini = null;
                 self.clase.horafin = null;
@@ -212,15 +214,15 @@ function ModalTekeTema($uibModalInstance, $scope, titulo, tema, materia, claseFa
         }, handleError);
     }
 
-
-
     function cancel() {
         $uibModalInstance.close();
     }
 
+    //Este meetodo controla los campos de la hora para que solo se pueda seleccionar
+    //un rango de horas disponibles
     function changehour(clase) {
 
-        console.log("clase", clase);
+        //si no tiene definido una variable
         if (clase.horaini == undefined || clase.horafin == undefined) {
             clase.horaini = new Date("1970-01-01T" + self.horasLb[0].horaini);
             clase.horafin = newHour(clase.horaini, 1);
@@ -241,15 +243,39 @@ function ModalTekeTema($uibModalInstance, $scope, titulo, tema, materia, claseFa
             }
         }
 
+        //si la horaini y horafin son iguales le incrementa una hora a horafin
         if (horaigual(clase.horaini, clase.horafin)) {
             clase.horafin = newHour(clase.horaini, 1);
-        } else if (clase.horafin < clase.horaini) {
-            clase.horafin = newHour(clase.horaini, 1);
-        } else if (validaHourOcupadas(clase.horaini, clase.horafin)) {
-            clase.horaini = new Date("1970-01-01T" + self.horasLb[0].horaini);
+        }
+        //Si la horafin es menor a la ini le asigna 1 + horaini
+        if (clase.horafin < clase.horaini) {
             clase.horafin = newHour(clase.horaini, 1);
         }
 
+        if (validaHourOcupadas(clase.horaini, clase.horafin)) {
+
+            if (self.horasLb.length == 1) {
+                clase.horaini = new Date("1970-01-01T" + self.horasLb[0].horaini);
+                clase.horafin = newHour(clase.horaini, 1);
+            } else {
+                var free = [];
+
+                free = self.horasLb.filter(function (item) {
+                    var aux = new Date("1970-01-01T" + item.horaini)
+                    if (aux >= clase.horafin) {
+                        return item;
+                    }
+                });
+
+                if (free.length == 0) {
+                    clase.horaini = new Date("1970-01-01T" + self.horasLb[0].horaini);
+                    clase.horafin = newHour(clase.horaini, 1);
+                } else {
+                    clase.horaini = new Date("1970-01-01T" + free[0].horaini);
+                    clase.horafin = newHour(clase.horaini, 1);
+                }
+            }
+        }
         //Recalcula los valores de cantidad de hora y precio total
         recalcularModal(clase.horaini, clase.horafin);
     }
@@ -298,8 +324,13 @@ function ModalTekeTema($uibModalInstance, $scope, titulo, tema, materia, claseFa
         getHoraAsg(hlnprogtemaid, clase.fecha);
     }
 
+    //Valida las horas ocupadas del dia
     function validaHourOcupadas(hi, hf) {
+
+        var h = false;
+        console.log("self.horasAsg", self.horasAsg);
         for (i = 0; i < self.horasAsg.length; i++) {
+
             var shi = new Date("1970-01-01T" + self.horasAsg[i].horaini);
             var shf = new Date("1970-01-01T" + self.horasAsg[i].horafin);
 
@@ -307,26 +338,11 @@ function ModalTekeTema($uibModalInstance, $scope, titulo, tema, materia, claseFa
                 (hi.getTime() >= shi.getTime() && hi.getTime() < shf.getTime()) ||
                 (hf.getTime() > shi.getTime() && hf.getTime() < shf.getTime()) ||
                 (hf.getTime() > shi.getTime() && hf.getTime() <= shf.getTime())) {
-                return true;
-                break;
+                h = true;
+                //break;
             }
         }
-    }
-
-
-    function SaveClass(clase) {
-        console.log(clase);
-        if (clase.fecha == undefined) {
-            clase.fecha = new Date();
-        } else {
-            clase.fecha = $filter('date')(clase.fecha, "yyyy-MM-dd");
-            clase.horaini = $filter('date')(clase.horaini, "HH:mm:ss");
-            clase.horafin = $filter('date')(clase.horafin, "HH:mm:ss");
-            claseFactory.postClase(clase).then(function (response) {
-                var response = response.data
-                cancel();
-            }, handleError);
-        }
+        return h;
     }
 
 
@@ -342,12 +358,66 @@ function ModalTekeTema($uibModalInstance, $scope, titulo, tema, materia, claseFa
         }
     }
 
-
-
     function recalcularModal(fechaini, fechafin) {
         var cantidad = (((fechafin - fechaini) / 1000) / 60) / 60;
         self.preciototal.cantidad = cantidad;
         self.preciototal.prec_total = cantidad * tema.preciohora;
+    }
+
+    function Confirm(clase, preciototal) {
+        var modalInstance = $uibModal.open({
+            animation: true,
+            ariaLabelledBy: 'modal-title',
+            ariaDescribedBy: 'modal-body',
+            templateUrl: 'components/widgets/app-modals/ConfirmClase.html',
+            controller: ModalConfirm,
+            controllerAs: '$ctrl',
+            windowClass: 'u-modalPosition',
+            size: 'md',
+            resolve: {
+                clase: function () { return clase },
+                preciototal: function () { return preciototal },
+                tema: function () { return self.tema },
+                materia: function () { return self.materia },
+                handleError: function () { return handleError }
+            }
+        });
+        modalInstance.result.then(function (data) {
+            if (data) {
+                cancel();
+            }
+
+        }, function () {
+
+        });
+    }
+}
+
+function ModalConfirm($uibModalInstance, $scope, $filter, claseFactory, $translate, toastr, clase, preciototal, tema, materia, handleError) {
+
+    var self = this;
+    self.clase = clase;
+    self.preciototal = preciototal;
+    self.materia = materia;
+    self.tema = tema;
+    self.cancel = cancel;
+    self.SaveClass = SaveClass;
+    self.titulo = $translate.instant('LNG_CONFIRM');
+    function cancel(c) {
+        $uibModalInstance.close(c);
+    }
+
+    function SaveClass(clase) {
+        clase.fecha = $filter('date')(clase.fecha, "yyyy-MM-dd HH:mm:ss Z");
+        clase.horaini = $filter('date')(clase.horaini, "HH:mm:ss");
+        clase.horafin = $filter('date')(clase.horafin, "HH:mm:ss");
+
+        claseFactory.postClase(clase).then(function (response) {
+            var response = response.data
+            cancel(true);
+            toastr.successhall($translate.instant('LNG_MSJCONFIRM'));
+        }, handleError);
+
     }
 
 }

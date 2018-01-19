@@ -20,7 +20,9 @@
             'app.progtema',
             'app.programar',
             'app.misclases',
-            'app.clasesAsings'
+            'app.clasesAsings',
+            'app.clasesprog',
+            'app.clasesprofesor'
         ]).run(run);
 
     run.$inject = ['$window', '$rootScope', '$location', '$state', '$stateParams'];

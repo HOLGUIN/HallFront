@@ -153,7 +153,10 @@
             LNG_HORAS_DSP: "Hours Available",
             LNG_MSJ_PC: "Select the date and the hours you want to take",
             LNG_MSJ_PCERR: "This date does not have available hours",
-            LNG_CERRAR: "Close"
+            LNG_CERRAR: "Close",
+            LNG_CONFIRM: "Confirm",
+            LNG_MSJCONFIRM:"The class was created successfully",
+            LNG_CLASEPROG: "Scheduled"
         });
 
         //Traduccion en español
@@ -251,7 +254,10 @@
             LNG_HORAS_DSP: "Horas Disponibles",
             LNG_MSJ_PC: "Selecciona la fecha y las horas que quieres tomar",
             LNG_MSJ_PCERR: "Esta fecha no tiene horas disponibles",
-            LNG_CERRAR: "Cerrar"
+            LNG_CERRAR: "Cerrar",
+            LNG_CONFIRM: "Confirmar",
+            LNG_MSJCONFIRM:"La clase se creo exitosamente",
+            LNG_CLASEPROG: "Programadas"
         });
 
         $translateProvider.useSanitizeValueStrategy('escape');
