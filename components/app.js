@@ -22,7 +22,10 @@
             'app.misclases',
             'app.clasesAsings',
             'app.clasesprog',
-            'app.clasesprofesor'
+            'app.clasesprofesor',
+            'app.clase.profesor',
+            'app.clase.alumno',
+            'app.chat'
         ]).run(run);
 
     run.$inject = ['$window', '$rootScope', '$location', '$state', '$stateParams'];

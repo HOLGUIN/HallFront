@@ -1,42 +1,13 @@
 (function () {
     'use strict';
 
-    angular.module('app.config', []).config(config);
+
+    angular.module('app.config', []).config(config).run(['Analytics', function(Analytics) { }]);
 
     function config($httpProvider, $mdThemingProvider, $translateProvider, $windowProvider, AnalyticsProvider) {
 
         //Configuracion de google Analytics
-        // Set a single account with all properties defined
-        // Universal Analytics only
-        AnalyticsProvider.setAccount({
-            tracker: 'UA-112315764-1',
-            name: "Hallearn",
-            fields: {
-                cookieDomain: 'www.hallearn.com',
-                cookieName: 'hallearn',
-                cookieExpires: 20000
-                // See: [Analytics Field Reference](https://developers.google.com/analytics/devguides/collection/analyticsjs/field-reference) for a list of all fields.
-            },
-            displayFeatures: true,
-            enhancedLinkAttribution: true,
-            select: function (args) {
-                // This function is used to qualify or disqualify an account object to be run with commands.
-                // If the function does not exist, is not a function, or returns true then the account object will qualify.
-                // If the function exists and returns false then the account object will be disqualified.
-                // The 'args' parameter is the set of arguments (which contains the command name) that will be sent to Universal Analytics.
-                return true;
-            },
-            set: {
-                forceSSL: true
-                // This is any set of `set` commands to make for the account immediately after the `create` command for the account.
-                // The property key is the command and the property value is passed in as the argument, _e.g._, `ga('set', 'forceSSL', true)`.
-                // Order of commands is not guaranteed as it is dependent on the implementation of the `for (property in object)` iterator.
-            },
-            trackEvent: true,
-            trackEcommerce: true
-        });
-
-        // Set hybrid mobile application support
+        AnalyticsProvider.setAccount('UA-112315764-1'); 
         AnalyticsProvider.setHybridMobileSupport(true);
 
         $mdThemingProvider.theme('dark-grey').backgroundPalette('blue-grey').dark();

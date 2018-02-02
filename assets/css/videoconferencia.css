@@ -1,0 +1,30 @@
+.chat_recibe {
+    border: 1px solid #CACACA;
+    background-color: #E0EDFB;
+    border-radius: 5px;
+    margin-top: 5px;
+    width: 60%;
+    float: right;
+}
+
+.chat_send {
+    border: 1px solid #CACACA;
+    background-color: #F2F1F1;
+    border-radius: 5px;
+    margin-top: 5px;
+    width: 60%;
+    float: left;
+}
+
+.content-chat {
+    border: 1px solid #CACACA;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #F9F7F7;
+    height: 350px;
+    overflow-y: scroll;
+}
+
+.content-input {
+    margin-top: 5px !important;
+}

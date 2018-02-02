@@ -1,0 +1,33 @@
+<div ui-view="" class="margin-body content">
+    <div flex style="text-align: right;margin-bottom: 10px;">
+        <h1 style="padding-right:15px;" class="font-title">
+            clase
+        </h1>
+    </div>
+    <div class="row">
+        <input type="text" ng-model="$ctrl.key" />
+        <button ng-click="$ctrl.ConnectPeer($ctrl.key)">Enviar</button>
+        <div class="col-md-4">
+            <video id="Emision" style="width: 100%"></video>
+            <div>
+                <div class="content-chat">
+                    <div ng-repeat="item in $ctrl.chat"  ng-class="item.hlnusuarioid === $ctrl.hlnusuarioid ? 'chat_send' : 'chat_recibe'">
+                        <p style="padding: 5px; margin: 0; font-weight:bold;">Yo:</p>
+                        <span ng-bind="item.mensaje" style="padding: 4px;padding-bottom: 6px;padding-top: 0"></span>
+                    </div>
+                </div>
+                <div class="row content-input" style="margin: 0 auto; width: 100%">
+                    <div class="input-group">
+                        <input type="text" class="form-control" ng-model="$ctrl.mensaje">
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" type="button" ng-click="$ctrl.sendMessage($ctrl.mensaje);">Enviar</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8" style="text-align: center;">
+            <video id="recepcion" style="width: 75%;"></video>
+        </div>
+    </div>
+</div>
