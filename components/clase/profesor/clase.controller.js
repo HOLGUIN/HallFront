@@ -24,15 +24,12 @@
         //El valor que llega por el link 
         var hlnclaseid = $stateParams.hlnclaseid;
         self.hlnusuarioid = usuario.hlnusuarioid;
-        console.log(self.hlnusuarioid);
-        //modelo
-        var modelo_chat = {
-            hlnchatid: null,
-            hlnusuarioid: usuario.hlnusuarioid,
-            hlnclaseid: hlnclaseid,
-            mensaje: null,
-            fecha: null
+
+        function scrollPosition() {
+            const divcontentchat = document.getElementById("content-chat");
+            divcontentchat.scrollTop = divcontentchat.offsetHeight * 2;
         }
+
 
         //metodo que se ejecuta al iniciar el controlador 
         getChats(hlnclaseid);
@@ -60,31 +57,54 @@
 
             //metodo para recibir mensajes  
             conn.on('data', function (data) {
+                self.chat.push(data);
                 $scope.$apply(function () {
-                    self.chat.push(data);
+                    console.log(self.chat);
+                    self.chat;
                 });
 
             });
+
+            document.getElementById("text_msg")
+                .addEventListener("keyup", function (event) {
+                    event.preventDefault();
+                    if (event.keyCode == 13) {
+                        sendMessage(self.mensaje);
+                    }
+                });
 
             //Metodo para enviar mensajes
             self.sendMessage = sendMessage;
             function sendMessage(message) {
                 if (conn != null) {
-                    if (message != '') {
-                        modelo_chat.mensaje = message;
+                    if (message != '' && message != null) {
+                        console.log(usuario);
+                        //modelo
+                        var modelo_chat = {
+                            hlnchatid: null,
+                            hlnusuarioid: usuario.hlnusuarioid,
+                            hlnclaseid: hlnclaseid,
+                            mensaje: message,
+                            fecha: null,
+                            username: usuario.username
+                        }
+
                         chatFactory.postChat(modelo_chat).then(function (response) {
                             conn.send(modelo_chat);
                             self.chat.push(modelo_chat);
                             self.mensaje = null;
+                            scrollPosition();
                         }, );
                     }
                 }
             }
         });
 
+
+
         //codigo para que getUserMedia sea compatible con otros navegadores
         navigator.mediaDevices.getUserMedia = (navigator.mediaDevices.getUserMedia ||
-           navigator.mediaDevices.webkitGetUserMedia ||
+            navigator.mediaDevices.webkitGetUserMedia ||
             navigator.mediaDevices.mozGetUserMedia);
 
         //Activa los medios que va a utilizar con el navegador, en este caso es audio y video
@@ -94,6 +114,9 @@
         })
             //inicializa el video en el navegador
             .then(stream => {
+
+
+                scrollPosition();
                 //pega el stream de video en en etiqueta html de video e inicia el stream local
                 const video = document.getElementById("Emision");
                 video.srcObject = stream;
@@ -116,7 +139,7 @@
                         };
                     });
                     call.on('close', function (streamr) {
-                       // connectingClient = false;
+                        // connectingClient = false;
                     });
                 });
             })

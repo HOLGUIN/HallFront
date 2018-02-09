@@ -21,20 +21,12 @@
         //Inicializa los metodos
         self.ConnectPeer = ConnectPeer;
         self.hlnusuarioid = usuario.hlnusuarioid;
-        console.log(self.hlnusuarioid);
 
 
         //peer connection
         var peer = new Peer({ host: 'localhost', port: 9000, path: '/' });
 
-        //objeto chat
-        var modelo_chat = {
-            hlnchatid: null,
-            hlnusuarioid: usuario.hlnusuarioid,
-            hlnclaseid: hlnclaseid,
-            mensaje: null,
-            fecha: null
-        }
+
 
         //metodo que se ejecuta al iniciar el controlador 
         getChats(hlnclaseid);
@@ -53,13 +45,31 @@
             conn = peer.connect(id);
             //Cuando la conexion peer se abre ejecuta lo siguiente 
             conn.on('open', function () {
+                //funcion para enviar el mensaje despues del enter
+                document.getElementById("text_msg")
+                .addEventListener("keyup", function (event) {
+                    event.preventDefault();
+                    if (event.keyCode == 13) {
+                        sendMessage(self.mensaje);
+                    }
+                });
 
                 //Envia un mesage 
                 self.sendMessage = sendMessage;
                 function sendMessage(message) {
                     if (conn != null) {
-                        if (message != '') {
-                            modelo_chat.mensaje = message;
+                        if (message != '' && message != null) {
+
+                            //objeto chat
+                            var modelo_chat = {
+                                hlnchatid: null,
+                                hlnusuarioid: usuario.hlnusuarioid,
+                                hlnclaseid: hlnclaseid,
+                                mensaje: message,
+                                fecha: null,
+                                username : usuario.username
+                            }
+          
                             chatFactory.postChat(modelo_chat).then(function (response) {
                                 conn.send(modelo_chat);
                                 self.chat.push(modelo_chat);
@@ -71,10 +81,18 @@
 
                 // Receive messages
                 conn.on('data', function (data) {
+                    self.chat.push(data);
                     $scope.$apply(function () {
-                        self.chat.push(data);
+                        console.log(self.chat);
+                        self.chat;
                     });
                 });
+
+                //codigo para que getUserMedia sea compatible con otros navegadores
+                navigator.mediaDevices.getUserMedia = (navigator.mediaDevices.getUserMedia ||
+                    navigator.mediaDevices.webkitGetUserMedia ||
+                    navigator.mediaDevices.mozGetUserMedia);
+
 
                 //Activa los medios que va a utilizar con el navegador, en este caso es audio y video
                 navigator.mediaDevices.getUserMedia({
