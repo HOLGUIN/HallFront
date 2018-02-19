@@ -1,3 +1,18 @@
+<style>
+    .md-padding {
+        padding: 0;
+    }
+
+    .md-tab.md-active {
+        color: #024959 !important;
+    }
+
+    md-ink-bar {
+        color: #e32636 !important;
+        background-color: #e32636 !important;
+    }
+</style>
+
 <div ui-view="" class="margin-body content">
 
     <div flex style="text-align: right;margin-bottom: 10px;">
@@ -7,23 +22,94 @@
     </div>
     <div class="row">
         <div class="col-md-4">
+
             <video id="Emision" style="width: 100%"></video>
-            <div>
-                <div id="content-chat" class="content-chat" >
-                    <div ng-repeat="item in $ctrl.chat track by $index" ng-class="item.hlnusuarioid === $ctrl.hlnusuarioid ? 'chat_send' : 'chat_recibe'">
-                        <p style="padding: 5px; margin: 0; font-weight:bold;" ng-bind="item.username"></p>
-                        <span ng-bind="item.mensaje" style="padding: 4px;padding-bottom: 6px;padding-top: 0"></span>
-                    </div>
-                </div>
-                <div class="row content-input" style="margin: 0 auto; width: 100%">
-                    <div class="input-group">
-                        <input type="text" class="form-control" id="text_msg" ng-model="$ctrl.mensaje">
-                        <span class="input-group-btn">
-                            <button class="btn btn-primary" type="button" ng-click="$ctrl.sendMessage($ctrl.mensaje);">Enviar</button>
-                        </span>
-                    </div>
-                </div>
-            </div>
+
+
+
+            <md-content>
+                <md-tabs md-dynamic-height md-border-bottom>
+                    <md-tab label="Chat">
+                        <md-content class="md-padding">
+                            <h1 class="md-display-2"></h1>
+                            <div>
+                                <div id="content-chat" class="content-chat">
+                                    <div ng-repeat="item in $ctrl.chat track by $index" ng-class="item.hlnusuarioid === $ctrl.hlnusuarioid ? 'chat_send' : 'chat_recibe'">
+                                        <p style="padding: 5px; margin: 0; font-weight:bold;" ng-bind="item.username"></p>
+                                        <p ng-bind="item.mensaje" class="chat_msg"></p>
+                                    </div>
+                                </div>
+                                <div class="row content-input" style="margin: 0 auto; width: 100%">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="text_msg" ng-model="$ctrl.mensaje">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-primary" type="button" ng-click="$ctrl.sendMessage($ctrl.mensaje);">Enviar</button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </md-content>
+                    </md-tab>
+                    <md-tab label="Archivos">
+                        <md-content class="md-padding">
+                            <div style="margin-top: 10px;">
+                                <div class="input-group">
+                                    <input type="file" class="form-control" ng-files="$ctrl.changeFile($files)" required>
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-primary" type="button" ng-click="$ctrl.uploadFile();">
+                                            <span class="icon-folder-upload hico" style="color: white"></span>
+                                        </button>
+                                    </span>
+                                </div>
+                                <div style="margin-top: 5px;">
+                                    <table class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th style="text-align:center;">
+                                                    Nombre
+                                                </th>
+                                                <th style="text-align:center;">
+                                                    tipo
+                                                </th>
+                                                <th style="text-align:center;">
+                                                    acciones
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="item in $ctrl.files">
+                                                <td>
+                                                    <span ng-bind="item.titulo"></span>
+                                                </td>
+                                                <td>
+                                                    <span ng-bind="item.extension"></span>
+                                                </td>
+                                                <td style="text-align:center;">
+                                                    <a class="icon-folder-download hico" ng-click="$ctrl.DownloadFile(item.hlnarchivoid)"></a> |
+                                                    <a class="icon-bin hico" ng-click="$ctrl.DeleteFile(item.hlnarchivoid, $index)"></a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </md-content>
+                    </md-tab>
+                </md-tabs>
+            </md-content>
+
+
+
+
+
+
+
+
+
+
+
+
         </div>
         <div class="col-md-8" style="text-align: center;">
             <video id="recepcion" style="width: 75%;"></video>

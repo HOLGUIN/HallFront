@@ -1,3 +1,17 @@
+<style>
+    .md-padding {
+        padding: 0;
+    }
+
+    .md-tab.md-active {
+        color: #024959 !important;
+    }
+
+    md-ink-bar {
+        color: #e32636 !important;
+        background-color: #e32636 !important;
+    }
+</style>
 <div ui-view="" class="margin-body content">
     <div flex style="text-align: right;margin-bottom: 10px;">
         <h1 style="padding-right:15px;" class="font-title">
@@ -9,22 +23,38 @@
         <button ng-click="$ctrl.ConnectPeer($ctrl.key)">Enviar</button>
         <div class="col-md-4">
             <video id="Emision" style="width: 100%"></video>
-            <div>
-                <div class="content-chat">
-                    <div ng-repeat="item in $ctrl.chat  track by $index"  ng-class="item.hlnusuarioid === $ctrl.hlnusuarioid ? 'chat_send' : 'chat_recibe'">
-                        <p style="padding: 5px; margin: 0; font-weight:bold;">{{item.username}}</p>
-                        <span ng-bind="item.mensaje" style="padding: 4px;padding-bottom: 6px;padding-top: 0"></span>
-                    </div>
-                </div>
-                <div class="row content-input" style="margin: 0 auto; width: 100%">
-                    <div class="input-group">
-                        <input type="text" class="form-control" ng-model="$ctrl.mensaje" id="text_msg">
-                        <span class="input-group-btn">
-                            <button class="btn btn-primary" type="button" ng-click="$ctrl.sendMessage($ctrl.mensaje);">Enviar</button>
-                        </span>
-                    </div>
-                </div>
-            </div>
+
+            <md-content>
+                <md-tabs md-dynamic-height md-border-bottom>
+                    <md-tab label="Chat">
+                        <md-content class="md-padding">
+                            <h1 class="md-display-2"></h1>
+                            <div>
+                                <div id="content-chat" class="content-chat">
+                                    <div ng-repeat="item in $ctrl.chat  track by $index" ng-class="item.hlnusuarioid === $ctrl.hlnusuarioid ? 'chat_send' : 'chat_recibe'">
+                                        <p style="padding: 5px; margin: 0; font-weight:bold;" ng-bind="item.username"></p>
+                                        <p ng-bind="item.mensaje" class="chat_msg"></p>
+                                    </div>
+                                </div>
+                                <div class="row content-input" style="margin: 0 auto; width: 100%">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" ng-model="$ctrl.mensaje" id="text_msg">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-primary" type="button" ng-click="$ctrl.sendMessage($ctrl.mensaje);">Enviar</button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </md-content>
+                    </md-tab>
+                    <md-tab label="Archivos">
+                        <md-content class="md-padding">
+
+                        </md-content>
+                    </md-tab>
+                </md-tabs>
+            </md-content>
+
         </div>
         <div class="col-md-8" style="text-align: center;">
             <video id="recepcion" style="width: 75%;"></video>

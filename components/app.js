@@ -25,7 +25,8 @@
             'app.clasesprofesor',
             'app.clase.profesor',
             'app.clase.alumno',
-            'app.chat'
+            'app.chat',
+            'app.archivo'
         ]).run(run);
 
     run.$inject = ['$window', '$rootScope', '$location', '$state', '$stateParams'];

@@ -3,7 +3,7 @@
     background-color: #E0EDFB;
     border-radius: 5px;
     margin-top: 5px;
-    width: 60%;
+    width: 80%;
     float: right;
 }
 
@@ -12,7 +12,7 @@
     background-color: #F2F1F1;
     border-radius: 5px;
     margin-top: 5px;
-    width: 60%;
+    width: 80%;
     float: left;
 }
 
@@ -27,4 +27,13 @@
 
 .content-input {
     margin-top: 5px !important;
+}
+
+.chat_msg{
+    padding: 6px;
+    padding-bottom: 6px;
+    padding-top: 0;
+    height:auto; 
+    word-wrap: break-word; 
+    text-align: justify;
 }

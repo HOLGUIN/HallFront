@@ -26,7 +26,12 @@
         //peer connection
         var peer = new Peer({ host: 'localhost', port: 9000, path: '/' });
 
-
+        function scrollPosition() {
+            setTimeout(function(){
+                const divcontentchat = document.getElementById("content-chat");
+                divcontentchat.scrollTop = divcontentchat.scrollHeight;
+            }, 300)
+        }
 
         //metodo que se ejecuta al iniciar el controlador 
         getChats(hlnclaseid);
@@ -35,6 +40,7 @@
         function getChats(hlnclaseid) {
             chatFactory.getChat(hlnclaseid).then(function (response) {
                 self.chat = response.data;
+                scrollPosition();
             });
         }
 
@@ -50,6 +56,7 @@
                 .addEventListener("keyup", function (event) {
                     event.preventDefault();
                     if (event.keyCode == 13) {
+                        console.log("ejecuto enter");
                         sendMessage(self.mensaje);
                     }
                 });
@@ -74,6 +81,7 @@
                                 conn.send(modelo_chat);
                                 self.chat.push(modelo_chat);
                                 self.mensaje = null;
+                                scrollPosition();
                             }, );
                         }
                     }
@@ -83,9 +91,9 @@
                 conn.on('data', function (data) {
                     self.chat.push(data);
                     $scope.$apply(function () {
-                        console.log(self.chat);
                         self.chat;
                     });
+                    scrollPosition();
                 });
 
                 //codigo para que getUserMedia sea compatible con otros navegadores
