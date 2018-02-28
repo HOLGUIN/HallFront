@@ -58,7 +58,6 @@
         }
 
         function DownloadFile(hlnarchivoid) {
-            alert(hlnarchivoid);
             return $q(function (resolve, reject) {
                 $http({
                     url: API_URL + '/api/Archivo',
@@ -66,10 +65,12 @@
                     params: {
                         hlnarchivoid: hlnarchivoid
                     },
+                    responseType: 'arraybuffer',
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json; charset=utf-8'
                     }
                 }).then(function (promise) {
+                    console.log("promise",promise);
                     resolve(promise);
                 }, function (reason) {
                     reject(reason);

@@ -6,16 +6,13 @@
         .directive('ngFiles', function ($parse) {
             function fn_link(scope, element, attrs) {
                 var onChange = $parse(attrs.ngFiles);
-
                 element.on('change', function () {
                     onChange(scope, { $files: event.target.files })
                 });
             }
-
             return {
                 link: fn_link
             }
-
         })
         .controller('ClasepController', ClasepController);
 
@@ -37,11 +34,13 @@
         //Saca el usuario del local storage
         var usuario = JSON.parse($window.localStorage.usuario);
 
+        var socket = io('https://localhost:3002/');
+
         //peer connection
-        var peer = new Peer({ host: 'localhost', port: 9000, path: '/' });
+        var peer = new Peer({ host: 'localhost', port: 9000, path: '/', secure: true });
 
         //El valor que llega por el link 
-        var hlnclaseid = $stateParams.hlnclaseid;
+        const hlnclaseid = $stateParams.hlnclaseid;
         self.hlnusuarioid = usuario.hlnusuarioid;
 
         function scrollPosition() {
@@ -70,20 +69,39 @@
         function getFiles(hlnclaseid) {
             archivoFactory.getFiles(hlnclaseid).then(function (response) {
                 self.files = response.data;
-                console.log(self.files);
             });
         }
+
+        function connobj(is_conn, id_peer) {
+            conn = {
+                is_conn: is_conn,
+                id_conn: hlnclaseid,
+                id_peer: id_peer
+            }
+
+            return conn;
+        }
+
+        function ConnectStudent(conn) {
+            if (conn.id_peer != null) {
+                //envia el peer id por el socket
+                socket.emit("new-message", conn);
+               
+            }
+        }
+
+        socket.on("receive-message", function (msg) {
+            if (msg.conn_alumno == true && msg.id_conn == hlnclaseid) {
+                ConnectStudent(conn);
+            }
+        });
 
 
         //metodo que se ejecuta cuando abre el  
         peer.on('open', function (id) {
             console.log('My peer ID is: ' + id);
             //crear el objeto que se va a emitir por el socket
-            conn = {
-                is_conn: true,
-                id_conn: hlnclaseid,
-                id_peer: id
-            }
+            ConnectStudent(connobj(true, id));
         });
 
         var formData = new FormData();
@@ -98,37 +116,30 @@
             modelo.file = formData;
             modelo.hlnclaseid = hlnclaseid;
             archivoFactory.postFile(modelo).then(function (response) {
-                if(response.data.valida)
-                {
-                    angular.forEach(response.data.modelo, function(item){
+                if (response.data.valida) {
+                    angular.forEach(response.data.modelo, function (item) {
                         self.files.push(item);
-                    });  
+                    });
 
                     formData = new FormData();
                 }
             });
         }
 
-        function DownloadFile(hlnarchivoid)
-        {
+        function DownloadFile(hlnarchivoid) {
             archivoFactory.DownloadFile(hlnarchivoid).then(function (response) {
 
-                console.log(response);
-                //response.headers = headers();
- 
-                var filename = response.data.Content.Headers[0].Value;
-                var contentType = response.data.Content.Headers[1].Value;
-
-                console.log(filename);
-         
+                var contentType = response.headers("content-type");
+                var urlCreator = window.URL || window.webkitURL || window.mozURL || window.msURL;
                 var linkElement = document.createElement('a');
                 try {
-                    var blob = new Blob([response.data], { type: contentType });
-                    var url = window.URL.createObjectURL(blob);
-         
+                    var blob = new Blob([response], { type: 'application/text' });
+                    console.log("blob", blob);
+                    var url = urlCreator.createObjectURL(blob);
+
                     linkElement.setAttribute('href', url);
-                    linkElement.setAttribute("download", filename);
-         
+                    linkElement.setAttribute("download", "prueba.txt");
+
                     var clickEvent = new MouseEvent("click", {
                         "view": window,
                         "bubbles": true,
@@ -142,27 +153,21 @@
         }
 
 
-        function DeleteFile(hlnarchivoid, index)
-        {
+        function DeleteFile(hlnarchivoid, index) {
             archivoFactory.deleteFile(hlnarchivoid).then(function (response) {
                 console.log(response.data);
-                if(response.data)
-                {
+                if (response.data) {
                     self.files.splice(index, 1);
                     toastr.successhall($translate.instant('LNG_BORRARSUC'));
-                }   
+                }
             }, handleError);
         }
 
-
-
-
-
         //cuando establesca una conexion de peer
-        peer.on('connection', function (conn) {
-
+        peer.on('connection', function (connpeer) {
+           
             //metodo para recibir mensajes  
-            conn.on('data', function (data) {
+            connpeer.on('data', function (data) {
                 self.chat.push(data);
                 $scope.$apply(function () {
                     self.chat;
@@ -173,10 +178,8 @@
             //funcion para enviar el mensaje despues del enter
             document.getElementById("text_msg")
                 .addEventListener("keyup", function (event) {
-
                     event.preventDefault();
                     if (event.keyCode == 13) {
-                        console.log("ejecuto enter");
                         sendMessage(self.mensaje);
                     }
                 });
@@ -184,7 +187,7 @@
             //Metodo para enviar mensajes
             self.sendMessage = sendMessage;
             function sendMessage(message) {
-                if (conn != null) {
+                if (connpeer != null) {
                     if (message != '' && message != null) {
                         //modelo
                         var modelo_chat = {
@@ -195,15 +198,13 @@
                             fecha: null,
                             username: usuario.username
                         }
-
                         chatFactory.postChat(modelo_chat).then(function (response) {
-                            conn.send(modelo_chat);
+                            connpeer.send(modelo_chat);
                             self.chat.push(modelo_chat);
                             self.mensaje = null;
-
+                            scrollPosition();
                         }, );
-
-                        scrollPosition();
+                        event.preventDefault();
                     }
                 }
             }
