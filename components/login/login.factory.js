@@ -25,7 +25,7 @@
             return $q(function (resolve, reject) {
                 $http({
                     url: API_URL + '/api/login',
-                    method: 'POST',
+                    method: 'Get',
                     params: {
                         "usuario": username,
                         "clave": password
