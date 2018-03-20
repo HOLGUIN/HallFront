@@ -1,7 +1,8 @@
 (function () {
     'use strict';
 
-    angular.module('app.asignatura.tema', []).controller('TemaController', TemaController)
+    angular.module('app.asignatura.tema')
+    .controller('TemaController', TemaController)
 
     TemaController.$inject = ['temaFactory', 'SelectsFactory', '$state', '$scope', '$uibModal', '$mdDialog', 'toastr', '$translate'];
 

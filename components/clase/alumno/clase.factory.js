@@ -3,7 +3,7 @@
     'use strict';
 
     angular
-        .module('app.clase.alumno')
+        .module('app.clasealumno')
         .factory('ClaseFactory', ClaseFactory);
 
         ClaseFactory.$inject = ['API_URL', '$http', '$q'];

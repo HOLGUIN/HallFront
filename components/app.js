@@ -23,8 +23,7 @@
             'app.clasesAsings',
             'app.clasesprog',
             'app.clasesprofesor',
-            'app.clase.profesor',
-            'app.clase.alumno',
+            'app.clasealumno',
             'app.chat',
             'app.archivo'
         ]).run(run);

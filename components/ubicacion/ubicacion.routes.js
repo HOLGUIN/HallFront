@@ -19,15 +19,6 @@
                 controller: 'UbicacionController',
                 controllerAs: '$ctrl'
             });
-          //  .state('app.ubicacion.pais', {
-            //    url: '/paises',
-              //  subModule: 'app.ubicacion.pais',
-               // templateUrl: 'components/ubicacion/pais/pais.view.html',
-               // controller: 'PaisController',
-               // controllerAs: '$ctrl'
-           // });
-
-
     }
 
 }());

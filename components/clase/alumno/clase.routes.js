@@ -3,7 +3,7 @@
     'use strict';
 
     angular
-        .module('app.clase.alumno')
+        .module('app.clasealumno')
         .config(config);
 
     config.$inject = ['$stateProvider', '$urlRouterProvider'];

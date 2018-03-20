@@ -1,9 +1,7 @@
 (function () {
     'use strict';
 
-    angular
-        .module('app.clase.alumno')
-        .controller('ClaseController', ClaseController);
+    angular.module('app.clasealumno').controller('ClaseController', ClaseController);
 
     ClaseController.$inject = ['chatFactory', '$scope', '$translate', '$window', '$stateParams'];
 
@@ -60,7 +58,6 @@
         function connectTeacher() {
             socket.emit("new-message", connobj(null, true, null));
         }
-
 
         socket.on("receive-message", function (msg) {
             if (msg.is_conn == true && msg.id_conn == hlnclaseid) {

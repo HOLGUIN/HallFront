@@ -1,9 +1,7 @@
 (function () {
     'use strict';
 
-    angular
-        .module('app.clase.profesor')
-        .directive('ngFiles', function ($parse) {
+    angular.module('app.clasesprofesor').directive('ngFiles', function ($parse) {
             function fn_link(scope, element, attrs) {
                 var onChange = $parse(attrs.ngFiles);
                 element.on('change', function () {
@@ -13,8 +11,7 @@
             return {
                 link: fn_link
             }
-        })
-        .controller('ClasepController', ClasepController);
+        }).controller('ClasepController', ClasepController);
 
     ClasepController.$inject = ['chatFactory', 'archivoFactory', '$state', '$scope', '$translate', '$window', '$stateParams', 'toastr'];
 

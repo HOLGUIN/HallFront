@@ -2,8 +2,7 @@
     'use strict';
 
     angular
-        .module('app.clasesprog')
-        .controller('ClasesprogController', ClasesprogController);
+        .module('app.clasesprog').controller('ClasesprogController', ClasesprogController);
 
     ClasesprogController.$inject = ['claseFactory','ClasesprogFactory', '$state', '$scope', 'toastr', '$translate', '$window'];
 
@@ -20,7 +19,7 @@
             claseFactory.getClasesAlumnos(usuario.hlnusuarioid, true).then(function (response) {
                 self.clases = response.data;
                 console.log(self.clases);
-            }, );
+            });
         }
 
     }

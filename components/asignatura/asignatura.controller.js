@@ -2,9 +2,7 @@
 (function () {
     'use strict';
 
-    angular
-        .module('app.asignatura')
-        .controller('AsignaturaController', AsignaturaController);
+    angular.module('app.asignatura').controller('AsignaturaController', AsignaturaController);
 
     AsignaturaController.$inject = ['$stateParams', '$state'];
 

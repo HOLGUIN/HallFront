@@ -2,9 +2,7 @@
 
     'use strict';
 
-    angular
-        .module('app.asignatura.tema')
-        .factory('temaFactory', temaFactory);
+    angular.module('app.asignatura.tema').factory('temaFactory', temaFactory);
 
     temaFactory.$inject = ['API_URL', '$http', '$q'];
 
