@@ -22,8 +22,7 @@
 
         function getUsuarios() {
             UsuarioFactory.getUsuarios().then(function (response) {
-                var response = response.data;
-                self.Usuarios = response.usuarios;
+                self.Usuarios = response.data;
             }, handleError);
         }
 

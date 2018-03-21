@@ -9,7 +9,7 @@ var replace = require('gulp-replace');
 
 gulp.task('css', function () {
     gulp.src(['assets/css/*.css'])
-        .pipe(concat('app.css'))
+        .pipe(concat('app.min.css'))
         .pipe(gcss())
         .pipe(gulp.dest('components/dist/css/'))
 });
@@ -55,7 +55,7 @@ gulp.task('concat-modules', function () {
         .pipe(strip())
         .pipe(replace(/('use strict';)/g, ''))
         .pipe(ngmin())
-        //.pipe(uglify())
+        .pipe(uglify({ mangle: false }))
         .pipe(gulp.dest('components/dist/js/'))
 });
 
@@ -116,8 +116,6 @@ gulp.task('concat-libraries-css', function () {
         .pipe(concat('libraries.css'))
         .pipe(gulp.dest('components/dist/css/'))
 });
-
-
 
 gulp.task('default',
     [
